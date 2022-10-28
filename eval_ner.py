@@ -1,20 +1,16 @@
 from pathlib import Path
-import os, sys
+from tqdm import tqdm
 
 import spacy
 from spacy.training import Example
-from spacy.tokens import DocBin
-from spacy.scorer import Scorer
+
 from spacy import displacy
 from thinc.api import Config
 
-LABELS = ["OBJ_LOC"]
-PATH = 'data/train/suv_demo/'
-MODEL_PATH = PATH + 'output/model-best'
-TRAIN_PATH = PATH + "corpus/train.spacy"
-DEV_PATH = PATH + "corpus/dev.spacy"
-TEST_PATH = PATH + "corpus/test.spacy"
-HTML_PATH = PATH + 'output/'
+LABELS = ['Material', 'Metric', 'Task']
+MODEL_PATH = "training/base/output/model-best"
+TEST_PATH = "training/corpus/tdm_test.spacy"
+HTML_PATH = "training/base/html"
 
 def ner_html(path, examples, manual=False, options={}, filter_labels=[]):
     """
@@ -90,22 +86,21 @@ def load_model(path):
 def load_examples(doc_bin, nlp):
     examples = []
     docs = list(doc_bin.get_docs(nlp.vocab))
-    for i, doc in enumerate(docs):
+    for doc in tqdm(docs, "Load examples : "):
         examples.append(Example(nlp(doc.text), doc))
-        print(f"{i + 1}/{len(docs)} ({(i + 1) / len(docs) * 100})")
     return examples
 
-nlp = load_model(MODEL_PATH)
-scorer = Scorer(nlp)
 
-train_examples = load_examples(DocBin().from_disk(TRAIN_PATH), nlp)
-dev_examples = load_examples(DocBin().from_disk(DEV_PATH), nlp)
-test_examples = load_examples(DocBin().from_disk(TEST_PATH), nlp)
 
-scores = scorer.score(test_examples)
-print(f"{scores['ents_p']}, {scores['ents_r']}", {scores['ents_f']})
-print(f"{scores['ents_per_type']}")
+# nlp = load_model(MODEL_PATH)
+# scorer = Scorer(nlp)
 
-ner_html(HTML_PATH+"/train_html.html", train_examples, manual=True, filter_labels=LABELS)
-ner_html(HTML_PATH+"/dev_html.html", dev_examples, manual=True, filter_labels=LABELS)
-ner_html(HTML_PATH+"/test_html.html", test_examples, manual=True, filter_labels=LABELS)
+# test_examples = load_examples(DocBin().from_disk(TEST_PATH), nlp)
+
+# for example in test_examples
+
+# scores = scorer.score(test_examples)
+# print(f"{scores['ents_p']}, {scores['ents_r']}", {scores['ents_f']})
+# print(f"{scores['ents_per_type']}")
+
+# ner_html(HTML_PATH+"/test_html.html", test_examples, manual=True, filter_labels=LABELS)

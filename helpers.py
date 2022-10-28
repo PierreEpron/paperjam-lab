@@ -1,6 +1,36 @@
 from pathlib import Path
+import logging
 import json
+import os
 
+
+def get_logger():
+    '''
+        Shorcut for get logger
+        
+        Returns
+        -------
+        logger : logging.Logger, logger.
+    '''
+    if not Path('logs').is_dir():
+        os.mkdir('logs')
+
+    # Get or create logger
+    logger = logging.getLogger('parser')
+    logger.setLevel(logging.DEBUG)
+    # create console handler and set level to debug
+    # Add file handler
+    f_handler = logging.FileHandler('logs/test.log', encoding='utf-8')
+    ch_handler = logging.StreamHandler()
+    logger.addHandler(f_handler)
+    logger.addHandler(ch_handler)
+    # Set handlers formatter
+    formatter = logging.Formatter('%(asctime)s :: %(name)s :: %(levelname)s :: %(threadName)s :: %(message)s')
+    # logging.StreamHandler().setFormatter(formatter)
+    f_handler.setFormatter(formatter)
+    ch_handler.setFormatter(formatter)
+    
+    return logger
 
 def read_jsonl(path, encoding='utf-8'):
     """
