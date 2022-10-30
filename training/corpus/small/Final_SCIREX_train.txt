@@ -22,6 +22,7 @@ and O
 projection O
 parameters O
 . O
+
 Our O
 proposed O
 2DASL B-Method
@@ -29,6 +30,7 @@ is O
 implemented O
 with O
 Pytorch B-Method
+
 To O
 overcome O
 such O
@@ -38,6 +40,7 @@ we O
 propose O
 R O
 eality O
+
 The O
 source O
 codes O
@@ -64,6 +67,7 @@ pytorch O
 and O
 tensorflow B-Method
 . O
+
 then O
 the O
 similarity O
@@ -82,6 +86,7 @@ by O
 ⁢2π⁢3n O
 ) O
 . O
+
 document O
 : O
 Small B-Task
@@ -98,11 +103,13 @@ and O
 Temporal B-Method
 Feature I-Method
 Aggregation I-Method
+
 section O
 : O
 Deep B-Method
 Residual I-Method
 Learning I-Method
+
 For O
 example O
 , O
@@ -189,6 +196,7 @@ pre I-Method
 training I-Method
 approach I-Method
 . O
+
 “ O
 is O
 - O
@@ -206,6 +214,7 @@ variables O
 “ O
 active O
 ” O
+
 tab O
 : O
 dataset O
@@ -220,6 +229,7 @@ the O
 datasets O
 used O
 . O
+
 The O
 inputs O
 to O
@@ -231,6 +241,7 @@ filter I-Method
 bank I-Method
 responses I-Method
 . O
+
 All O
 other O
 experimental O
@@ -241,6 +252,7 @@ with O
 previous O
 experiments O
 . O
+
 China B-Task
 fine I-Task
 - I-Task
@@ -251,6 +263,7 @@ CNN B-Method
 regularizer B-Method
 , O
 regression B-Method
+
 There O
 are O
 three O
@@ -299,12 +312,14 @@ its O
 capacity O
 ) O
 . O
+
 cuSOLVER O
 Matlab O
 ( O
 CPU O
 function O
 ) O
+
 Too O
 many O
 hidden O
@@ -317,6 +332,7 @@ could O
 cause O
 overfitting O
 . O
+
 To O
 learn O
 a O
@@ -353,6 +369,7 @@ the O
 derived O
 subspace O
 . O
+
 Exact B-Task
 recovery I-Task
 from O
@@ -371,6 +388,7 @@ some O
 representation O
 domain O
 . O
+
 In O
 our O
 case O
@@ -404,6 +422,7 @@ the O
 model O
 parameters O
 . O
+
 We O
 first O
 evaluate O
@@ -420,6 +439,7 @@ language O
 modelling O
 benchmark O
 . O
+
 As O
 such O
 , O
@@ -465,6 +485,7 @@ f O
 } O
 s∈S O
 . O
+
 For O
 we O
 use O
@@ -482,6 +503,7 @@ to O
 our O
 classes O
 . O
+
 We O
 use O
 a O
@@ -504,6 +526,7 @@ skip O
 - O
 ) O
 . O
+
 The O
 corpus O
 has O
@@ -530,6 +553,7 @@ validation B-Metric
 ) O
 sets O
 . O
+
 Our O
 initial O
 and O
@@ -561,9 +585,11 @@ a O
 learning B-Metric
 rate I-Metric
 . O
+
 subsection O
 : O
 Evaluation O
+
 More O
 recent O
 neural B-Method
@@ -573,6 +599,7 @@ syntax O
 - O
 free O
 . O
+
 Its O
 update O
 is O
@@ -624,12 +651,14 @@ current O
 greedy B-Method
 policy I-Method
 . O
+
 . O
 , O
 z O
 m O
 ) O
 . O
+
 : O
 For O
 the O
@@ -656,6 +685,7 @@ the O
 predicted O
 distributions O
 . O
+
 Link B-Task
 prediction I-Task
 is O
@@ -670,6 +700,7 @@ on O
 existing O
 ones O
 . O
+
 For O
 large B-Task
 scale I-Task
@@ -689,6 +720,7 @@ Turk I-Method
 AMT B-Method
 ) O
 . O
+
 We O
 adopt O
 its O
@@ -699,9 +731,11 @@ version O
 benchmarked O
 in O
 . O
+
 section O
 : O
 Conclusions O
+
 In O
 this O
 paper O
@@ -719,6 +753,7 @@ residual I-Method
 learning I-Method
 framework I-Method
 . O
+
 i.e. O
 , O
 x O
@@ -726,6 +761,7 @@ x O
 F O
 ( O
 x O
+
 We O
 explore O
 other O
@@ -744,6 +780,7 @@ both O
 these O
 options O
 . O
+
 Given O
 the O
 representation O
@@ -768,9 +805,11 @@ line O
 3 O
 ) O
 . O
+
 subsubsection O
 : O
 Acknowledgments O
+
 Both O
 chess O
 and O
@@ -800,6 +839,7 @@ is O
 a O
 draw O
 . O
+
 To O
 address O
 this O
@@ -833,6 +873,7 @@ reference O
 ] O
 ) O
 . O
+
 We O
 extend O
 this O
@@ -864,6 +905,7 @@ the O
 previous O
 step O
 . O
+
 In O
 this O
 paper O
@@ -910,6 +952,7 @@ modified O
 WaveNet B-Method
 vocoder O
 . O
+
 In O
 this O
 paper O
@@ -931,6 +974,7 @@ unpaired O
 training O
 data O
 . O
+
 The O
 initial O
 weights O
@@ -947,6 +991,7 @@ from O
 the O
 interval O
 . O
+
 [ O
 reference O
 ] O
@@ -965,6 +1010,7 @@ information O
 to O
 propagate O
 . O
+
 We O
 use O
 our O
@@ -1009,6 +1055,7 @@ matches O
 between O
 frames O
 . O
+
 In O
 the O
 feature B-Task
@@ -1027,6 +1074,7 @@ pairs O
 are O
 calculated O
 . O
+
 In O
 order O
 to O
@@ -1052,8 +1100,10 @@ and O
 translate O
 jointly O
 . O
+
 Majority O
 : O
+
 The O
 network O
 is O
@@ -1076,6 +1126,7 @@ predicted O
 depth O
 bin O
 . O
+
 Between O
 the O
 PyDCI B-Method
@@ -1088,9 +1139,11 @@ better O
 than O
 Cosine B-Method
 . O
+
 section O
 : O
 Funding O
+
 These O
 connect O
 the O
@@ -1115,6 +1168,7 @@ the O
 - O
 pseudocount O
 . O
+
 There O
 are O
 no O
@@ -1140,7 +1194,9 @@ for O
 abstract B-Material
 scenes I-Material
 . O
+
 “ O
+
 The O
 rest O
 of O
@@ -1178,8 +1234,10 @@ and O
 . O
 4.2 O
 . O
+
 and O
 . O
+
 Responding O
 to O
 these O
@@ -1190,6 +1248,7 @@ offer O
 several O
 contributions O
 . O
+
 This O
 resulted O
 in O
@@ -1218,6 +1277,7 @@ contain O
 significant O
 information O
 . O
+
 Nevertheless O
 , O
 we O
@@ -1278,6 +1338,7 @@ still O
 quite O
 simple O
 . O
+
 Recent O
 approaches O
 , O
@@ -1309,13 +1370,16 @@ of O
 model O
 parameters O
 . O
+
 subsection O
 : O
 Evaluation O
+
 [ O
 b O
 ] O
 0.19 O
+
 We O
 illustrate O
 the O
@@ -1340,12 +1404,14 @@ GTA B-Material
 to I-Material
 Cityscapes I-Material
 . O
+
 11 O
 : O
 end O
 for O
 12 O
 : O
+
 Figure O
 4 O
 shows O
@@ -1356,6 +1422,7 @@ network O
 depth O
 grows O
 . O
+
 However O
 , O
 each O
@@ -1387,6 +1454,7 @@ speed O
 as O
 examples O
 . O
+
 Our O
 main O
 goal O
@@ -1401,6 +1469,7 @@ KB B-Method
 IE B-Method
 and O
 Wikipedia B-Material
+
 Second O
 , O
 to O
@@ -1428,11 +1497,13 @@ by O
 kernel B-Method
 bandwidth I-Method
 . O
+
 and O
 120k O
 at O
 lr=0.0001 O
 . O
+
 This O
 is O
 naturally O
@@ -1450,6 +1521,7 @@ to O
 training O
 data O
 . O
+
 Note O
 that O
 " O
@@ -1468,6 +1540,7 @@ postfixes O
 can O
 follow O
 . O
+
 The O
 number O
 of O
@@ -1480,6 +1553,7 @@ classifier B-Method
 is O
 1600 O
 . O
+
 In O
 the O
 RPN B-Method
@@ -1506,6 +1580,7 @@ anchors O
 per O
 image O
 . O
+
 namas B-Method
 also O
 used O
@@ -1532,6 +1607,7 @@ with O
 handcrafted O
 features O
 . O
+
 It O
 is O
 also O
@@ -1557,10 +1633,12 @@ the O
 standard O
 GRU B-Method
 . O
+
 subsection O
 : O
 Weight B-Method
 Sharing I-Method
+
 Now O
 the O
 two O
@@ -1569,6 +1647,7 @@ share O
 convolutional B-Method
 layers I-Method
 . O
+
 Training B-Method
 is O
 performed O
@@ -1587,6 +1666,7 @@ more O
 details O
 ) O
 . O
+
 Similar O
 to O
 the O
@@ -1609,6 +1689,7 @@ the O
 training B-Method
 datasets O
 . O
+
 Specifically O
 , O
 we O
@@ -1641,6 +1722,7 @@ the O
 source O
 side O
 . O
+
 However O
 , O
 we O
@@ -1668,6 +1750,7 @@ using O
 skip O
 connections O
 . O
+
 Specifically O
 , O
 the O
@@ -1724,6 +1807,7 @@ intermediate O
 supervision O
 signals O
 . O
+
 Once O
 the O
 coding B-Method
@@ -1750,11 +1834,13 @@ one O
 hot O
 vectors O
 . O
+
 subsection O
 : O
 Unconstrained O
 face B-Task
 verification I-Task
+
 We O
 used O
 10 O
@@ -1779,6 +1865,7 @@ to O
 the O
 experiment O
 . O
+
 In O
 these O
 layers O
@@ -1794,6 +1881,7 @@ the O
 complex O
 field O
 . O
+
 The O
 results O
 are O
@@ -1804,6 +1892,7 @@ Figure O
 reference O
 ] O
 . O
+
 Incorporating O
 ELMo B-Method
 embeddings I-Method
@@ -1811,6 +1900,7 @@ improves O
 all O
 scores O
 . O
+
 Note O
 that O
 the O
@@ -1824,6 +1914,7 @@ Z B-Method
 - I-Method
 Buffer I-Method
 . O
+
 The O
 loss O
 function O
@@ -1848,6 +1939,7 @@ some O
 adversarial O
 examples O
 . O
+
 By O
 Theorem O
 [ O
@@ -1878,10 +1970,12 @@ expressiveness O
 of O
 TuckER B-Method
 . O
+
 [ O
 reference O
 ] O
 . O
+
 Finally O
 , O
 the O
@@ -1906,6 +2000,7 @@ input O
 object O
 proposal O
 . O
+
 We O
 thus O
 believe O
@@ -1927,6 +2022,7 @@ detection I-Task
 research O
 efforts O
 . O
+
 To O
 improve O
 the O
@@ -1962,11 +2058,13 @@ over O
 different O
 ads O
 . O
+
 Automatic O
 gradient O
 of O
 μ O
 . O
+
 Figure O
 [ O
 reference O
@@ -1990,6 +2088,7 @@ CLS I-Method
 - I-Method
 10 I-Method
 . O
+
 It O
 indicates O
 that O
@@ -2010,6 +2109,7 @@ step O
 with O
 RRI B-Method
 . O
+
 There O
 are O
 several O
@@ -2026,6 +2126,7 @@ U B-Method
 - I-Method
 Net I-Method
 . O
+
 In O
 this O
 paper O
@@ -2050,6 +2151,7 @@ the O
 sparsity B-Task
 issues I-Task
 . O
+
 All O
 the O
 other O
@@ -2072,6 +2174,7 @@ of O
 noise B-Metric
 level I-Metric
 . O
+
 The O
 result O
 of O
@@ -2088,6 +2191,7 @@ on O
 the O
 stack O
 . O
+
 In O
 ConvE O
 , O
@@ -2116,12 +2220,14 @@ matrices O
 and O
 concatenated O
 . O
+
 paragraph O
 : O
 Transformer B-Method
 encoder I-Method
 block I-Method
 . O
+
 AMR B-Task
 - I-Task
 to I-Task
@@ -2140,6 +2246,7 @@ from O
 AMR B-Task
 graphs I-Task
 . O
+
 Moreover O
 , O
 our O
@@ -2175,10 +2282,12 @@ low O
 time B-Metric
 complexity I-Metric
 . O
+
 English O
 ( O
 WSJ O
 ) O
+
 We O
 therefore O
 find O
@@ -2189,6 +2298,7 @@ a O
 feasible O
 solution O
 . O
+
 We O
 have O
 introduced O
@@ -2220,6 +2330,7 @@ tokens O
 in O
 sequences O
 . O
+
 The O
 standard O
 deviations O
@@ -2231,6 +2342,7 @@ was O
 always O
 below O
 . O
+
 This O
 setting O
 also O
@@ -2249,9 +2361,11 @@ disagreement O
 between O
 annotators O
 . O
+
 appendix O
 : O
 Proofs O
+
 These O
 figures O
 clearly O
@@ -2270,6 +2384,7 @@ over O
 the O
 sentences O
 . O
+
 For O
 a O
 single O
@@ -2287,6 +2402,7 @@ loss I-Metric
 as O
 follows O
 : O
+
 subsection O
 : O
 Speed O
@@ -2294,6 +2410,7 @@ and O
 Performance O
 on O
 KITTI2012 O
+
 The O
 semantics O
 of O
@@ -2322,6 +2439,7 @@ of O
 the O
 model O
 . O
+
 document O
 : O
 Deeply B-Method
@@ -2334,6 +2452,7 @@ Image B-Task
 Super I-Task
 - I-Task
 Resolution I-Task
+
 Since O
 the O
 receptive O
@@ -2357,6 +2476,7 @@ of O
 width O
 33 O
 . O
+
 We O
 can O
 also O
@@ -2391,6 +2511,7 @@ data O
 stream O
 ) O
 . O
+
 Prior O
 works O
 show O
@@ -2424,6 +2545,7 @@ next B-Task
 word I-Task
 prediction I-Task
 . O
+
 The O
 random B-Method
 walk I-Method
@@ -2446,6 +2568,7 @@ of O
 the O
 random B-Method
 walk I-Method
+
 More O
 recently O
 deep_summary_statistics B-Method
@@ -2461,6 +2584,7 @@ generating O
 the O
 data O
 . O
+
 Let O
 represent O
 words O
@@ -2469,17 +2593,21 @@ the O
 source O
 sentence O
 . O
+
 Document B-Task
 Standardization I-Task
 : O
+
 Baseline O
 method O
 . O
+
 section O
 : O
 Cloze O
 Test O
 Experiments O
+
 The O
 former O
 is O
@@ -2503,6 +2631,7 @@ to O
 the O
 network O
 . O
+
 [ O
 reference O
 ] O
@@ -2518,9 +2647,11 @@ scenes O
 for O
 testing O
 . O
+
 theorem O
 : O
 . O
+
 The O
 3D B-Method
 - I-Method
@@ -2553,6 +2684,7 @@ more O
 2D O
 images O
 . O
+
 At O
 last O
 , O
@@ -2575,9 +2707,11 @@ hyper O
 - O
 parameter O
 . O
+
 ( O
 iii O
 ) O
+
 For O
 VGG16 B-Method
 , O
@@ -2587,6 +2721,7 @@ R I-Method
 CNN I-Method
 processes O
 images O
+
 Mathematically O
 , O
 we O
@@ -2599,6 +2734,7 @@ Figure O
 1 O
 ) O
 . O
+
 The O
 model O
 and O
@@ -2632,6 +2768,7 @@ activations O
 and O
 units O
 . O
+
 Third O
 , O
 to O
@@ -2655,11 +2792,13 @@ to O
 one O
 half O
 . O
+
 Variational B-Method
 Conditional I-Method
 Entropy I-Method
 Maximization I-Method
 . O
+
 In O
 the O
 HBF B-Method
@@ -2672,6 +2811,7 @@ to O
 introducing O
 gravitation O
 . O
+
 To O
 mitigate O
 this O
@@ -2690,6 +2830,7 @@ including O
 recurrent B-Method
 ones I-Method
 . O
+
 Our O
 experiments O
 are O
@@ -2708,6 +2849,7 @@ standard O
 seq2seq B-Task
 training O
 . O
+
 The O
 encoder B-Method
 RNN I-Method
@@ -2724,6 +2866,7 @@ x O
 . O
 . O
 . O
+
 This O
 may O
 be O
@@ -2738,6 +2881,7 @@ the O
 image O
 subject O
 . O
+
 It O
 is O
 found O
@@ -2761,6 +2905,7 @@ out O
 the O
 details O
 . O
+
 Here O
 , O
 we O
@@ -2782,6 +2927,7 @@ maximizing O
 the O
 summation O
 . O
+
 : O
 we O
 downsample O
@@ -2800,6 +2946,7 @@ random O
 crops O
 of O
 . O
+
 By O
 concatenating O
 all O
@@ -2822,6 +2969,7 @@ horizontal O
 groups O
 dimensions O
 . O
+
 The O
 function O
 in O
@@ -2848,12 +2996,14 @@ in O
 higher O
 overestimations O
 . O
+
 section O
 : O
 Analysis B-Task
 of I-Task
 ghost I-Task
 clusters I-Task
+
 section O
 : O
 Well O
@@ -2863,6 +3013,7 @@ Natural B-Method
 Language I-Method
 Question I-Method
 Classifier I-Method
+
 Furthermore O
 , O
 processing O
@@ -2880,6 +3031,7 @@ affects O
 segmentation B-Task
 accuracy O
 . O
+
 If O
 a O
 single O
@@ -2899,6 +3051,7 @@ memory B-Metric
 capacity I-Metric
 becomes O
 . O
+
 [ O
 reference O
 ] O
@@ -2914,6 +3067,7 @@ at O
 a O
 time O
 . O
+
 HG B-Method
 - I-Method
 Stacked I-Method
@@ -2921,6 +3075,7 @@ Stacked I-Method
 Int I-Method
 ) O
 . O
+
 For O
 Multiscale B-Method
 Laplacian I-Method
@@ -2948,9 +3103,11 @@ level O
 number O
 from O
 . O
+
 C O
 Implementation O
 Details O
+
 We O
 can O
 also O
@@ -2966,6 +3123,7 @@ the O
 query O
 sentence O
 . O
+
 Another O
 choice O
 , O
@@ -2993,6 +3151,7 @@ their O
 theoretical O
 significance O
 . O
+
 For O
 the O
 large O
@@ -3015,9 +3174,11 @@ error I-Metric
 reduction I-Metric
 of O
 . O
+
 et O
 al O
 . O
+
 For O
 the O
 hyperparameters O
@@ -3038,6 +3199,7 @@ states O
 and O
 embeddings O
 . O
+
 As O
 such O
 , O
@@ -3064,6 +3226,7 @@ for O
 future O
 work O
 . O
+
 While O
 WNNM B-Method
 is O
@@ -3096,6 +3259,7 @@ of O
 our O
 model O
 . O
+
 However O
 , O
 prior O
@@ -3124,6 +3288,7 @@ modeling I-Method
 of I-Method
 syntax I-Method
 . O
+
 This O
 project O
 is O
@@ -3149,6 +3314,7 @@ donation O
 from O
 NVIDIA O
 . O
+
 The O
 third O
 layer O
@@ -3158,6 +3324,7 @@ random B-Method
 projection I-Method
 layer I-Method
 . O
+
 The O
 single O
 - O
@@ -3186,6 +3353,7 @@ below O
 10 O
 % O
 . O
+
 For O
 the O
 model O
@@ -3226,9 +3394,11 @@ problems O
 of O
 interest O
 . O
+
 section O
 : O
 Introduction O
+
 Note O
 that O
 the O
@@ -3247,6 +3417,7 @@ and O
 output O
 layers O
 . O
+
 To O
 further O
 investigate O
@@ -3288,6 +3459,7 @@ semantic O
 relation O
 vectors O
 . O
+
 This O
 observation O
 illustrates O
@@ -3320,6 +3492,7 @@ help O
 dependency O
 parsing B-Task
 . O
+
 In O
 contrast O
 , O
@@ -3345,6 +3518,7 @@ by O
 the O
 GRU B-Method
 . O
+
 For O
 every O
 pair O
@@ -3372,6 +3546,7 @@ part O
 of O
 class O
 . O
+
 [ O
 20 O
 ] O
@@ -3384,6 +3559,7 @@ to O
 pedestrian B-Task
 detection I-Task
 . O
+
 Supervised B-Method
 learning I-Method
 is O
@@ -3398,6 +3574,7 @@ labels O
 are O
 expensive O
 . O
+
 In O
 the O
 forward O
@@ -3422,6 +3599,7 @@ the O
 backward O
 pass O
 . O
+
 Future O
 work O
 will O
@@ -3442,6 +3620,7 @@ to O
 more O
 tasks O
 . O
+
 It O
 is O
 a O
@@ -3457,6 +3636,7 @@ pooling B-Method
 or O
 subsampling B-Method
 . O
+
 [ O
 31 O
 ] O
@@ -3499,6 +3679,7 @@ number O
 of O
 distractors O
 . O
+
 This O
 is O
 shown O
@@ -3509,6 +3690,7 @@ Figure O
 center O
 ) O
 . O
+
 and O
 is O
 compiled O
@@ -3518,12 +3700,14 @@ research O
 ’s O
 data O
 . O
+
 subsection O
 : O
 Implementation O
 and O
 training O
 details O
+
 The O
 training O
 data O
@@ -3541,6 +3725,7 @@ of O
 concatenated O
 documents O
 . O
+
 We O
 investigate O
 the O
@@ -3565,6 +3750,7 @@ is O
 scaled O
 by O
 . O
+
 First O
 , O
 we O
@@ -3594,8 +3780,10 @@ multiple O
 V2L B-Task
 problems I-Task
 . O
+
 1 O
 . O
+
 Based O
 on O
 the O
@@ -3635,6 +3823,7 @@ level O
 log O
 likelihood O
 . O
+
 Many O
 existing O
 neural B-Method
@@ -3658,6 +3847,7 @@ of O
 the O
 parallelism O
 . O
+
 Intuitively O
 , O
 we O
@@ -3694,6 +3884,7 @@ small B-Method
 scale I-Method
 correction I-Method
 . O
+
 We O
 compare O
 four O
@@ -3768,10 +3959,12 @@ Value I-Method
 Memory I-Method
 Networks I-Method
 . O
+
 [ O
 reference O
 ] O
 . O
+
 Finally O
 , O
 our O
@@ -3781,6 +3974,7 @@ drawn O
 in O
 Sec O
 . O
+
 subsection O
 : O
 Comparison O
@@ -3788,6 +3982,7 @@ to O
 ballesteros O
 - O
 alonaizan:2017:EMNLP2017 O
+
 In O
 the O
 table B-Task
@@ -3811,6 +4006,7 @@ embedding I-Method
 as O
 input O
 . O
+
 Figure O
 [ O
 reference O
@@ -3838,11 +4034,13 @@ order O
 1 O
 connectivity O
 . O
+
 [ O
 reference O
 ] O
 ) O
 . O
+
 On O
 difficult O
 joints O
@@ -3892,6 +4090,7 @@ from O
 16.3 O
 % O
 . O
+
 The O
 front B-Material
 - O
@@ -3910,6 +4109,7 @@ and O
 d O
 ) O
 . O
+
 At O
 training O
 time O
@@ -3966,6 +4166,7 @@ conv I-Method
 networks I-Method
 ) O
 . O
+
 Given O
 the O
 variable O
@@ -4010,6 +4211,7 @@ another O
 convolution B-Method
 layer I-Method
 . O
+
 The O
 intuition O
 behind O
@@ -4034,6 +4236,7 @@ optimal O
 local O
 minima O
 . O
+
 The O
 same O
 data O
@@ -4048,6 +4251,7 @@ fully B-Task
 supervised I-Task
 setting I-Task
 . O
+
 We O
 can O
 form O
@@ -4067,6 +4271,7 @@ some O
 small O
 displacement O
 . O
+
 In O
 this O
 context O
@@ -4103,6 +4308,7 @@ mechanism O
 of O
 SAN B-Task
 . O
+
 In O
 contrast O
 , O
@@ -4115,6 +4321,7 @@ contractive O
 almost O
 everywhere O
 . O
+
 Notice O
 that O
 not O
@@ -4154,6 +4361,7 @@ our O
 basic O
 MIDN B-Method
 . O
+
 All O
 the O
 competitor O
@@ -4196,6 +4404,7 @@ in O
 MLP B-Method
 ) O
 . O
+
 For O
 , O
 a O
@@ -4208,6 +4417,7 @@ for O
 all O
 , O
 . O
+
 We O
 performed O
 experiments O
@@ -4226,6 +4436,7 @@ Prize I-Material
 compression O
 benchmark O
 . O
+
 Representing B-Task
 features I-Task
 at O
@@ -4240,6 +4451,7 @@ numerous O
 vision B-Task
 tasks I-Task
 . O
+
 To O
 perform O
 the O
@@ -4259,6 +4471,7 @@ and O
 negative O
 targets O
 . O
+
 The O
 running O
 title O
@@ -4277,6 +4490,7 @@ is O
 point O
 thick O
 . O
+
 Note O
 also O
 that O
@@ -4305,6 +4519,7 @@ DNN B-Method
 sMBR O
 ) O
 . O
+
 Word B-Method
 embeddings I-Method
 can O
@@ -4350,6 +4565,7 @@ background O
 knowledge O
 ) O
 . O
+
 As O
 deep B-Method
 neural I-Method
@@ -4383,11 +4599,13 @@ limiting O
 its O
 effectiveness O
 . O
+
 We O
 ’re O
 not O
 joking O
 . O
+
 In O
 this O
 paper O
@@ -4403,6 +4621,7 @@ CNNs B-Method
 for O
 LVCSR B-Task
 . O
+
 We O
 directly O
 report O
@@ -4423,6 +4642,7 @@ further O
 clustering B-Method
 operation I-Method
 . O
+
 For O
 image B-Task
 - I-Task
@@ -4445,11 +4665,13 @@ encoder B-Method
 decoder I-Method
 architecture I-Method
 . O
+
 The O
 same O
 stands O
 for O
 . O
+
 figure3.pdf O
 A O
 wide O
@@ -4474,6 +4696,7 @@ of I-Method
 sentence I-Method
 meaning I-Method
 . O
+
 We O
 compare O
 ReasoNets B-Method
@@ -4504,6 +4727,7 @@ as O
 a O
 baseline O
 . O
+
 Given O
 a O
 classifier B-Method
@@ -4539,6 +4763,7 @@ the O
 current O
 model O
 . O
+
 In O
 this O
 metric O
@@ -4579,6 +4804,7 @@ e.g. O
 AP@IoU=0.75 B-Metric
 ) O
 . O
+
 The O
 novelty O
 of O
@@ -4626,6 +4852,7 @@ within O
 those O
 sentences O
 . O
+
 the O
 number O
 of O
@@ -4647,6 +4874,7 @@ often O
 symbols O
 long O
 . O
+
 Our O
 model O
 outperforms O
@@ -4669,6 +4897,7 @@ CoNLL B-Material
 2005 I-Material
 benchmark O
 . O
+
 The O
 parameters O
 in O
@@ -4691,6 +4920,7 @@ the O
 MAML B-Method
 model I-Method
 . O
+
 , O
 pk O
 ⇡ O
@@ -4700,15 +4930,18 @@ p1 O
 p2 O
 , O
 ... O
+
 [ O
 reference O
 ] O
 ) O
 . O
+
 LiteFlowNet B-Method
 - O
 ft O
 outperforms O
+
 In O
 contrast O
 , O
@@ -4765,6 +4998,7 @@ approximate O
 performance O
 ceiling O
 . O
+
 These O
 features O
 require O
@@ -4774,6 +5008,7 @@ gigabytes O
 of O
 storage O
 . O
+
 The O
 connection O
 between O
@@ -4788,6 +5023,7 @@ known O
 ] O
 . O
 Specifically O
+
 Even O
 though O
 it O
@@ -4807,6 +5043,7 @@ than O
 the O
 original O
 . O
+
 Given O
 and O
 , O
@@ -4843,6 +5080,7 @@ transformed O
 image O
 , O
 . O
+
 We O
 also O
 compare O
@@ -4851,6 +5089,7 @@ Rusu O
 et O
 al O
 . O
+
 For O
 CIFAR B-Material
 - I-Material
@@ -4875,6 +5114,7 @@ four O
 loss O
 functions O
 . O
+
 Experiments O
 are O
 conducted O
@@ -4898,6 +5138,7 @@ for O
 segmentation B-Task
 tasks I-Task
 . O
+
 design O
 more O
 efficient O
@@ -4914,6 +5155,7 @@ in O
 point O
 cloud O
 . O
+
 Having O
 established O
 the O
@@ -4930,6 +5172,7 @@ show O
 the O
 second O
 . O
+
 These O
 experiments O
 all O
@@ -4952,6 +5195,7 @@ on O
 this O
 dataset O
 . O
+
 The O
 results O
 are O
@@ -4979,6 +5223,7 @@ limited O
 domain O
 shifts O
 . O
+
 In O
 addition O
 to O
@@ -4998,6 +5243,7 @@ template B-Method
 based I-Method
 generator I-Method
 . O
+
 Similar O
 to O
 PC B-Method
@@ -5026,6 +5272,7 @@ vs. O
 AUC B-Metric
 ) O
 . O
+
 Zimmer O
 design O
 the O
@@ -5043,6 +5290,7 @@ in O
 data O
 term O
 . O
+
 Graph B-Method
 Convolutional I-Method
 Neural I-Method
@@ -5087,11 +5335,13 @@ and O
 computer B-Task
 vision I-Task
 . O
+
 Interaction O
 Networks O
 , O
 ( O
 ) O
+
 We O
 evaluate O
 the O
@@ -5099,6 +5349,7 @@ quality O
 of O
 our O
 approach O
+
 On O
 the O
 other O
@@ -5137,6 +5388,7 @@ amount O
 of O
 pixels O
 . O
+
 Our O
 model O
 is O
@@ -5165,6 +5417,7 @@ same O
 layer O
 collobert2011senna O
 . O
+
 [ O
 t O
 ] O
@@ -5173,6 +5426,7 @@ for O
 the O
 ComplEx B-Method
 model I-Method
+
 represents O
 the O
 number O
@@ -5181,6 +5435,7 @@ local O
 latent O
 codes O
 . O
+
 Further O
 work O
 is O
@@ -5205,6 +5460,7 @@ can O
 improve O
 results O
 . O
+
 The O
 attention O
 of O
@@ -5227,6 +5483,7 @@ leading O
 to O
 misclassifications O
 . O
+
 To O
 understand O
 why O
@@ -5250,6 +5507,7 @@ operations I-Task
 in O
 CNNs B-Method
 . O
+
 However O
 , O
 without O
@@ -5271,7 +5529,9 @@ zero O
 , O
 too O
 . O
+
 with O
+
 section O
 : O
 Revisiting O
@@ -5282,6 +5542,7 @@ and O
 Higher B-Method
 Order I-Method
 RNN I-Method
+
 The O
 results O
 of O
@@ -5297,6 +5558,7 @@ Table O
 reference O
 ] O
 . O
+
 As O
 this O
 model O
@@ -5326,6 +5588,7 @@ discussion O
 and O
 experiments O
 . O
+
 For O
 a O
 given O
@@ -5350,9 +5613,11 @@ neighbors O
 denoted O
 by O
 . O
+
 section O
 : O
 Introduction O
+
 During O
 the O
 backpropagation O
@@ -5367,6 +5632,7 @@ the O
 chain B-Method
 rule I-Method
 . O
+
 We O
 treat O
 pixel O
@@ -5392,6 +5658,7 @@ reference O
 ] O
 ) O
 . O
+
 For O
 this O
 reason O
@@ -5431,6 +5698,7 @@ extracted O
 from O
 Wikipedia B-Material
 . O
+
 For O
 instance O
 , O
@@ -5495,6 +5763,7 @@ minimize O
 training B-Metric
 error I-Metric
 . O
+
 The O
 biggest O
 difference O
@@ -5561,6 +5830,7 @@ matrices O
 to O
 learn O
 . O
+
 We O
 tested O
 the O
@@ -5583,6 +5853,7 @@ on O
 this O
 task O
 . O
+
 The O
 texture O
 parameters O
@@ -5599,9 +5870,11 @@ procedure I-Method
 using O
 Eq O
 . O
+
 bibliography O
 : O
 References O
+
 This O
 partition O
 into O
@@ -5634,6 +5907,7 @@ semantic B-Task
 segmentation I-Task
 performance O
 . O
+
 Specifically O
 , O
 taking O
@@ -5703,6 +5977,7 @@ on O
 landmark O
 predictions O
 . O
+
 For O
 both O
 Mult B-Method
@@ -5725,6 +6000,7 @@ with O
 probability O
 0.5 O
 . O
+
 The O
 difference O
 in O
@@ -5739,6 +6015,7 @@ comparing O
 Reactor B-Method
 and O
 Rainbow O
+
 The O
 first O
 image O
@@ -5776,6 +6053,7 @@ one O
 hot O
 vectors O
 . O
+
 Let O
 represent O
 one O
@@ -5788,7 +6066,9 @@ in O
 the O
 answer O
 . O
+
 One O
+
 To O
 achieve O
 this O
@@ -5829,7 +6109,9 @@ b O
 ) O
 ) O
 . O
+
 ‘ O
+
 The O
 34 O
 - O
@@ -5840,6 +6122,7 @@ is O
 in O
 Fig O
 . O
+
 Every O
 FM B-Method
 is O
@@ -5865,12 +6148,14 @@ the O
 previous O
 layer O
 . O
+
 subsection O
 : O
 Gauss B-Method
 - I-Method
 Newton I-Method
 Optimization I-Method
+
 Such O
 monotonous O
 backgrounds O
@@ -5889,6 +6174,7 @@ in O
 Chairs O
 or O
 Things3D. O
+
 We O
 experiment O
 with O
@@ -5929,6 +6215,7 @@ in O
 real O
 time O
 . O
+
 The O
 MMD B-Method
 - O
@@ -5939,6 +6226,7 @@ and O
 from O
 Eq O
 . O
+
 At O
 each O
 level O
@@ -5966,6 +6254,7 @@ next O
 pyramid O
 level O
 . O
+
 The O
 standard B-Method
 mean I-Method
@@ -5991,6 +6280,7 @@ maxima O
 ) O
 where O
 . O
+
 However O
 , O
 the O
@@ -6069,6 +6359,7 @@ Figure O
 reference O
 ] O
 . O
+
 However O
 , O
 the O
@@ -6103,6 +6394,7 @@ is O
 thus O
 larger O
 . O
+
 Additionally O
 to O
 the O
@@ -6127,6 +6419,7 @@ time O
 - O
 step O
 . O
+
 After O
 carefully O
 analyzing O
@@ -6161,6 +6454,7 @@ earliest O
 one O
 ) O
 : O
+
 Classification B-Method
 and I-Method
 regression I-Method
@@ -6173,6 +6467,7 @@ only O
 person O
 annotations O
 . O
+
 document O
 : O
 Count B-Task
@@ -6185,6 +6480,7 @@ Space I-Task
 for O
 Reinforcement B-Task
 Learning I-Task
+
 This O
 model O
 combines O
@@ -6204,6 +6500,7 @@ to I-Method
 end I-Method
 framework I-Method
 . O
+
 After O
 that O
 , O
@@ -6216,6 +6513,7 @@ the O
 inclined O
 boxes O
 . O
+
 Finally O
 , O
 we O
@@ -6252,6 +6550,7 @@ the O
 object O
 skeleton O
 . O
+
 However O
 , O
 state O
@@ -6275,6 +6574,7 @@ inference O
 time O
 wu2016google O
 . O
+
 We O
 propose O
 a O
@@ -6296,6 +6596,7 @@ face B-Task
 detection I-Task
 task I-Task
 . O
+
 The O
 quantity O
 of O
@@ -6313,6 +6614,7 @@ steps O
 is O
 approximately O
 . O
+
 Biredectional B-Method
 LSTM I-Method
 is O
@@ -6333,18 +6635,21 @@ aware I-Method
 utterance I-Method
 representation I-Method
 . O
+
 subsubsection O
 : O
 Place365 O
 - O
 Standard O
 dataset O
+
 section O
 : O
 Final O
 Results O
 for O
 Classification B-Task
+
 Fine B-Task
 - I-Task
 tuning I-Task
@@ -6360,9 +6665,11 @@ learning B-Metric
 rate I-Metric
 of O
 . O
+
 subsection O
 : O
 Read O
+
 Each O
 of O
 these O
@@ -6394,6 +6701,7 @@ comparison B-Metric
 model I-Metric
 error I-Metric
 . O
+
 Despite O
 widespread O
 use O
@@ -6415,6 +6723,7 @@ recommender B-Task
 systems I-Task
 literature I-Task
 . O
+
 Cycle B-Method
 / I-Method
 Bicycle I-Method
@@ -6428,6 +6737,7 @@ generated O
 by O
 CycleGAN B-Method
 . O
+
 This O
 concept O
 explicitly O
@@ -6443,6 +6753,7 @@ closest O
 skeletal O
 points O
 . O
+
 The O
 cascaded B-Method
 linear I-Method
@@ -6465,10 +6776,12 @@ a O
 unified O
 way O
 . O
+
 “ O
 RNI15 B-Method
 ” O
 . O
+
 Another O
 aspect O
 of O
@@ -6494,6 +6807,7 @@ complex B-Task
 matching I-Task
 problem I-Task
 . O
+
 Localization O
 error B-Metric
 ( O
@@ -6504,6 +6818,7 @@ the O
 ImageNet B-Task
 validation I-Task
 . O
+
 The O
 results O
 for O
@@ -6516,6 +6831,7 @@ Table O
 reference O
 ] O
 . O
+
 Word O
 - O
 by O
@@ -6543,6 +6859,7 @@ which O
 used O
 in O
 . O
+
 We O
 follow O
 the O
@@ -6558,6 +6875,7 @@ training B-Metric
 set I-Metric
 size I-Metric
 . O
+
 We O
 executed O
 40 O
@@ -6583,6 +6901,7 @@ after O
 10 O
 epochs O
 . O
+
 If O
 we O
 compare O
@@ -6615,6 +6934,7 @@ simply O
 uniformly O
 enhanced O
 . O
+
 We O
 introduce O
 deep B-Method
@@ -6637,10 +6957,12 @@ for O
 statistical B-Task
 modeling I-Task
 . O
+
 subsubsection O
 : O
 Experimental O
 Setup O
+
 Comparison O
 on O
 the O
@@ -6671,6 +6993,7 @@ dense B-Task
 face I-Task
 alignment I-Task
 . O
+
 Our O
 approach O
 is O
@@ -6719,6 +7042,7 @@ reference O
 reference O
 ] O
 . O
+
 At O
 inference O
 time O
@@ -6738,6 +7062,7 @@ probability O
 see O
 Eq O
 . O
+
 Recently O
 , O
 the O
@@ -6763,6 +7088,7 @@ Challenge I-Material
 APC B-Material
 ) O
 . O
+
 We O
 find O
 that O
@@ -6791,6 +7117,7 @@ state O
 action O
 pairs O
 . O
+
 However O
 , O
 to O
@@ -6822,6 +7149,7 @@ discussed O
 in O
 Sec O
 . O
+
 subsection O
 : O
 Comparison O
@@ -6831,6 +7159,7 @@ State O
 of O
 the O
 Art O
+
 Annotations O
 include O
 3 O
@@ -6855,6 +7184,7 @@ enhancing O
 tumor O
 core O
 . O
+
 There O
 are O
 some O
@@ -6916,6 +7246,7 @@ IN O
 instance B-Method
 normalization I-Method
 . O
+
 To O
 design O
 an O
@@ -6927,6 +7258,7 @@ tried O
 different O
 configurations O
 . O
+
 The O
 results O
 are O
@@ -6935,6 +7267,7 @@ visually O
 in O
 Fig O
 . O
+
 In O
 addition O
 to O
@@ -6956,6 +7289,7 @@ facilitate O
 the O
 training B-Task
 . O
+
 Karen O
 Simonyan O
 and O
@@ -6974,6 +7308,7 @@ at O
 Google O
 DeepMind O
 . O
+
 Annotations O
 are O
 provided O
@@ -6981,10 +7316,12 @@ as O
 word O
 quadrilaterals O
 . O
+
 subsection O
 : O
 Dataset O
 Construction O
+
 In O
 the O
 rest O
@@ -7001,6 +7338,7 @@ parts O
 in O
 details O
 . O
+
 The O
 authors O
 would O
@@ -7037,6 +7375,7 @@ help O
 and O
 support O
 . O
+
 However O
 , O
 as O
@@ -7061,10 +7400,12 @@ can O
 be O
 huge O
 . O
+
 [ O
 reference O
 ] O
 . O
+
 [ O
 Acumulative B-Metric
 error I-Metric
@@ -7076,11 +7417,13 @@ and O
 identification B-Task
 results O
 . O
+
 We O
 then O
 observe O
 in O
 curve O
+
 We O
 describe O
 the O
@@ -7107,6 +7450,7 @@ stacked B-Method
 attention I-Method
 model I-Method
 . O
+
 We O
 combine O
 the O
@@ -7116,6 +7460,7 @@ predictions O
 see O
 Fig O
 . O
+
 To O
 be O
 specific O
@@ -7133,6 +7478,7 @@ we O
 replace O
 to O
 . O
+
 The O
 final O
 answer O
@@ -7189,6 +7535,7 @@ is O
 activation O
 function O
 . O
+
 Our O
 baseline O
 34 O
@@ -7201,6 +7548,7 @@ very O
 competitive O
 accuracy B-Metric
 . O
+
 Moreover O
 , O
 using O
@@ -7218,12 +7566,14 @@ ROAD B-Method
 net O
 finally O
 achieves O
+
 section O
 : O
 Mask B-Method
 R I-Method
 - I-Method
 CNN I-Method
+
 Concretely O
 , O
 the O
@@ -7251,6 +7601,7 @@ in O
 the O
 corpus O
 . O
+
 When O
 the O
 parsing O
@@ -7283,9 +7634,11 @@ tree O
 from O
 it O
 . O
+
 Constant B-Method
 scaling I-Method
 . O
+
 section O
 : O
 Effects O
@@ -7296,6 +7649,7 @@ and O
 Regularization O
 Coefficient O
 α O
+
 We O
 experiment O
 with O
@@ -7314,6 +7668,7 @@ DRN B-Method
 26 I-Method
 architecture I-Method
 . O
+
 Since O
 the O
 auxiliary B-Method
@@ -7377,6 +7732,7 @@ no O
 distractor O
 classes O
 . O
+
 It O
 has O
 bounding O
@@ -7404,6 +7760,7 @@ annotated O
 bounding O
 boxes O
 . O
+
 In O
 recent O
 years O
@@ -7435,6 +7792,7 @@ in O
 an O
 image O
 . O
+
 We O
 obtain O
 a O
@@ -7481,9 +7839,11 @@ bias B-Method
 , O
 respectively O
 . O
+
 section O
 : O
 Introduction O
+
 This O
 problem O
 reduces O
@@ -7510,6 +7870,7 @@ over B-Metric
 fitting I-Metric
 risk I-Metric
 . O
+
 The O
 result O
 of O
@@ -7522,6 +7883,7 @@ a O
 feature B-Method
 map I-Method
 . O
+
 : O
 Most O
 approaches O
@@ -7555,6 +7917,7 @@ from O
 image O
 features O
 and O
+
 This O
 paper O
 investigates O
@@ -7574,6 +7937,7 @@ create O
 additional O
 resources O
 . O
+
 A O
 language B-Method
 model I-Method
@@ -7587,6 +7951,7 @@ all O
 previous O
 words O
 . O
+
 When O
 other O
 factors O
@@ -7604,6 +7969,7 @@ layer O
 introduces O
 complexity O
 . O
+
 Thus O
 , O
 training O
@@ -7618,6 +7984,7 @@ on O
 larger O
 patches O
 . O
+
 The O
 contributions O
 of O
@@ -7628,6 +7995,7 @@ two O
 - O
 fold O
 . O
+
 3 O
 ) O
 the O
@@ -7660,10 +8028,12 @@ supervised O
 node B-Task
 classification I-Task
 . O
+
 Two O
 consequences O
 ensue O
 . O
+
 We O
 tuned O
 the O
@@ -7676,11 +8046,13 @@ vicinity O
 of O
 0.001 O
 . O
+
 e O
 2 O
 e O
 1 O
 e0 O
+
 This O
 is O
 followed O
@@ -7692,9 +8064,11 @@ of O
 adversarial B-Task
 generation I-Task
 . O
+
 section O
 : O
 Conclusion O
+
 We O
 have O
 shown O
@@ -7729,6 +8103,7 @@ neural I-Method
 language I-Method
 models I-Method
 . O
+
 Each O
 image O
 is O
@@ -7738,6 +8113,7 @@ with O
 facial O
 landmarks O
 . O
+
 With O
 the O
 potential O
@@ -7757,6 +8133,7 @@ sets O
 as O
 well O
 . O
+
 Recently O
 , O
 lots O
@@ -7773,6 +8150,7 @@ on O
 different O
 benchmarks O
 . O
+
 We O
 divide O
 the O
@@ -7794,6 +8172,7 @@ are O
 unit O
 regions O
 . O
+
 Experimental O
 results O
 on O
@@ -7813,6 +8192,7 @@ our O
 proposed O
 algorithm O
 . O
+
 QQP B-Material
 and O
 MRPC B-Material
@@ -7825,6 +8205,7 @@ of O
 sentence O
 pairs O
 . O
+
 To O
 fine O
 tune O
@@ -7858,6 +8239,7 @@ the O
 development O
 split O
 . O
+
 For O
 models O
 evaluated O
@@ -7899,10 +8281,12 @@ seeing O
 more O
 examples O
 . O
+
 ( O
 b O
 ) O
 . O
+
 When O
 we O
 only O
@@ -7914,6 +8298,7 @@ collecting O
 local B-Task
 inference I-Task
 information I-Task
+
 As O
 we O
 discussed O
@@ -7939,6 +8324,7 @@ a O
 quadratic B-Metric
 cost I-Metric
 . O
+
 The O
 results O
 of O
@@ -7951,6 +8337,7 @@ table O
 : O
 chfusion B-Method
 . O
+
 For O
 the O
 second O
@@ -7984,6 +8371,7 @@ details O
 in O
 CornerNet B-Method
 . O
+
 The O
 idea O
 of O
@@ -8010,6 +8398,7 @@ and O
 action B-Task
 evaluation I-Task
 . O
+
 In O
 contrast O
 , O
@@ -8045,6 +8434,7 @@ reference O
 d O
 ) O
 . O
+
 Thanks O
 to O
 bilinear B-Method
@@ -8067,6 +8457,7 @@ for O
 details O
 ) O
 . O
+
 We O
 use O
 a O
@@ -8110,6 +8501,7 @@ at O
 18k O
 iterations O
 . O
+
 We O
 also O
 used O
@@ -8119,6 +8511,7 @@ in O
 our O
 implementation O
 . O
+
 Parameterise O
 the O
 variational B-Method
@@ -8129,6 +8522,7 @@ latent O
 variable O
 : O
 . O
+
 Furthermore O
 , O
 the O
@@ -8149,6 +8543,7 @@ terms O
 of O
 dropout B-Task
 . O
+
 The O
 first O
 part O
@@ -8157,6 +8552,7 @@ preprocesses O
 the O
 data O
 . O
+
 The O
 training B-Metric
 accuracy I-Metric
@@ -8195,6 +8591,7 @@ based O
 segmentation B-Task
 approach O
 . O
+
 ( O
 For O
 example O
@@ -8205,11 +8602,13 @@ Cityscapes B-Material
 dataset I-Material
 . O
 ) O
+
 ( O
 [ O
 reference O
 ] O
 ) O
+
 Moreover O
 , O
 the O
@@ -8252,6 +8651,7 @@ long O
 term O
 dependencies O
 . O
+
 For O
 learning O
 from O
@@ -8284,6 +8684,7 @@ between O
 neighboring O
 patches O
 . O
+
 Another O
 notable O
 contribution O
@@ -8291,6 +8692,7 @@ by O
 Harley O
 et O
 . O
+
 This O
 covariance O
 can O
@@ -8317,6 +8719,7 @@ sort I-Method
 pooling I-Method
 layer I-Method
 . O
+
 Probably O
 the O
 closest O
@@ -8343,6 +8746,7 @@ one B-Task
 shot I-Task
 learning I-Task
 . O
+
 TW B-Method
 and O
 TW O
@@ -8370,6 +8774,7 @@ of O
 weight O
 value O
 . O
+
 To O
 measure O
 human O
@@ -8391,10 +8796,12 @@ a O
 weekly O
 basis O
 . O
+
 [ O
 b O
 ] O
 0.15 O
+
 One O
 experiment O
 to O
@@ -8436,6 +8843,7 @@ of O
 size O
 16 O
 . O
+
 Local B-Method
 pooling I-Method
 operators I-Method
@@ -8461,6 +8869,7 @@ to O
 small O
 translations O
 . O
+
 In O
 all O
 cases O
@@ -8473,6 +8882,7 @@ is O
 relatively O
 small O
 . O
+
 PoseCNN B-Method
 provides O
 better O
@@ -8483,6 +8893,7 @@ for O
 ICP B-Method
 refinement I-Method
 . O
+
 In O
 general O
 , O
@@ -8502,10 +8913,12 @@ corpus O
 size O
 increases O
 . O
+
 subsection O
 : O
 Combining B-Task
 Predictions I-Task
+
 This O
 is O
 not O
@@ -8527,6 +8940,7 @@ stochastic B-Method
 gradient I-Method
 descent I-Method
 . O
+
 An O
 aggregation B-Method
 layer I-Method
@@ -8544,6 +8958,7 @@ the O
 final O
 predictions O
 . O
+
 The O
 encoded O
 attributes O
@@ -8572,6 +8987,7 @@ of O
 the O
 ground O
 truth O
+
 The O
 appearance O
 kernel O
@@ -8579,6 +8995,7 @@ is O
 defined O
 similarly O
 . O
+
 By O
 bridging O
 a O
@@ -8604,6 +9021,7 @@ for O
 the O
 future O
 . O
+
 By O
 the O
 Lipschitz O
@@ -8612,12 +9030,14 @@ continuity O
 we O
 have O
 Since O
+
 All O
 experiments O
 include O
 data B-Task
 augmentation I-Task
 . O
+
 ( O
 [ O
 reference O
@@ -8628,6 +9048,7 @@ reference O
 ] O
 ) O
 . O
+
 We O
 address O
 this O
@@ -8656,6 +9077,7 @@ BLEU B-Metric
 or O
 ROUGE B-Metric
 . O
+
 That O
 is O
 , O
@@ -8687,10 +9109,12 @@ of O
 each O
 token O
 . O
+
 paragraph O
 : O
 Weight B-Method
 initialization I-Method
+
 uses O
 a O
 person B-Method
@@ -8704,6 +9128,7 @@ the O
 joint B-Method
 model I-Method
 . O
+
 Hence O
 , O
 they O
@@ -8726,6 +9151,7 @@ from O
 early O
 commitment O
 . O
+
 However O
 , O
 as O
@@ -8751,6 +9177,7 @@ very O
 deep B-Method
 networks I-Method
 . O
+
 Table O
 [ O
 reference O
@@ -8785,6 +9212,7 @@ the O
 validation O
 results O
 . O
+
 Although O
 this O
 binary O
@@ -8818,6 +9246,7 @@ is O
 not O
 differentiable O
 . O
+
 It O
 would O
 reduce O
@@ -8836,6 +9265,7 @@ accelerating O
 training B-Metric
 time I-Metric
 . O
+
 We O
 observe O
 similar O
@@ -8843,6 +9273,7 @@ results O
 on O
 SciTail B-Material
 . O
+
 In O
 other O
 words O
@@ -8885,12 +9316,14 @@ virtual O
 adversarial O
 direction O
 . O
+
 Updated O
 several O
 figures O
 and O
 text O
 . O
+
 Specifically O
 , O
 we O
@@ -8900,6 +9333,7 @@ address O
 three O
 subproblems O
 : O
+
 We O
 also O
 add O
@@ -8921,6 +9355,7 @@ for O
 both O
 tasks O
 . O
+
 We O
 introduce O
 the O
@@ -8939,6 +9374,7 @@ relations O
 , O
 , O
 . O
+
 The O
 network O
 directly O
@@ -8966,20 +9402,24 @@ beyond O
 the O
 optimization B-Task
 . O
+
 subsection O
 : O
 1B B-Material
 Word I-Material
 Dataset I-Material
+
 Initializing O
 ASDN B-Method
 Network O
 . O
+
 [ O
 reference O
 ] O
 dataset O
 . O
+
 When O
 we O
 used O
@@ -9000,6 +9440,7 @@ was O
 always O
 0.1 O
 . O
+
 Each O
 position O
 is O
@@ -9053,6 +9494,7 @@ miscellaneous O
 evaluation O
 patterns O
 . O
+
 Such O
 an O
 effect O
@@ -9070,6 +9512,7 @@ also O
 observed O
 in O
 . O
+
 Unlike O
 the O
 categorical O
@@ -9101,6 +9544,7 @@ across O
 channels O
 PixelCNNpp O
 . O
+
 Otherwise O
 , O
 the O
@@ -9118,6 +9562,7 @@ by O
 the O
 normalizer B-Method
 . O
+
 N O
 = O
 1024 O
@@ -9128,6 +9573,7 @@ from O
 each O
 model O
 . O
+
 By O
 making O
 appropriate O
@@ -9166,15 +9612,18 @@ discriminative O
 feature O
 maps O
 . O
+
 subsection O
 : O
 Point B-Method
 Cloud I-Method
 Network I-Method
+
 subsection O
 : O
 Boundary B-Task
 Detection I-Task
+
 We O
 do O
 no O
@@ -9191,10 +9640,12 @@ to O
 this O
 hardware O
 . O
+
 Liao O
 et O
 al O
 . O
+
 The O
 NLI B-Task
 task I-Task
@@ -9221,12 +9672,14 @@ relationship O
 between O
 and O
 . O
+
 See O
 table O
 [ O
 reference O
 ] O
 . O
+
 It O
 can O
 be O
@@ -9259,11 +9712,13 @@ size I-Method
 , O
 respectively O
 . O
+
 subsection O
 : O
 Evaluation O
 on O
 ImageNet B-Material
+
 This O
 theorem O
 shows O
@@ -9291,6 +9746,7 @@ Lipschitz O
 constants O
 and O
 . O
+
 Regression B-Method
 for O
 text O
@@ -9311,6 +9767,7 @@ minimum O
 area O
 boxes O
 . O
+
 The O
 average O
 log O
@@ -9332,6 +9789,7 @@ through O
 Q O
 is O
 : O
+
 Therefore O
 , O
 the O
@@ -9360,6 +9818,7 @@ across O
 various O
 devices O
 . O
+
 The O
 critic O
 consists O
@@ -9398,6 +9857,7 @@ the O
 input O
 pair O
 . O
+
 paragraph O
 : O
 SynthText B-Material
@@ -9407,6 +9867,7 @@ Wild O
 ( O
 SynthText B-Material
 ) O
+
 Recently O
 deep B-Method
 learning I-Method
@@ -9420,6 +9881,7 @@ to O
 text B-Task
 classification I-Task
 . O
+
 section O
 : O
 Uniform O
@@ -9429,6 +9891,7 @@ to I-Method
 - I-Method
 End I-Method
 Model I-Method
+
 Table O
 [ O
 reference O
@@ -9446,6 +9909,7 @@ proposal B-Task
 and O
 detection B-Task
 . O
+
 At O
 each O
 time O
@@ -9467,6 +9931,7 @@ layers I-Method
 as O
 input O
 . O
+
 Let O
 denote O
 the O
@@ -9482,6 +9947,7 @@ recursive I-Method
 layer I-Method
 : O
 . O
+
 We O
 next O
 evaluate O
@@ -9498,6 +9964,7 @@ and O
 WN18 B-Material
 datasets I-Material
 . O
+
 The O
 sensitive O
 variable O
@@ -9508,6 +9975,7 @@ of O
 the O
 individual O
 . O
+
 The O
 edges O
 in O
@@ -9539,6 +10007,7 @@ the O
 child O
 node O
 . O
+
 In O
 the O
 context O
@@ -9571,6 +10040,7 @@ noise O
 in O
 SGD B-Method
 . O
+
 All O
 of O
 the O
@@ -9593,6 +10063,7 @@ seen O
 during O
 training O
 . O
+
 Xiong O
 et O
 al O
@@ -9632,6 +10103,7 @@ regressors I-Method
 being O
 applied O
 . O
+
 Our O
 object B-Method
 detection I-Method
@@ -9651,6 +10123,7 @@ in O
 Table O
 9 O
 . O
+
 ComplEx B-Method
 extends O
 DistMult B-Method
@@ -9659,6 +10132,7 @@ the O
 complex O
 domain O
 . O
+
 For O
 this O
 reason O
@@ -9677,6 +10151,7 @@ commonly O
 used O
 regularizations B-Method
 . O
+
 The O
 number O
 of O
@@ -9696,6 +10171,7 @@ in O
 the O
 dataset O
 . O
+
 In O
 another O
 very O
@@ -9715,6 +10191,7 @@ summarization I-Task
 of I-Task
 documents I-Task
 . O
+
 therefore O
 we O
 align O
@@ -9727,6 +10204,7 @@ wall O
 clock O
 time O
 . O
+
 The O
 representation B-Method
 Φ I-Method
@@ -9743,6 +10221,7 @@ to O
 one O
 function O
 . O
+
 To O
 test O
 out O
@@ -9771,10 +10250,12 @@ Thai B-Material
 English I-Material
 ) O
 . O
+
 paragraph O
 : O
 Ensemble O
 . O
+
 ( O
 537 O
 layers O
@@ -9811,6 +10292,7 @@ PolyNet I-Method
 during O
 training O
 . O
+
 we O
 will O
 have O
@@ -9824,6 +10306,7 @@ any O
 shallower O
 unit O
 . O
+
 Each O
 pipeline O
 consists O
@@ -9838,11 +10321,13 @@ Fully B-Method
 connected I-Method
 layer I-Method
 . O
+
 Regression O
 to O
 other O
 parts O
 . O
+
 Also O
 , O
 some O
@@ -9864,6 +10349,7 @@ by O
 the O
 participants O
 . O
+
 We O
 compare O
 our O
@@ -9896,6 +10382,7 @@ OLS B-Method
 2 O
 ) O
 , O
+
 Each O
 word O
 is O
@@ -9917,6 +10404,7 @@ across O
 the O
 tasks O
 . O
+
 Given O
 an O
 input O
@@ -9929,6 +10417,7 @@ the O
 face O
 region O
 . O
+
 In O
 the O
 semantic B-Task
@@ -9954,6 +10443,7 @@ are O
 adjacent O
 spatially O
 . O
+
 In O
 the O
 work O
@@ -9981,6 +10471,7 @@ across O
 flow O
 boundaries O
 . O
+
 As O
 soon O
 as O
@@ -10018,6 +10509,7 @@ about O
 85 O
 % O
 . O
+
 Differently O
 from O
 state O
@@ -10057,8 +10549,10 @@ the O
 target O
 object O
 . O
+
 section O
 : O
+
 To O
 account O
 for O
@@ -10080,9 +10574,11 @@ singular O
 values O
 to O
 . O
+
 section O
 : O
 Conclusion O
+
 In O
 particular O
 , O
@@ -10099,6 +10595,7 @@ or O
 more O
 entities O
 . O
+
 Downsizing O
 the O
 image O
@@ -10127,6 +10624,7 @@ CornerNet B-Method
 - I-Method
 Squeeze I-Method
 . O
+
 Our O
 model O
 has O
@@ -10144,6 +10642,7 @@ seen O
 during O
 training O
 . O
+
 The O
 models O
 , O
@@ -10175,6 +10674,7 @@ similar O
 skin O
 color O
 . O
+
 Traditional O
 works O
 have O
@@ -10208,6 +10708,7 @@ across O
 different O
 scales O
 . O
+
 ( O
 Hı O
 ) O
@@ -10304,6 +10805,7 @@ white O
 , O
 fill O
 , O
+
 If O
 the O
 third O
@@ -10324,6 +10826,7 @@ the O
 second O
 domain O
 . O
+
 Table O
 [ O
 reference O
@@ -10360,6 +10863,7 @@ on O
 the O
 others O
 . O
+
 SAF B-Method
 R I-Method
 - I-Method
@@ -10374,6 +10878,7 @@ available O
 Caffe B-Method
 platform I-Method
 . O
+
 These O
 methods O
 find O
@@ -10393,6 +10898,7 @@ classifying B-Method
 sliding I-Method
 windows I-Method
 . O
+
 The O
 image O
 CNN B-Method
@@ -10409,6 +10915,7 @@ the O
 encoding B-Method
 phase I-Method
 . O
+
 We O
 evaluate O
 the O
@@ -10436,6 +10943,7 @@ resolution O
 and O
 stuff B-Task
 understanding I-Task
+
 This O
 search B-Method
 procedure I-Method
@@ -10451,6 +10959,7 @@ Figure O
 reference O
 ] O
 . O
+
 For O
 the O
 recent O
@@ -10472,6 +10981,7 @@ LSTM B-Method
 based I-Method
 models I-Method
 . O
+
 In O
 [ O
 reference O
@@ -10506,9 +11016,11 @@ down O
 - O
 weighted O
 . O
+
 In O
 Fig O
 . O
+
 Learning O
 high O
 - O
@@ -10543,6 +11055,7 @@ CTR B-Task
 prediction O
 model O
 . O
+
 Once O
 trained O
 , O
@@ -10557,6 +11070,7 @@ filters O
 during O
 evaluation O
 . O
+
 Which O
 function O
 is O
@@ -10573,6 +11087,7 @@ of O
 that O
 edge O
 . O
+
 To O
 demonstrate O
 the O
@@ -10598,6 +11113,7 @@ and O
 noise O
 levels O
 . O
+
 The O
 ghost O
 assignments O
@@ -10612,6 +11128,7 @@ as O
 with O
 NetVLAD B-Method
 . O
+
 In O
 our O
 experiments O
@@ -10639,12 +11156,14 @@ the O
 art O
 approaches O
 . O
+
 We O
 note O
 our O
 best O
 model O
 words B-Method
+
 The O
 architecture O
 is O
@@ -10655,6 +11174,7 @@ Table O
 reference O
 ] O
 . O
+
 It O
 is O
 worth O
@@ -10681,6 +11201,7 @@ the O
 following O
 reasons O
 . O
+
 Second O
 , O
 similar O
@@ -10703,10 +11224,12 @@ statistics I-Task
 reference O
 ] O
 ) O
+
 section O
 : O
 Related O
 Work O
+
 Our O
 experiments O
 show O
@@ -10730,10 +11253,12 @@ early B-Task
 fusion I-Task
 case I-Task
 . O
+
 subsection O
 : O
 Quantitative B-Task
 Analysis I-Task
+
 To O
 generalize O
 image B-Task
@@ -10773,6 +11298,7 @@ multi O
 scale O
 information O
 . O
+
 512 O
 - O
 pi O
@@ -10790,9 +11316,11 @@ per O
 image O
 . O
 ' O
+
 section O
 : O
 Discussion O
+
 In O
 test O
 stage O
@@ -10817,6 +11345,7 @@ evaluation O
 method O
 with O
 . O
+
 In O
 order O
 to O
@@ -10855,6 +11384,7 @@ compute O
 covariance O
 matrix O
 . O
+
 Similar O
 models O
 have O
@@ -10867,10 +11397,12 @@ such O
 as O
 summarization B-Task
 . O
+
 Ross O
 et O
 al O
 . O
+
 We O
 also O
 combine O
@@ -10889,8 +11421,10 @@ form O
 an O
 ensemble O
 . O
+
 PASCAL O
 VOC2012 B-Material
+
 section O
 : O
 High O
@@ -10900,6 +11434,7 @@ of O
 DeepID2 B-Method
 + O
 nets O
+
 This O
 testing O
 technique O
@@ -10916,6 +11451,7 @@ than O
 training O
 crops O
 . O
+
 Combining O
 Proposition O
 [ O
@@ -10941,6 +11477,7 @@ Bottleneck I-Task
 problem I-Task
 formally O
 . O
+
 The O
 entire O
 training O
@@ -10955,6 +11492,7 @@ Titan O
 X O
 GPUs O
 . O
+
 We O
 use O
 a O
@@ -10984,6 +11522,7 @@ units O
 within O
 layer O
 . O
+
 we O
 show O
 two O
@@ -11001,6 +11540,7 @@ multi B-Method
 scale I-Method
 CNN I-Method
 . O
+
 its O
 variants O
 have O
@@ -11050,6 +11590,7 @@ of O
 the O
 discriminator B-Method
 . O
+
 This O
 framework O
 is O
@@ -11077,9 +11618,11 @@ level I-Task
 visual I-Task
 tasks I-Task
 . O
+
 section O
 : O
 Acknowledgments O
+
 This O
 helps O
 improved O
@@ -11089,6 +11632,7 @@ parallel B-Method
 computing I-Method
 architectures I-Method
 . O
+
 Here O
 and O
 represent O
@@ -11103,6 +11647,7 @@ the O
 given O
 factor O
 . O
+
 Finally O
 , O
 we O
@@ -11121,6 +11666,7 @@ LSTM I-Method
 - I-Method
 DOC I-Method
 . O
+
 The O
 guidelines O
 below O
@@ -11136,7 +11682,9 @@ camera O
 ready O
 copies O
 . O
+
 ‘ O
+
 For O
 each O
 timestep O
@@ -11151,6 +11699,7 @@ th O
 column O
 vector O
 R O
+
 Weight B-Method
 pruning I-Method
 for O
@@ -11183,6 +11732,7 @@ loss O
 in O
 performance O
 . O
+
 Within O
 the O
 Conditional B-Method
@@ -11193,6 +11743,7 @@ compute O
 p O
 ( O
 z O
+
 InfoGAN B-Method
 again O
 is O
@@ -11240,6 +11791,7 @@ Figure O
 4b O
 ) O
 . O
+
 For O
 both O
 general B-Task
@@ -11276,6 +11828,7 @@ or O
 pose O
 information O
 . O
+
 Textual B-Task
 entailment I-Task
 : O
@@ -11301,12 +11854,14 @@ semantic O
 relatedness B-Task
 dataset O
 . O
+
 We O
 are O
 given O
 datasets O
 for O
 . O
+
 Interestingly O
 the O
 categories O
@@ -11326,6 +11881,7 @@ be O
 quire O
 similar O
 . O
+
 Since O
 all O
 of O
@@ -11365,6 +11921,7 @@ object O
 recognition O
 datasets O
 . O
+
 DukeMTMC B-Material
 - I-Material
 reID I-Material
@@ -11386,6 +11943,7 @@ high O
 resolution O
 cameras O
 . O
+
 We O
 first O
 run O
@@ -11408,6 +11966,7 @@ the O
 optimization B-Method
 method I-Method
 . O
+
 [ O
 reference O
 ] O
@@ -11421,6 +11980,7 @@ of O
 the O
 results O
 . O
+
 ; O
 we O
 refer O
@@ -11430,6 +11990,7 @@ and O
 layers O
 interchangeably O
 . O
+
 where O
 p O
 k O
@@ -11452,6 +12013,7 @@ of O
 r O
 independently O
 . O
+
 By O
 considering O
 only O
@@ -11483,6 +12045,7 @@ input O
 semantic O
 layout O
 . O
+
 For O
 the O
 generator O
@@ -11493,6 +12056,7 @@ the O
 settings O
 in O
 . O
+
 We O
 show O
 that O
@@ -11526,6 +12090,7 @@ low O
 - O
 pseudocount O
 . O
+
 However O
 , O
 increasing O
@@ -11553,6 +12118,7 @@ more O
 training O
 data O
 . O
+
 The O
 two O
 frameworks O
@@ -11577,6 +12143,7 @@ in O
 error B-Task
 detection I-Task
 . O
+
 For O
 example O
 , O
@@ -11608,6 +12175,7 @@ for O
 various O
 tasks O
 [ O
+
 Dlib B-Method
 implements O
 a O
@@ -11626,6 +12194,7 @@ is O
 described O
 in O
 . O
+
 Let O
 m O
 n O
@@ -11641,6 +12210,7 @@ n O
 th O
 RoW O
 , O
+
 The O
 original O
 training B-Method
@@ -11658,6 +12228,7 @@ achieves O
 better O
 performance O
 . O
+
 If O
 the O
 5th O
@@ -11687,6 +12258,7 @@ or O
 a O
 preposition O
 . O
+
 We O
 conjecture O
 that O
@@ -11705,6 +12277,7 @@ Figure O
 10 O
 ) O
 . O
+
 Automatic O
 POS O
 tags O
@@ -11715,6 +12288,7 @@ Stanford B-Method
 POS I-Method
 tagger I-Method
 . O
+
 The O
 idea O
 behind O
@@ -11754,6 +12328,7 @@ a O
 robust O
 fashion O
 . O
+
 Results O
 for O
 the O
@@ -11776,6 +12351,7 @@ models O
 for O
 comparison O
 . O
+
 The O
 first O
 result O
@@ -11792,6 +12368,7 @@ and O
 Borkar O
 1999 O
 . O
+
 The O
 second O
 task O
@@ -11813,6 +12390,7 @@ a O
 hypothesis O
 sentence O
 . O
+
 1 O
 - O
 th O
@@ -11820,7 +12398,9 @@ one O
 as O
 threshold O
 . O
+
 Python O
+
 Their O
 main O
 drawback O
@@ -11840,6 +12420,7 @@ accurate O
 3D B-Task
 reconstruction I-Task
 . O
+
 The O
 CK B-Material
 + I-Material
@@ -11854,6 +12435,7 @@ different O
 facial O
 expressions O
 . O
+
 Previous O
 research O
 related O
@@ -11875,6 +12457,7 @@ mid O
 level O
 features O
 . O
+
 Figure O
 [ O
 reference O
@@ -11883,6 +12466,7 @@ gives O
 an O
 illustration O
 . O
+
 It O
 should O
 be O
@@ -11900,6 +12484,7 @@ the O
 th O
 layer O
 . O
+
 We O
 empirically O
 demonstrate O
@@ -11924,6 +12509,7 @@ CIFAR B-Material
 - I-Material
 100 I-Material
 . O
+
 Depending O
 on O
 the O
@@ -11950,6 +12536,7 @@ to O
 solve O
 it O
 . O
+
 It O
 plays O
 an O
@@ -11965,6 +12552,7 @@ one O
 of O
 them O
 . O
+
 That O
 is O
 , O
@@ -11979,6 +12567,7 @@ to O
 be O
 similar O
 . O
+
 Facing O
 with O
 the O
@@ -12006,6 +12595,7 @@ order O
 feature O
 combinations O
 . O
+
 Such O
 a O
 representation O
@@ -12033,6 +12623,7 @@ to I-Method
 frame I-Method
 matching I-Method
 . O
+
 We O
 first O
 trained O
@@ -12058,6 +12649,7 @@ likelihood I-Metric
 is O
 achieved O
 . O
+
 As O
 shown O
 in O
@@ -12078,6 +12670,7 @@ both O
 NLP B-Task
 tasks O
 . O
+
 This O
 value O
 is O
@@ -12120,16 +12713,20 @@ is O
 over O
 fit O
 . O
+
 a0 O
 ⇐ O
 1 O
+
 modN O
+
 For O
 example O
 , O
 variational B-Method
 autoencoders I-Method
 ( O
+
 We O
 have O
 released O
@@ -12144,6 +12741,7 @@ in O
 this O
 paper O
 . O
+
 We O
 fine O
 - O
@@ -12170,6 +12768,7 @@ rank B-Metric
 1 I-Metric
 accuracy I-Metric
 = O
+
 The O
 sequential B-Method
 architecture I-Method
@@ -12178,6 +12777,7 @@ of O
 6 O
 stages O
 . O
+
 Qualitative O
 results O
 are O
@@ -12188,6 +12788,7 @@ Figure O
 reference O
 ] O
 . O
+
 The O
 speaker O
 state O
@@ -12204,6 +12805,7 @@ speaker O
 previous O
 state O
 . O
+
 This O
 way O
 we O
@@ -12269,6 +12871,7 @@ the O
 data O
 ) O
 . O
+
 The O
 predicted B-Metric
 region I-Metric
@@ -12277,6 +12880,7 @@ in O
 is O
 thus O
 . O
+
 The O
 results O
 imply O
@@ -12296,6 +12900,7 @@ the O
 output O
 length O
 . O
+
 These O
 figures O
 show O
@@ -12331,6 +12936,7 @@ ResU B-Method
 - I-Method
 Net I-Method
 . O
+
 All O
 the O
 above O
@@ -12360,6 +12966,7 @@ ignores O
 the O
 noise O
 . O
+
 we O
 revisit O
 the O
@@ -12382,12 +12989,14 @@ locally B-Method
 normalized I-Method
 models I-Method
 . O
+
 subsection O
 : O
 Non B-Method
 - I-Method
 Autoregressive I-Method
 Decoding I-Method
+
 For O
 CUHK03 B-Material
 , O
@@ -12420,6 +13029,7 @@ ResNet B-Method
 , O
 respectively O
 . O
+
 figure0.pdf O
 [ O
 t O
@@ -12429,6 +13039,7 @@ CompiledTikzPictures O
 / O
 paper O
 - O
+
 The O
 latter O
 showed O
@@ -12448,6 +13059,7 @@ e.g O
 with O
 LSTMs B-Method
 . O
+
 The O
 expected O
 factual O
@@ -12505,6 +13117,7 @@ our O
 data O
 sample O
 . O
+
 Under O
 Assumptions O
 [ O
@@ -12529,6 +13142,7 @@ adjoint O
 operator O
 of O
 . O
+
 ( O
 [ O
 reference O
@@ -12574,6 +13188,7 @@ simplicity O
 in O
 eqn O
 . O
+
 There O
 are O
 121 O
@@ -12605,6 +13220,7 @@ several O
 labels O
 simultaneously O
 . O
+
 Further O
 , O
 on O
@@ -12639,13 +13255,16 @@ achieve O
 % O
 error B-Metric
 . O
+
 2D B-Task
 depth I-Task
 patches I-Task
 ? O
+
 section O
 : O
 Conclusions O
+
 For O
 example O
 , O
@@ -12672,6 +13291,7 @@ reference O
 is O
 reserved O
 . O
+
 The O
 surfer O
 is O
@@ -12681,6 +13301,7 @@ small O
 wave O
 ” O
 . O
+
 We O
 then O
 show O
@@ -12705,6 +13326,7 @@ on O
 several O
 games O
 . O
+
 For O
 coarse B-Task
 localization I-Task
@@ -12726,6 +13348,7 @@ detection B-Task
 on O
 PASCAL B-Material
 . O
+
 As O
 shown O
 in O
@@ -12751,6 +13374,7 @@ an O
 important O
 role O
 . O
+
 As O
 deeper B-Method
 networks I-Method
@@ -12792,6 +13416,7 @@ performance O
 is O
 achieved O
 . O
+
 Instead O
 , O
 the O
@@ -12835,6 +13460,7 @@ unseen O
 pair O
 of O
 . O
+
 , O
 y O
 n O
@@ -12849,6 +13475,7 @@ at O
 a O
 time O
 . O
+
 This O
 IoU B-Metric
 threshold O
@@ -12860,6 +13487,7 @@ of O
 a O
 detector B-Method
 . O
+
 As O
 a O
 number O
@@ -12907,11 +13535,13 @@ must O
 be O
 predicted O
 . O
+
 Request O
 permissions O
 from O
 permissions@acm.org O
 . O
+
 Therefore O
 , O
 we O
@@ -12940,6 +13570,7 @@ for O
 answer B-Task
 prediction I-Task
 . O
+
 The O
 difference O
 is O
@@ -12958,9 +13589,11 @@ overall O
 training B-Metric
 time I-Metric
 . O
+
 Comparison O
 with O
 YOLOv3 B-Method
+
 We O
 evaluate O
 performance O
@@ -12974,12 +13607,15 @@ with O
 each O
 dataset O
 . O
+
 bibliography O
 : O
 References O
+
 section O
 : O
 Experiments O
+
 Therefore O
 , O
 the O
@@ -12996,6 +13632,7 @@ number O
 of O
 episodes O
 . O
+
 For O
 example O
 , O
@@ -13021,6 +13658,7 @@ of O
 the O
 methods O
 . O
+
 Another O
 solution O
 is O
@@ -13038,6 +13676,7 @@ detectors I-Method
 from O
 them O
 . O
+
 In O
 order O
 to O
@@ -13064,6 +13703,7 @@ more O
 positive O
 rewards O
 . O
+
 On O
 the O
 verified O
@@ -13082,6 +13722,7 @@ the O
 other O
 options O
 . O
+
 Since O
 feature O
 maps O
@@ -13106,6 +13747,7 @@ before O
 concatenating O
 them O
 . O
+
 In O
 datasets O
 where O
@@ -13143,6 +13785,7 @@ can O
 be O
 drawn O
 . O
+
 All O
 submissions O
 must O
@@ -13172,6 +13815,7 @@ that O
 they O
 desire O
 . O
+
 We O
 hope O
 that O
@@ -13201,6 +13845,7 @@ correct O
 or O
 not O
 . O
+
 The O
 problem O
 is O
@@ -13221,6 +13866,7 @@ given O
 premise O
 sentence O
 . O
+
 For O
 instance B-Task
 segmentation I-Task
@@ -13246,6 +13892,7 @@ encompasses O
 the O
 pixel O
 . O
+
 Basic O
 statistics O
 about O
@@ -13265,6 +13912,7 @@ Table O
 reference O
 ] O
 . O
+
 Moreover O
 , O
 the O
@@ -13298,6 +13946,7 @@ a O
 single O
 model O
 . O
+
 Then O
 the O
 training O
@@ -13314,6 +13963,7 @@ fine B-Method
 - I-Method
 tuning I-Method
 . O
+
 Several O
 exploration B-Method
 techniques I-Method
@@ -13330,6 +13980,7 @@ large O
 state O
 spaces O
 . O
+
 The O
 same O
 for O
@@ -13355,6 +14006,7 @@ Fig O
 . O
 9 O
 . O
+
 These O
 embeddings O
 are O
@@ -13366,6 +14018,7 @@ the O
 model B-Method
 training I-Method
 . O
+
 This O
 is O
 competitive O
@@ -13409,6 +14062,7 @@ POS O
 tags O
 Raganato2017NeuralSL O
 . O
+
 Instead O
 , O
 we O
@@ -13427,6 +14081,7 @@ and O
 our O
 ResNets B-Method
 . O
+
 The O
 index O
 of O
@@ -13443,6 +14098,7 @@ by O
 the O
 vector O
 . O
+
 An O
 overview O
 of O
@@ -13462,12 +14118,14 @@ Table O
 reference O
 ] O
 . O
+
 84.10 O
 - O
 Zhang O
 et O
 al O
 . O
+
 If O
 the O
 generator O
@@ -13488,6 +14146,7 @@ perturbations O
 are O
 small O
 . O
+
 Faces O
 of O
 the O
@@ -13512,13 +14171,16 @@ ages O
 and O
 occlusions O
 . O
+
 subsection O
 : O
 Datasets O
+
 [ O
 reference O
 ] O
 . O
+
 This O
 baseline O
 has O
@@ -13542,6 +14204,7 @@ the O
 subsampled O
 sequences O
 . O
+
 In O
 order O
 to O
@@ -13565,14 +14228,17 @@ the O
 indiscriminative O
 features O
 . O
+
 bibliography O
 : O
 References O
+
 paragraph O
 : O
 Model O
 configurations O
 . O
+
 Finally O
 , O
 the O
@@ -13613,6 +14279,7 @@ any O
 random B-Method
 initialization I-Method
 . O
+
 We O
 repeat O
 this O
@@ -13634,6 +14301,7 @@ visualizations O
 in O
 Fig O
 . O
+
 Recently O
 , O
 the O
@@ -13643,6 +14311,7 @@ has O
 been O
 explored O
 . O
+
 It O
 then O
 upsamples O
@@ -13662,6 +14331,7 @@ and I-Method
 upsampling I-Method
 layers I-Method
 . O
+
 Notice O
 that O
 one O
@@ -13673,11 +14343,13 @@ p O
 as O
 follows O
 : O
+
 −λboostd O
 log B-Method
 ( I-Method
 vT I-Method
 ) O
+
 We O
 use O
 t B-Method
@@ -13703,6 +14375,7 @@ unseen O
 test O
 data O
 . O
+
 Do O
 generic O
 image O
@@ -13715,6 +14388,7 @@ answer O
 the O
 questions O
 ? O
+
 The O
 performance O
 gap O
@@ -13748,6 +14422,7 @@ richer O
 semantic O
 features O
 . O
+
 At O
 equilibrium O
 , O
@@ -13788,6 +14463,7 @@ summation O
 is O
 zero O
 . O
+
 journals O
 / O
 corr O
@@ -13820,6 +14496,7 @@ out O
 domain O
 set O
 . O
+
 All B-Method
 - I-Method
 View I-Method
@@ -13851,6 +14528,7 @@ multi B-Method
 dimensional I-Method
 scaling I-Method
 . O
+
 The O
 dataset O
 is O
@@ -13859,6 +14537,7 @@ for O
 download O
 2 O
 . O
+
 However O
 , O
 it O
@@ -13889,6 +14568,7 @@ space O
 faster O
 Machado18b O
 . O
+
 The O
 optimization B-Task
 problem I-Task
@@ -13896,6 +14576,7 @@ can O
 be O
 defined O
 as O
+
 We O
 introduce O
 a O
@@ -13926,6 +14607,7 @@ successively O
 deeper O
 layers O
 . O
+
 [ O
 reference O
 ] O
@@ -13956,10 +14638,12 @@ layers I-Method
 are O
 different O
 . O
+
 [ O
 14 O
 ] O
 . O
+
 We O
 have O
 proposed O
@@ -13980,6 +14664,7 @@ semantic B-Task
 image I-Task
 segmentation I-Task
 . O
+
 This O
 representation O
 vector O
@@ -13988,6 +14673,7 @@ over O
 different O
 ads O
 . O
+
 For O
 each O
 such O
@@ -14012,6 +14698,7 @@ Columns O
 8 O
 ) O
 . O
+
 This O
 is O
 another O
@@ -14023,6 +14710,7 @@ stacking B-Method
 residual I-Method
 units I-Method
 . O
+
 Important O
 open O
 questions O
@@ -14044,6 +14732,7 @@ intervals O
 for O
 our O
 model O
+
 ImageNet O
 ( O
 color O
@@ -14062,6 +14751,7 @@ and O
 tests O
 ) O
 . O
+
 In O
 the O
 Smooth B-Method
@@ -14086,6 +14776,7 @@ the O
 strongest O
 consistency O
 . O
+
 Table O
 [ O
 reference O
@@ -14108,6 +14799,7 @@ log I-Metric
 - I-Metric
 probabilities I-Metric
 . O
+
 We O
 emphasize O
 this O
@@ -14120,6 +14812,7 @@ paths O
 in O
 Fig O
 . O
+
 While O
 hard O
 constraints O
@@ -14183,6 +14876,7 @@ search I-Method
 as O
 ConBSO B-Method
 . O
+
 LDCF B-Method
 ( O
 row O
@@ -14199,6 +14893,7 @@ baseline O
 1 O
 ) O
 . O
+
 [ O
 reference O
 ] O
@@ -14243,6 +14938,7 @@ or O
 probability O
 values O
 . O
+
 In O
 this O
 study O
@@ -14272,6 +14968,7 @@ in O
 Table O
 1 O
 . O
+
 These O
 conditions O
 imply O
@@ -14290,6 +14987,7 @@ in O
 its O
 entirety O
 . O
+
 Notice O
 that O
 , O
@@ -14327,6 +15025,7 @@ space O
 well O
 enough O
 . O
+
 With O
 PCA B-Method
 bases I-Method
@@ -14339,6 +15038,7 @@ underlying O
 is O
 Gaussian B-Method
 . O
+
 From O
 this O
 table O
@@ -14363,6 +15063,7 @@ from O
 to O
 1.7 O
 . O
+
 t O
 k O
 can O
@@ -14380,6 +15081,7 @@ choosing O
 the O
 K O
 + O
+
 The O
 task O
 is O
@@ -14402,6 +15104,7 @@ of O
 age O
 differences O
 , O
+
 It O
 is O
 this O
@@ -14427,6 +15130,7 @@ of O
 our O
 method O
 . O
+
 We O
 also O
 trained O
@@ -14448,6 +15152,7 @@ senone O
 posterior O
 level O
 . O
+
 This O
 is O
 a O
@@ -14477,7 +15182,9 @@ the O
 intensity O
 distribution O
 . O
+
 ‘ O
+
 On O
 YouTube B-Material
 Face I-Material
@@ -14490,9 +15197,11 @@ observed O
 in O
 Fig O
 . O
+
 [ O
 reference O
 ] O
+
 The O
 results O
 of O
@@ -14519,6 +15228,7 @@ essential O
 for O
 BioNER O
 . O
+
 We O
 used O
 separate O
@@ -14533,9 +15243,11 @@ in O
 Table O
 7 O
 . O
+
 Model B-Method
 architecture I-Method
 : O
+
 In O
 order O
 to O
@@ -14551,9 +15263,11 @@ of O
 data O
 parallelism O
 . O
+
 Experimental O
 settings O
 . O
+
 Under O
 this O
 framework O
@@ -14576,6 +15290,7 @@ as O
 restaurant B-Task
 reservation I-Task
 . O
+
 For O
 an O
 extremely O
@@ -14628,10 +15343,12 @@ the O
 weight O
 layers O
 . O
+
 subsection O
 : O
 Quantitative B-Metric
 Evaluation I-Metric
+
 ( O
 [ O
 reference O
@@ -14648,6 +15365,7 @@ single O
 feature O
 vector O
 . O
+
 It O
 is O
 implemented O
@@ -14671,6 +15389,7 @@ not O
 depend O
 on O
 . O
+
 The O
 final O
 two O
@@ -14688,6 +15407,7 @@ a O
 single O
 input O
 . O
+
 [ O
 A O
 vintage O
@@ -14697,6 +15417,7 @@ a O
 dog O
 . O
 ] O
+
 FM B-Method
 naturally O
 has O
@@ -14722,6 +15443,7 @@ rank O
 latent O
 space O
 . O
+
 We O
 evaluate O
 on O
@@ -14749,6 +15471,7 @@ details O
 below O
 ) O
 . O
+
 After O
 generating O
 a O
@@ -14775,9 +15498,11 @@ of O
 the O
 center O
 . O
+
 [ O
 reference O
 ] O
+
 Indeed O
 , O
 by O
@@ -14789,8 +15514,10 @@ eq O
 : O
 trace.cut O
 . O
+
 Fig O
 . O
+
 These O
 latent B-Method
 representations I-Method
@@ -14811,6 +15538,7 @@ by O
 statistical B-Method
 models I-Method
 . O
+
 However O
 this O
 task O
@@ -14839,6 +15567,7 @@ unit O
 of O
 analysis O
 . O
+
 Overlap O
 in O
 Localized O
@@ -14882,6 +15611,7 @@ largest O
 box O
 returned O
 . O
+
 3DMM B-Method
 also O
 demonstrates O
@@ -14891,12 +15621,14 @@ in O
 face B-Task
 reconstruction I-Task
 . O
+
 L O
 ( O
 downsampled O
 to O
 w O
 i O
+
 We O
 used O
 the O
@@ -14914,6 +15646,7 @@ DCGAN B-Method
 reference O
 ] O
 . O
+
 For O
 combining O
 the O
@@ -14925,6 +15658,7 @@ Soft B-Method
 - I-Method
 NMS I-Method
 . O
+
 Note O
 that O
 in O
@@ -14953,6 +15687,7 @@ a O
 given O
 input O
 . O
+
 In O
 more O
 general O
@@ -14976,6 +15711,7 @@ represents O
 or O
 predicts O
 . O
+
 [ O
 t O
 ] O
@@ -15048,6 +15784,7 @@ randomly O
 sampling O
 ; O
 ; O
+
 In O
 contrast O
 , O
@@ -15076,6 +15813,7 @@ graph B-Method
 convolution I-Method
 operation I-Method
 . O
+
 We O
 instead O
 explored O
@@ -15121,6 +15859,7 @@ the O
 loss O
 . O
 . O
+
 As O
 in O
 the O
@@ -15166,6 +15905,7 @@ is O
 increased O
 to O
 . O
+
 The O
 problem O
 is O
@@ -15192,6 +15932,7 @@ occlusions O
 between O
 objects O
 . O
+
 Consider O
 an O
 unlabeled O
@@ -15203,6 +15944,7 @@ label O
 is O
 unknown O
 . O
+
 is O
 half O
 the O
@@ -15210,7 +15952,9 @@ size O
 of O
 Y O
 . O
+
 ‘ O
+
 The O
 probability B-Metric
 score I-Metric
@@ -15221,6 +15965,7 @@ computed O
 as O
 follows O
 : O
+
 Then O
 we O
 further O
@@ -15236,6 +15981,7 @@ the O
 second O
 layer O
 . O
+
 We O
 can O
 replace O
@@ -15285,6 +16031,7 @@ of O
 input O
 channels O
 ) O
+
 We O
 used O
 Adadelta B-Method
@@ -15303,6 +16050,7 @@ with O
 hyperparameters B-Method
 and O
 . O
+
 Third O
 , O
 we O
@@ -15324,6 +16072,7 @@ the O
 recognition B-Task
 performance O
 . O
+
 black!80 B-Method
 convolution I-Method
 to O
@@ -15333,11 +16082,13 @@ out=190 O
 in=0 O
 ] O
 ( O
+
 1 O
 × O
 10 O
 −4 O
 . O
+
 We O
 have O
 demonstrated O
@@ -15368,6 +16119,7 @@ by O
 neural B-Method
 networks I-Method
 . O
+
 We O
 use O
 a O
@@ -15386,9 +16138,11 @@ sequence O
 of O
 vectors O
 . O
+
 ( O
 2 O
 ) O
+
 where O
 n O
 l O
@@ -15400,6 +16154,7 @@ to O
 the O
 layer O
 . O
+
 We O
 also O
 compare O
@@ -15409,6 +16164,7 @@ with O
 the O
 DenseNet B-Method
 . O
+
 The O
 exact O
 - O
@@ -15425,12 +16181,14 @@ get O
 % O
 correct O
 . O
+
 Each O
 word O
 w O
 ∈ O
 W O
 ∪ O
+
 SRL B-Task
 is O
 pioneered O
@@ -15444,6 +16202,7 @@ the O
 PropBank O
 conventions O
 . O
+
 Keeping O
 a O
 higher O
@@ -15457,6 +16216,7 @@ frequent O
 weight O
 updates O
 . O
+
 Training O
 on O
 CIFAR B-Material
@@ -15467,6 +16227,7 @@ roughly O
 90 O
 minutes O
 . O
+
 The O
 descriptor O
 has O
@@ -15475,6 +16236,7 @@ has O
 960 O
 dimensions O
 . O
+
 Approximate B-Method
 joint I-Method
 training I-Method
@@ -15492,6 +16254,7 @@ to I-Task
 end I-Task
 fashion I-Task
 . O
+
 We O
 choose O
 such O
@@ -15505,6 +16268,7 @@ kernels O
 from O
 Eq O
 . O
+
 We O
 divide O
 a O
@@ -15548,6 +16312,7 @@ background O
 pixels O
 , O
 . O
+
 When O
 is O
 the O
@@ -15555,6 +16320,7 @@ Members O
 Debate O
 held O
 ? O
+
 Two O
 subsequent O
 residual B-Method
@@ -15569,6 +16335,7 @@ Figure O
 reference O
 ] O
 . O
+
 Since O
 this O
 seminal O
@@ -15589,6 +16356,7 @@ same O
 underlying O
 framework O
 . O
+
 While O
 generating O
 description O
@@ -15612,6 +16380,7 @@ beginning O
 of O
 the O
 Note O
+
 φ O
 y O
 kri O
@@ -15622,6 +16391,7 @@ scoring O
 region O
 in O
 image O
+
 After O
 each O
 iteration O
@@ -15652,6 +16422,7 @@ queue O
 size O
 unchanged O
 . O
+
 We O
 believe O
 this O
@@ -15690,11 +16461,13 @@ the O
 receptive O
 field O
 . O
+
 [ O
 reference O
 ] O
 ) O
 . O
+
 The O
 second O
 hourglass B-Method
@@ -15717,6 +16490,7 @@ the O
 first O
 one O
 . O
+
 It O
 usually O
 only O
@@ -15725,6 +16499,7 @@ a O
 few O
 attempts O
 . O
+
 Figure O
 4 O
 ( O
@@ -15749,6 +16524,7 @@ inclined O
 bounding O
 box O
 . O
+
 It O
 adds O
 an O
@@ -15768,6 +16544,7 @@ previous O
 RoI B-Method
 pooling I-Method
 . O
+
 However O
 , O
 this O
@@ -15792,6 +16569,7 @@ captures O
 or O
 checks O
 . O
+
 The O
 summaries O
 have O
@@ -15818,6 +16596,7 @@ summaries O
 , O
 respectively O
 . O
+
 We O
 used O
 NNs B-Method
@@ -15841,12 +16620,14 @@ were O
 150 O
 ) O
 . O
+
 Further O
 , O
 our O
 larger O
 model O
 words B-Method
+
 Recent O
 popular O
 SISR B-Method
@@ -15869,6 +16650,7 @@ patch O
 based O
 methods O
 . O
+
 The O
 phrase O
 is O
@@ -15888,12 +16670,14 @@ in O
 the O
 paragraph O
 . O
+
 We O
 set O
 ξ O
 in O
 Eq O
 . O
+
 We O
 train O
 all O
@@ -15907,6 +16691,7 @@ batch O
 size O
 128 O
 . O
+
 Previous O
 work O
 dropped O
@@ -15918,6 +16703,7 @@ each O
 time O
 step O
 . O
+
 ‘ O
 Pretty O
 - O
@@ -15925,6 +16711,7 @@ CLEVER O
 ’ O
 ’ O
 . O
+
 The O
 character B-Method
 representation I-Method
@@ -15950,6 +16737,7 @@ by O
 max B-Method
 pooling I-Method
 . O
+
 clouds O
 from O
 scanning O
@@ -15966,6 +16754,7 @@ each O
 point O
 cloud O
 . O
+
 We O
 compare O
 9 O
@@ -15993,6 +16782,7 @@ Deep B-Method
 and O
 DeepFM B-Method
 . O
+
 In O
 this O
 step O
@@ -16015,9 +16805,11 @@ unary O
 inputs O
 U O
 . O
+
 [ O
 reference O
 ] O
+
 Most O
 recently O
 , O
@@ -16047,6 +16839,7 @@ the O
 art O
 performance O
 . O
+
 kikuchi O
 - O
 EtAl:2016:EMNLP2016 O
@@ -16075,12 +16868,14 @@ a O
 trainable O
 vector O
 . O
+
 subsection O
 : O
 AFLW B-Material
 and O
 AFW B-Material
 Benchmarking O
+
 Advances O
 like O
 SPPnet B-Method
@@ -16107,6 +16902,7 @@ as O
 a O
 bottleneck O
 . O
+
 Each O
 of O
 the O
@@ -16137,6 +16933,7 @@ the O
 previous O
 layer O
 . O
+
 On O
 the O
 other O
@@ -16162,6 +16959,7 @@ the O
 content B-Method
 discriminator I-Method
 . O
+
 More O
 importantly O
 , O
@@ -16179,6 +16977,7 @@ by O
 other O
 objects O
 . O
+
 After O
 performing O
 filtering B-Method
@@ -16226,6 +17025,7 @@ phase O
 of O
 annotation B-Task
 . O
+
 We O
 will O
 make O
@@ -16237,6 +17037,7 @@ trained B-Method
 models I-Method
 available O
 . O
+
 In O
 either O
 case O
@@ -16253,6 +17054,7 @@ estimating O
 CTR B-Task
 correctly O
 . O
+
 Future O
 work O
 may O
@@ -16271,6 +17073,7 @@ of O
 the O
 mesh O
 . O
+
 The O
 error B-Metric
 rate I-Metric
@@ -16298,6 +17101,7 @@ global B-Method
 average I-Method
 pooling I-Method
 . O
+
 On O
 the O
 other O
@@ -16343,6 +17147,7 @@ CRN B-Method
 Pix2pix B-Material
 rates O
 . O
+
 We O
 also O
 find O
@@ -16379,6 +17184,7 @@ the O
 same O
 reason O
 . O
+
 The O
 whole O
 system O
@@ -16396,6 +17202,7 @@ unified O
 CNN B-Method
 framework O
 . O
+
 However O
 , O
 photo B-Method
@@ -16410,6 +17217,7 @@ requires O
 much O
 effort O
 . O
+
 Traditional O
 methods O
 such O
@@ -16440,6 +17248,7 @@ super B-Task
 - I-Task
 resolution I-Task
 . O
+
 The O
 second O
 type O
@@ -16475,8 +17284,10 @@ used O
 for O
 retrieval B-Task
 . O
+
 Sec O
 . O
+
 It O
 is O
 modified O
@@ -16486,6 +17297,7 @@ the O
 alignment B-Task
 problem I-Task
 . O
+
 To O
 make O
 better O
@@ -16508,6 +17320,7 @@ into O
 the O
 encoder B-Method
 . O
+
 By O
 imposing O
 a O
@@ -16526,6 +17339,7 @@ non O
 - O
 zero O
 . O
+
 In O
 the O
 first O
@@ -16547,12 +17361,15 @@ word O
 vector O
 matrix O
 . O
+
 Premise O
 : O
+
 n01498041 O
 , O
 n01537544 O
 , O
+
 The O
 network O
 is O
@@ -16580,6 +17397,7 @@ between O
 the O
 upconvolutions B-Method
 . O
+
 The O
 dramatic O
 performance O
@@ -16607,6 +17425,7 @@ autonomous B-Task
 driving I-Task
 scenarios I-Task
 . O
+
 Strong O
 inter O
 - O
@@ -16631,6 +17450,7 @@ of O
 the O
 images O
 . O
+
 Whether O
 or O
 not O
@@ -16648,6 +17468,7 @@ question O
 and O
 2 O
 ) O
+
 Mini B-Method
 - I-Method
 batch I-Method
@@ -16661,6 +17482,7 @@ generative I-Task
 adversarial I-Task
 nets I-Task
 . O
+
 When O
 stacking O
 the O
@@ -16673,6 +17495,7 @@ we O
 use O
 Eq O
 . O
+
 None O
 of O
 these O
@@ -16694,6 +17517,7 @@ modern O
 deep B-Method
 networks I-Method
 . O
+
 Our O
 proposed O
 2DSAL B-Method
@@ -16742,6 +17566,7 @@ detector I-Method
 reference O
 ] O
 . O
+
 Each O
 image O
 database O
@@ -16759,6 +17584,7 @@ and O
 test O
 data O
 . O
+
 Figure O
 [ O
 reference O
@@ -16785,6 +17611,7 @@ and O
 target O
 inputs O
 . O
+
 We O
 performed O
 additional O
@@ -16800,6 +17627,7 @@ the O
 ImageNet O
 dataset O
 . O
+
 Either O
 PICO B-Method
 or O
@@ -16813,6 +17641,7 @@ of O
 the O
 discriminator B-Method
 . O
+
 We O
 only O
 use O
@@ -16846,6 +17675,7 @@ or O
 500 O
 characters O
 . O
+
 At O
 the O
 same O
@@ -16861,6 +17691,7 @@ domain O
 - O
 invariant O
 . O
+
 Here O
 , O
 we O
@@ -16890,6 +17721,7 @@ FRCN B-Method
 to O
 classify O
 . O
+
 As O
 for O
 our O
@@ -16917,6 +17749,7 @@ available O
 training O
 images O
 . O
+
 Specifically O
 , O
 for O
@@ -16946,6 +17779,7 @@ K O
 = O
 3 O
 . O
+
 Several O
 approaches O
 perform O
@@ -16967,6 +17801,7 @@ the O
 training O
 distribution O
 . O
+
 j O
 ) O
 is O
@@ -16980,6 +17815,7 @@ the O
 sub O
 - O
 window O
+
 Table O
 [ O
 reference O
@@ -16993,6 +17829,7 @@ and O
 the O
 baselines O
 . O
+
 Note O
 that O
 model O
@@ -17023,6 +17860,7 @@ preprocessing B-Task
 and I-Task
 augmentation I-Task
 . O
+
 Moreover O
 , O
 shaw2018self O
@@ -17049,6 +17887,7 @@ positional I-Method
 encoding I-Method
 vaswani2017attention I-Method
 . O
+
 where O
 λ O
 's O
@@ -17060,6 +17899,7 @@ for O
 different O
 losses O
 . O
+
 By O
 modelling O
 the O
@@ -17088,6 +17928,7 @@ very O
 little O
 data O
 . O
+
 It O
 can O
 be O
@@ -17103,6 +17944,7 @@ implemented O
 using O
 CNN B-Method
 . O
+
 We O
 propose O
 the O
@@ -17129,6 +17971,7 @@ grouping I-Task
 body I-Task
 joints I-Task
 . O
+
 The O
 decay B-Metric
 rate I-Metric
@@ -17148,6 +17991,7 @@ the O
 large O
 network O
 . O
+
 For O
 example O
 , O
@@ -17198,6 +18042,7 @@ of O
 each O
 other O
 . O
+
 The O
 design O
 of O
@@ -17212,12 +18057,14 @@ is O
 horrid O
 ! O
 . O
+
 ( O
 lower O
 ; O
 tuesday O
 ) O
 . O
+
 The O
 second O
 issue O
@@ -17249,6 +18096,7 @@ answer O
 a O
 query O
 . O
+
 is O
 zero O
 if O
@@ -17262,6 +18110,7 @@ vocabulary O
 word O
 for O
 . O
+
 But O
 we O
 did O
@@ -17276,6 +18125,7 @@ version O
 ( O
 Fig O
 . O
+
 Figure O
 [ O
 reference O
@@ -17290,6 +18140,7 @@ chips O
 by O
 SNIPER B-Method
 . O
+
 In O
 OPNN B-Method
 , O
@@ -17298,6 +18149,7 @@ define O
 feature O
 interaction O
 as O
+
 This O
 is O
 equivalent O
@@ -17324,6 +18176,7 @@ the O
 next O
 layer O
 . O
+
 For O
 each O
 identity O
@@ -17341,6 +18194,7 @@ ages O
 and O
 poses O
 . O
+
 YOLOv2 B-Method
 incorporates O
 ideas O
@@ -17354,10 +18208,12 @@ variant O
 of O
 VGG B-Method
 . O
+
 [ O
 reference O
 ] O
 . O
+
 Figure O
 [ O
 reference O
@@ -17377,7 +18233,9 @@ diversity O
 , O
 respectively O
 . O
+
 SubmissionandFormattingInstructionsforICML2016 O
+
 Somehow O
 surprisingly O
 , O
@@ -17412,6 +18270,7 @@ reference O
 ] O
 ) O
 . O
+
 11 O
 , O
 we O
@@ -17434,6 +18293,7 @@ different O
 age O
 groups O
 . O
+
 However O
 , O
 some O
@@ -17473,6 +18333,7 @@ al O
 2010 O
 ) O
 . O
+
 However O
 , O
 if O
@@ -17494,6 +18355,7 @@ game O
 ’s O
 dynamics O
 . O
+
 We O
 have O
 set O
@@ -17520,6 +18382,7 @@ an O
 accuracy B-Metric
 breakdown I-Metric
 . O
+
 ReLU B-Method
 with O
 a O
@@ -17527,6 +18390,7 @@ parameter O
 of O
 0.2 O
 . O
+
 These O
 results O
 clearly O
@@ -17557,6 +18421,7 @@ the O
 shortcut O
 connections O
 . O
+
 In O
 this O
 way O
@@ -17570,6 +18435,7 @@ are O
 cut O
 off O
 . O
+
 Our O
 experiments O
 are O
@@ -17582,6 +18448,7 @@ deep I-Method
 learning I-Method
 framework I-Method
 . O
+
 is O
 the O
 output O
@@ -17602,6 +18469,7 @@ Figure O
 reference O
 ] O
 . O
+
 Data B-Task
 preprocessing I-Task
 was O
@@ -17625,6 +18493,7 @@ numbers O
 as O
 stopwords O
 . O
+
 The O
 other O
 is O
@@ -17644,6 +18513,7 @@ video O
 frames O
 together O
 . O
+
 We O
 further O
 evaluate O
@@ -17671,12 +18541,14 @@ and O
 spatially O
 variant O
 . O
+
 section O
 : O
 Structure O
 Comparison O
 and O
 Analysis O
+
 In O
 a O
 more O
@@ -17693,10 +18565,12 @@ Krizhevsky O
 et O
 al O
 . O
+
 paragraph O
 : O
 Ablations O
 . O
+
 In O
 the O
 future O
@@ -17720,6 +18594,7 @@ boost O
 detection B-Task
 performance O
 . O
+
 The O
 PSNR B-Metric
 is O
@@ -17746,6 +18621,7 @@ the O
 perceptual B-Metric
 quality I-Metric
 . O
+
 The O
 momentum O
 value O
@@ -17765,6 +18641,7 @@ fixed O
 to O
 0.9 O
 . O
+
 So O
 in O
 this O
@@ -17774,11 +18651,13 @@ is O
 not O
 changed O
 . O
+
 subsection O
 : O
 Generative B-Method
 Adversarial I-Method
 Networks I-Method
+
 In O
 this O
 work O
@@ -17807,6 +18686,7 @@ of O
 text B-Task
 classification I-Task
 . O
+
 The O
 results O
 are O
@@ -17817,6 +18697,7 @@ Table O
 reference O
 ] O
 . O
+
 The O
 overall O
 framework O
@@ -17837,6 +18718,7 @@ of O
 three O
 modules O
 . O
+
 We O
 supervise O
 all O
@@ -17853,6 +18735,7 @@ vanishing O
 exploding O
 gradients O
 . O
+
 512 O
 tokens O
 = O
@@ -17873,8 +18756,10 @@ approximately O
 70 O
 hours O
 . O
+
 - O
 nearest O
+
 Goldberg O
 and O
 Nivre O
@@ -17906,6 +18791,7 @@ arc O
 - O
 decomposable O
 . O
+
 We O
 evaluate O
 trained O
@@ -17922,6 +18808,7 @@ comprises O
 6075 O
 sentences O
 . O
+
 Bounding O
 box O
 annotations O
@@ -17929,6 +18816,7 @@ are O
 adapted O
 accordingly O
 . O
+
 Given O
 a O
 batch O
@@ -17982,6 +18870,7 @@ the O
 triplet B-Method
 loss I-Method
 . O
+
 Indeed O
 , O
 apart O
@@ -18012,6 +18901,7 @@ all O
 evaluation B-Metric
 metrics I-Metric
 . O
+
 All O
 categories O
 benefit O
@@ -18032,6 +18922,7 @@ data O
 than O
 others O
 . O
+
 Such O
 2.5D O
 data O
@@ -18049,6 +18940,7 @@ by O
 2D B-Method
 CNNs I-Method
 . O
+
 These O
 results O
 show O
@@ -18082,6 +18974,7 @@ simple O
 linear B-Method
 transformation I-Method
 . O
+
 Therefore O
 we O
 further O
@@ -18109,6 +19002,7 @@ the O
 protocol O
 in O
 . O
+
 GAN B-Method
 ), O
 plural O
@@ -18125,6 +19019,7 @@ GAN B-Method
 GAN B-Method
 ) O
 PPFname B-Method
+
 MPII B-Material
 consists O
 of O
@@ -18149,6 +19044,7 @@ full O
 body O
 poses O
 . O
+
 Next O
 , O
 for O
@@ -18177,6 +19073,7 @@ question O
 image O
 pairs O
 . O
+
 ICDAR B-Material
 2015 I-Material
 ( O
@@ -18191,6 +19088,7 @@ for O
 text B-Task
 detection I-Task
 . O
+
 See O
 figure O
 [ O
@@ -18199,6 +19097,7 @@ reference O
 for O
 results O
 . O
+
 Summary O
 statistics O
 of O
@@ -18215,12 +19114,14 @@ facial B-Task
 expression I-Task
 recognition I-Task
 . O
+
 subsection O
 : O
 Whitening B-Task
 and O
 dimensionality B-Task
 reduction I-Task
+
 The O
 full O
 approximate O
@@ -18288,6 +19189,7 @@ each O
 stochastic B-Method
 layer I-Method
 . O
+
 Since O
 and O
 are O
@@ -18306,6 +19208,7 @@ be O
 shown O
 that O
 . O
+
 If O
 P O
 ( O
@@ -18313,6 +19216,7 @@ S O
 i O
 ) O
 = O
+
 The O
 PASCAL B-Metric
 - I-Metric
@@ -18340,6 +19244,7 @@ is O
 19.7 O
 % O
 . O
+
 where O
 r O
 K O
@@ -18368,9 +19273,11 @@ r| O
 with O
 radius O
 . O
+
 section O
 : O
 Training O
+
 With O
 the O
 increase O
@@ -18398,6 +19305,7 @@ sunglasses O
 and O
 shoes O
 . O
+
 The O
 equality O
 holds O
@@ -18424,6 +19332,7 @@ which O
 and O
 live O
 . O
+
 In O
 these O
 methods O
@@ -18456,11 +19365,13 @@ more O
 input O
 samples O
 . O
+
 [ O
 t O
 ] O
 0.26 O
 ﬁ O
+
 To O
 understand O
 why O
@@ -18477,6 +19388,7 @@ proposals O
 at O
 inference B-Task
 . O
+
 Additionally O
 , O
 let O
@@ -18495,6 +19407,7 @@ the O
 time O
 step O
 t. O
+
 This O
 top O
 - O
@@ -18531,6 +19444,7 @@ different O
 scale O
 variances O
 . O
+
 We O
 choose O
 to O
@@ -18547,6 +19461,7 @@ simpler O
 and O
 extensible O
 . O
+
 To O
 account O
 for O
@@ -18575,6 +19490,7 @@ be O
 computationally O
 expensive O
 . O
+
 The O
 operations O
 of O
@@ -18601,6 +19517,7 @@ according O
 to O
 the O
 RCNN B-Method
+
 To O
 do O
 this O
@@ -18615,6 +19532,7 @@ at O
 each O
 layer O
 . O
+
 For O
 regularization B-Task
 and O
@@ -18643,16 +19561,19 @@ full O
 layer O
 he2016deep O
 . O
+
 We O
 first O
 implement O
 two O
 settings O
 . O
+
 section O
 : O
 Related O
 Work O
+
 Viewpoints O
 We O
 also O
@@ -18695,6 +19616,7 @@ side O
 RS O
 ) O
 . O
+
 Recent O
 approaches O
 have O
@@ -18717,6 +19639,7 @@ achieved O
 remarkable O
 success O
 . O
+
 reference O
 ] O
 . O
@@ -18764,6 +19687,7 @@ good O
 performance O
 for O
 segmentation B-Task
+
 For O
 example O
 , O
@@ -18791,6 +19715,7 @@ candidate O
 window O
 in O
 x. O
+
 By O
 classifying O
 face O
@@ -18814,6 +19739,7 @@ discriminative O
 to O
 identities O
 . O
+
 For O
 BoW B-Method
 Question I-Method
@@ -18837,7 +19763,9 @@ and I-Method
 C I-Method
 embeddings I-Method
 . O
+
 ∎ O
+
 Finally O
 , O
 Table O
@@ -18858,6 +19786,7 @@ different O
 training O
 data O
 . O
+
 The O
 biaffine B-Method
 scorer I-Method
@@ -18872,6 +19801,7 @@ in O
 bilinear B-Method
 transformation I-Method
 . O
+
 While O
 our O
 method O
@@ -18895,8 +19825,10 @@ information O
 during O
 training O
 . O
+
 Architec O
 - O
+
 We O
 now O
 evaluate O
@@ -18921,6 +19853,7 @@ OC B-Method
 ) O
 annotations O
 . O
+
 In O
 summary O
 , O
@@ -18941,6 +19874,7 @@ based O
 SISR B-Task
 applications O
 . O
+
 While O
 the O
 critic B-Method
@@ -18979,6 +19913,7 @@ reference O
 ] O
 ) O
 . O
+
 For O
 template B-Method
 - I-Method
@@ -18992,6 +19927,7 @@ the O
 recognition B-Task
 performance O
 . O
+
 State O
 - O
 of O
@@ -19018,6 +19954,7 @@ on O
 bounding O
 boxes O
 . O
+
 To O
 further O
 improve O
@@ -19032,6 +19969,7 @@ will O
 be O
 released O
 . O
+
 Instead O
 of O
 trying O
@@ -19091,6 +20029,7 @@ decreasing O
 width O
 in O
 . O
+
 Our O
 framework O
 leads O
@@ -19111,6 +20050,7 @@ of O
 network B-Method
 models I-Method
 . O
+
 section O
 : O
 Word B-Method
@@ -19118,6 +20058,7 @@ Word B-Method
 based I-Method
 Character I-Method
 Model I-Method
+
 Empirically O
 , O
 we O
@@ -19143,6 +20084,7 @@ descent I-Method
 SGD B-Method
 ) O
 . O
+
 summarizes O
 a O
 successful O
@@ -19161,10 +20103,12 @@ based I-Method
 SMT I-Method
 system I-Method
 . O
+
 subsection O
 : O
 Qualitative B-Method
 Analysis I-Method
+
 neighbor B-Method
 ( O
 - O
@@ -19198,6 +20142,7 @@ Forests I-Method
 ( O
 Rand O
 . O
+
 In O
 this O
 way O
@@ -19229,10 +20174,13 @@ each O
 single O
 pixel O
 . O
+
 ConvE. O
+
 subsection O
 : O
 Datasets O
+
 [ O
 reference O
 ] O
@@ -19260,6 +20208,7 @@ learned O
 generator B-Method
 function I-Method
 . O
+
 When O
 other O
 components O
@@ -19283,6 +20232,7 @@ memory O
 during O
 training O
 . O
+
 [ O
 black O
 ] O
@@ -19298,6 +20248,7 @@ rectangle O
 1.6 O
 ) O
 ; O
+
 Such O
 jittering O
 is O
@@ -19345,6 +20296,7 @@ the O
 output O
 probabilities O
 . O
+
 Most O
 existing O
 works O
@@ -19368,6 +20320,7 @@ apply O
 convolutional B-Method
 networks I-Method
 . O
+
 Different O
 from O
 the O
@@ -19404,6 +20357,7 @@ in O
 large O
 poses O
 . O
+
 In O
 fact O
 , O
@@ -19432,6 +20386,7 @@ subsequent O
 training O
 iterations O
 . O
+
 We O
 use O
 50 B-Method
@@ -19444,6 +20399,7 @@ with O
 the O
 Word2Vec B-Method
 : O
+
 Every O
 feature O
 in O
@@ -19458,9 +20414,11 @@ real B-Method
 valued I-Method
 embedding I-Method
 . O
+
 section O
 : O
 Experiments O
+
 , O
 we O
 obtain O
@@ -19474,6 +20432,7 @@ NPDs O
 ) O
 as O
 : O
+
 Convolutional B-Method
 networks I-Method
 trained O
@@ -19490,6 +20449,7 @@ or O
 blurry O
 results O
 . O
+
 Nonetheless O
 , O
 an O
@@ -19531,6 +20491,7 @@ or O
 quaternion O
 number O
 . O
+
 Image B-Method
 captioning I-Method
 model I-Method
@@ -19544,13 +20505,16 @@ of O
 Other O
 type O
 . O
+
 subsection O
 : O
 Baselines O
 and O
 evaluation O
 methods O
+
 where O
+
 ELU B-Method
 networks I-Method
 are O
@@ -19585,6 +20549,7 @@ or O
 model B-Method
 averaging I-Method
 . O
+
 Specifically O
 , O
 two O
@@ -19600,15 +20565,18 @@ noise O
 level O
 of O
 . O
+
 subsection O
 : O
 Statistics O
+
 / O
 bib O
 - O
 bengio O
 , O
 .. O
+
 leverage O
 prior O
 information O
@@ -19627,6 +20595,7 @@ linear O
 blur O
 kernels O
 . O
+
 The O
 problem O
 of O
@@ -19667,6 +20636,7 @@ nearest I-Task
 neighbor I-Task
 search I-Task
 . O
+
 Each O
 cycle O
 consists O
@@ -19695,6 +20665,7 @@ after O
 each O
 step O
 . O
+
 We O
 train O
 our O
@@ -19730,6 +20701,7 @@ and O
 105 O
 epochs O
 . O
+
 Our O
 formulation O
 combines O
@@ -19748,6 +20720,7 @@ one O
 unified O
 framework O
 . O
+
 Hence O
 empirically O
 , O
@@ -19764,6 +20737,7 @@ and O
 answer O
 ’ O
 . O
+
 look O
 ’ O
 ’ O
@@ -19782,6 +20756,7 @@ may O
 be O
 lost O
 . O
+
 ( O
 2 O
 ) O
@@ -19808,6 +20783,7 @@ and O
 reinforcement B-Task
 learning I-Task
 ? O
+
 Each O
 row O
 of O
@@ -19837,6 +20813,7 @@ is O
 systematically O
 explored O
 . O
+
 Instead O
 of O
 using O
@@ -19880,6 +20857,7 @@ extreme O
 scale O
 change O
 . O
+
 The O
 loss O
 we O
@@ -19920,6 +20898,7 @@ to O
 encourage O
 exploration B-Task
 . O
+
 Model O
 ( O
 % O
@@ -19930,6 +20909,7 @@ AngleError O
 47.33 O
 ) O
 73.7 O
+
 paragraph O
 : O
 Within B-Method
@@ -19937,6 +20917,7 @@ Within B-Method
 Layer I-Method
 Link I-Method
 Detection I-Method
+
 The O
 network O
 that O
@@ -19981,9 +20962,11 @@ the O
 target O
 string O
 . O
+
 Reconstruction B-Metric
 Loss I-Metric
 . O
+
 Recent O
 years O
 have O
@@ -19995,6 +20978,7 @@ the O
 MRC B-Task
 community I-Task
 . O
+
 We O
 hypothesize O
 that O
@@ -20025,6 +21009,7 @@ is O
 too O
 large O
 . O
+
 Based O
 on O
 above O
@@ -20047,10 +21032,12 @@ face B-Task
 verification I-Task
 benchmarks O
 . O
+
 subsection O
 : O
 Problem O
 Description O
+
 We O
 therefore O
 implement O
@@ -20067,6 +21054,7 @@ by O
 reference O
 ] O
 . O
+
 The O
 gradient O
 of O
@@ -20074,6 +21062,7 @@ is O
 given O
 by O
 : O
+
 A O
 k B-Method
 - I-Method
@@ -20104,6 +21093,7 @@ for O
 classification B-Task
 ) O
 . O
+
 [ O
 reference O
 ] O
@@ -20137,6 +21127,7 @@ trees I-Method
 ( O
 GBDT B-Method
 ) O
+
 First O
 , O
 we O
@@ -20172,6 +21163,7 @@ using O
 real O
 images O
 . O
+
 In O
 the O
 area O
@@ -20203,6 +21195,7 @@ of O
 a O
 model O
 . O
+
 Gadat O
 et O
 al O
@@ -20214,6 +21207,7 @@ update B-Method
 rules I-Method
 Eq O
 . O
+
 The O
 third O
 element O
@@ -20240,11 +21234,13 @@ to O
 the O
 analyst O
 . O
+
 section O
 : O
 Feature B-Method
 Pyramid I-Method
 Networks I-Method
+
 After O
 that O
 , O
@@ -20277,6 +21273,7 @@ by O
 IoU B-Metric
 0.5 O
 . O
+
 In O
 this O
 paper O
@@ -20295,6 +21292,7 @@ sources O
 given O
 by O
 . O
+
 We O
 apply O
 our O
@@ -20314,6 +21312,7 @@ for O
 the O
 competition O
 . O
+
 The O
 highlighted O
 words O
@@ -20330,6 +21329,7 @@ by O
 the O
 model O
 . O
+
 To O
 understand O
 the O
@@ -20392,6 +21392,7 @@ the O
 memory O
 cell O
 . O
+
 Therefore O
 the O
 combination O
@@ -20411,6 +21412,7 @@ levels O
 of O
 observation O
 . O
+
 In O
 our O
 opinion O
@@ -20429,6 +21431,7 @@ answer O
 examples O
 alone O
 . O
+
 Consider O
 which O
 is O
@@ -20441,6 +21444,7 @@ on I-Method
 ( I-Method
 ) I-Method
 . O
+
 This O
 initial O
 system O
@@ -20469,6 +21473,7 @@ unsupervised B-Method
 tuning I-Method
 step I-Method
 . O
+
 In O
 many O
 cases O
@@ -20511,6 +21516,7 @@ word O
 concept O
 overlap O
 . O
+
 For O
 , O
 since O
@@ -20518,6 +21524,7 @@ since O
 we O
 have O
 . O
+
 In O
 contrast O
 , O
@@ -20536,6 +21543,7 @@ single B-Method
 stage I-Method
 network I-Method
 . O
+
 Further O
 , O
 by O
@@ -20562,6 +21570,7 @@ answering I-Task
 training I-Task
 sets I-Task
 . O
+
 Our O
 purpose O
 is O
@@ -20575,6 +21584,7 @@ the O
 GCL O
 APIs O
 . O
+
 The O
 Minmax B-Method
 oracle I-Method
@@ -20600,6 +21610,7 @@ aligned O
 bounding O
 box O
 . O
+
 Table O
 6 O
 shows O
@@ -20643,6 +21654,7 @@ and O
 model B-Method
 structure I-Method
 . O
+
 The O
 FLUSH B-Method
 operation I-Method
@@ -20681,16 +21693,19 @@ the O
 next O
 segment O
 . O
+
 subsection O
 : O
 Related O
 work O
+
 section O
 : O
 Extensions O
 : O
 Segmentation B-Task
 Proposals I-Task
+
 ( O
 [ O
 reference O
@@ -20707,6 +21722,7 @@ the O
 input O
 sentence O
 . O
+
 ( O
 10 O
 ) O
@@ -20732,6 +21748,7 @@ the O
 prediction O
 function O
 . O
+
 finally O
 , O
 sec O
@@ -20741,9 +21758,11 @@ concludes O
 the O
 paper O
 . O
+
 section O
 : O
 ABSTRACT O
+
 With O
 a O
 top B-Method
@@ -20794,6 +21813,7 @@ for O
 this O
 layer O
 . O
+
 In O
 Appendix O
 [ O
@@ -20815,12 +21835,14 @@ of O
 repulsive B-Metric
 loss I-Metric
 . O
+
 section O
 : O
 Experiments O
 on O
 Constituency B-Task
 Parsing I-Task
+
 While O
 both O
 the O
@@ -20849,8 +21871,10 @@ much O
 less O
 data O
 . O
+
 Complexity B-Metric
 . O
+
 0.45 O
 0.45 O
 Convnet B-Method
@@ -20876,6 +21900,7 @@ perform O
 as O
 well O
 . O
+
 An O
 alternative O
 approach O
@@ -20915,6 +21940,7 @@ to O
 end O
 fashion O
 . O
+
 We O
 used O
 a O
@@ -20934,6 +21960,7 @@ or O
 patch B-Method
 normalization I-Method
 . O
+
 From O
 the O
 DAQUAR B-Material
@@ -20941,6 +21968,7 @@ result O
 in O
 Tab O
 . O
+
 We O
 use O
 StraightThrough B-Method
@@ -20964,6 +21992,7 @@ the O
 training O
 phase O
 . O
+
 All O
 remaining O
 layers O
@@ -20971,6 +22000,7 @@ are O
 randomly O
 initialized O
 . O
+
 We O
 divided O
 the O
@@ -20985,6 +22015,7 @@ test O
 sets O
 randomly O
 . O
+
 In O
 summary O
 , O
@@ -21089,6 +22120,7 @@ five O
 contemporary O
 datasets O
 . O
+
 The O
 goal O
 of O
@@ -21117,6 +22149,7 @@ in O
 the O
 scene O
 . O
+
 , O
 the O
 answer O
@@ -21142,6 +22175,7 @@ task I-Task
 will O
 be O
 “ O
+
 After O
 downsampling O
 the O
@@ -21157,6 +22191,7 @@ useful O
 local O
 features O
 . O
+
 [ O
 reference O
 ] O
@@ -21179,6 +22214,7 @@ four O
 1080Ti O
 GPUs O
 . O
+
 Some O
 of O
 the O
@@ -21204,6 +22240,7 @@ as O
 Random B-Method
 Forests I-Method
 . O
+
 Under O
 review O
 as O
@@ -21215,6 +22252,7 @@ ICLR O
 2017 O
 LEARNING O
 TO O
+
 [ O
 reference O
 ] O
@@ -21236,6 +22274,7 @@ them O
 ( O
 Fig O
 . O
+
 Compared O
 to O
 the O
@@ -21261,6 +22300,7 @@ easier O
 to O
 evaluate O
 . O
+
 Our O
 baseline B-Method
 SNLI I-Method
@@ -21273,6 +22313,7 @@ model I-Method
 from O
 Chen2017EnhancedLF B-Method
 . O
+
 But O
 the O
 score O
@@ -21290,6 +22331,7 @@ feature B-Method
 generation I-Method
 unit I-Method
 . O
+
 ( O
 Recall O
 that O
@@ -21302,6 +22344,7 @@ semantic O
 classes O
 . O
 ) O
+
 We O
 noticed O
 that O
@@ -21321,16 +22364,19 @@ gradient O
 to O
 vanish O
 . O
+
 Mathieu O
 et O
 al O
 . O
+
 [ O
 reference O
 ] O
 , O
 Eq O
 . O
+
 We O
 did O
 not O
@@ -21353,6 +22399,7 @@ time O
 to O
 help O
 . O
+
 On O
 the O
 other O
@@ -21382,6 +22429,7 @@ regularization I-Method
 ( O
 LSR B-Method
 ) O
+
 subsection O
 : O
 Balancing O
@@ -21390,6 +22438,7 @@ identification O
 and O
 verification B-Task
 signals I-Task
+
 Our O
 method O
 constructs O
@@ -21415,6 +22464,7 @@ frequently O
 observed O
 states O
 . O
+
 However O
 , O
 when O
@@ -21448,6 +22498,7 @@ have O
 correlated O
 entries O
 . O
+
 On O
 close O
 inspection O
@@ -21474,6 +22525,7 @@ history O
 are O
 redundant O
 . O
+
 The O
 Semantic B-Task
 Textual I-Task
@@ -21504,6 +22556,7 @@ and O
 NLI B-Material
 data I-Material
 . O
+
 To O
 investigate O
 the O
@@ -21552,6 +22605,7 @@ Table O
 reference O
 ] O
 . O
+
 While O
 the O
 latter O
@@ -21587,9 +22641,11 @@ the O
 CNN B-Material
 data O
 . O
+
 [ O
 reference O
 ] O
+
 Despite O
 lacking O
 trainable O
@@ -21611,6 +22667,7 @@ same O
 hidden O
 size O
 . O
+
 We O
 have O
 chosen O
@@ -21672,6 +22729,7 @@ and O
 speech B-Task
 recognition I-Task
 . O
+
 We O
 found O
 this O
@@ -21689,6 +22747,7 @@ compared O
 to O
 MSE B-Method
 . O
+
 In O
 detail O
 , O
@@ -21721,6 +22780,7 @@ the O
 probability O
 distributions O
 . O
+
 In O
 what O
 follows O
@@ -21749,6 +22809,7 @@ the O
 graph O
 ) O
 . O
+
 The O
 conditional O
 is O
@@ -21771,6 +22832,7 @@ a O
 neural B-Method
 network I-Method
 . O
+
 We O
 follow O
 a O
@@ -21787,6 +22849,7 @@ in O
 all O
 experiments O
 . O
+
 Although O
 they O
 have O
@@ -21825,6 +22888,7 @@ in O
 model B-Task
 learning I-Task
 . O
+
 For O
 all O
 other O
@@ -21838,6 +22902,7 @@ set O
 to O
 0.2 O
 . O
+
 We O
 train O
 and O
@@ -21865,6 +22930,7 @@ the O
 en_valid_10k O
 split O
 . O
+
 We O
 demonstrate O
 that O
@@ -21896,6 +22962,7 @@ keypoint B-Method
 based I-Method
 methods I-Method
 . O
+
 We O
 introduced O
 multi O
@@ -21914,6 +22981,7 @@ minimal O
 computational B-Metric
 increase I-Metric
 . O
+
 At O
 last O
 , O
@@ -21934,9 +23002,11 @@ on O
 the O
 FC_loc B-Method
 . O
+
 section O
 : O
 Introduction O
+
 AlphaGo B-Method
 Zero I-Method
 estimates O
@@ -21954,6 +23024,7 @@ win O
 loss O
 outcomes O
 . O
+
 However O
 , O
 the O
@@ -21988,9 +23059,11 @@ empty O
 fact O
 descriptions O
 . O
+
 section O
 : O
 Acknowledgment O
+
 Concurrent O
 to O
 this O
@@ -22040,6 +23113,7 @@ typical O
 word B-Method
 embeddings I-Method
 . O
+
 In O
 the O
 thirty O
@@ -22060,6 +23134,7 @@ dozens O
 of O
 media O
 . O
+
 Shi O
 et O
 al O
@@ -22094,6 +23169,7 @@ improve O
 computational B-Metric
 efficiency I-Metric
 . O
+
 This O
 coarse O
 distribution O
@@ -22123,6 +23199,7 @@ in O
 the O
 images O
 . O
+
 Here O
 we O
 take O
@@ -22151,6 +23228,7 @@ calculated O
 according O
 to O
 . O
+
 By O
 optimizing O
 the O
@@ -22163,6 +23241,7 @@ training I-Method
 in O
 Eq O
 . O
+
 A O
 beautiful O
 young O
@@ -22181,6 +23260,7 @@ above O
 the O
 counters O
 . O
+
 By O
 sharing O
 convolutional B-Method
@@ -22242,6 +23322,7 @@ their O
 unique O
 characteristics O
 . O
+
 In O
 addition O
 , O
@@ -22264,6 +23345,7 @@ features O
 by O
 channel O
 . O
+
 Using O
 intrinsic O
 evaluations O
@@ -22330,6 +23412,7 @@ speech I-Task
 tagging I-Task
 ) O
 . O
+
 Regarding O
 the O
 input O
@@ -22351,6 +23434,7 @@ in O
 all O
 models O
 . O
+
 We O
 quantize O
 the O
@@ -22375,6 +23459,7 @@ the O
 quantized O
 embeddings O
 . O
+
 Furthermore O
 , O
 the O
@@ -22411,6 +23496,7 @@ an O
 incorrect O
 determiner O
 . O
+
 In O
 particular O
 , O
@@ -22451,6 +23537,7 @@ our O
 reading B-Method
 architecture I-Method
 . O
+
 In O
 contrast O
 , O
@@ -22467,6 +23554,7 @@ the O
 following O
 reasons O
 . O
+
 We O
 further O
 explore O
@@ -22482,6 +23570,7 @@ a O
 layer I-Method
 ResNet I-Method
 . O
+
 Most O
 of O
 the O
@@ -22505,6 +23594,7 @@ available O
 for O
 several O
 reasons O
+
 The O
 views O
 and O
@@ -22547,6 +23637,7 @@ the O
 U.S. O
 Government O
 . O
+
 S B-Method
 - I-Method
 LSTM I-Method
@@ -22564,6 +23655,7 @@ in O
 the O
 literature O
 . O
+
 For O
 the O
 CNN B-Method
@@ -22588,6 +23680,7 @@ be O
 , O
 respectively O
 . O
+
 At O
 iteration O
 , O
@@ -22628,6 +23721,7 @@ corresponding O
 validation O
 subset O
 . O
+
 Pooling O
 e O
 2 O
@@ -22641,6 +23735,7 @@ a O
 Training O
 curves O
 . O
+
 Ideally O
 we O
 would O
@@ -22658,6 +23753,7 @@ scoring O
 complete O
 sequence O
 . O
+
 CNN B-Method
 + O
 SoftMin O
@@ -22683,6 +23779,7 @@ reference O
 reference O
 ] O
 . O
+
 Approved O
 for O
 public O
@@ -22691,6 +23788,7 @@ release O
 distribution O
 unlimited O
 . O
+
 For O
 example O
 , O
@@ -22716,6 +23814,7 @@ over O
 the O
 baseline O
 . O
+
 = O
 w′ O
 ᵀ O
@@ -22723,6 +23822,7 @@ Wx O
 = O
 wᵀx O
 . O
+
 Figure O
 [ O
 reference O
@@ -22732,9 +23832,11 @@ the O
 generation O
 results O
 . O
+
 section O
 : O
 Introduction O
+
 The O
 new O
 phrase O
@@ -22761,6 +23863,7 @@ of O
 the O
 LSTM B-Method
 “ O
+
 One B-Method
 - I-Method
 stage I-Method
@@ -22776,6 +23879,7 @@ for O
 object B-Task
 detection I-Task
 . O
+
 Many O
 of O
 the O
@@ -22796,6 +23900,7 @@ from O
 MS B-Method
 MARCO I-Method
 . O
+
 Table O
 1 O
 reports O
@@ -22816,6 +23921,7 @@ the O
 Cityscapes B-Material
 dataset O
 . O
+
 We O
 studied O
 the O
@@ -22841,6 +23947,7 @@ of O
 adversarial O
 examples O
 . O
+
 Considering O
 that O
 our O
@@ -22868,6 +23975,7 @@ AT B-Method
 are O
 substantial O
 . O
+
 In O
 addition O
 , O
@@ -22890,6 +23998,7 @@ and O
 bytes O
 ) O
 . O
+
 Also O
 note O
 that O
@@ -22915,6 +24024,7 @@ to O
 facilitate O
 classification B-Task
 . O
+
 In O
 a O
 sense O
@@ -22932,6 +24042,7 @@ for O
 this O
 task O
 . O
+
 Consider O
 the O
 problem O
@@ -22951,6 +24062,7 @@ distribution O
 i.e. O
 , O
 . O
+
 As O
 a O
 result O
@@ -22974,6 +24086,7 @@ the O
 art O
 methods O
 . O
+
 In O
 this O
 paper O
@@ -23023,6 +24136,7 @@ and O
 designing B-Method
 networks I-Method
 . O
+
 The O
 results O
 for O
@@ -23036,6 +24150,7 @@ table O
 reference O
 ] O
 . O
+
 For O
 instance O
 , O
@@ -23053,6 +24168,7 @@ the O
 capsule O
 vector O
 . O
+
 Hence O
 , O
 the O
@@ -23080,6 +24196,7 @@ applying O
 the O
 solution O
 ( O
+
 is O
 the O
 threshold O
@@ -23094,6 +24211,7 @@ prior O
 center O
 points O
 . O
+
 As O
 Newton B-Method
 - I-Method
@@ -23113,6 +24231,7 @@ or O
 Frobenius O
 norm O
 , O
+
 While O
 we O
 would O
@@ -23146,6 +24265,7 @@ real O
 world O
 imagery O
 . O
+
 The O
 level O
 of O
@@ -23187,6 +24307,7 @@ systems I-Method
 reference O
 ] O
 . O
+
 We O
 also O
 observe O
@@ -23205,6 +24326,7 @@ Photo O
 ’ O
 style O
 . O
+
 We O
 adopt O
 as O
@@ -23218,6 +24340,7 @@ predicting O
 their O
 relatedness O
 . O
+
 We O
 use O
 a O
@@ -23228,11 +24351,14 @@ the O
 convolution B-Method
 layer I-Method
 . O
+
 0pt0.5ex0.3ex O
+
 section O
 : O
 Ablation B-Task
 Experiments O
+
 All O
 selected O
 keypoints B-Task
@@ -23243,6 +24369,7 @@ a O
 person O
 instance O
 . O
+
 Furthermore O
 , O
 we O
@@ -23259,6 +24386,7 @@ and O
 spatial O
 resolutions O
 . O
+
 Several O
 methods O
 propose O
@@ -23273,6 +24401,7 @@ on O
 Gaussian O
 noise O
 . O
+
 We O
 train O
 the O
@@ -23293,6 +24422,7 @@ and O
 for O
 SQuAD B-Material
 . O
+
 Furthermore O
 , O
 iSQRT B-Method
@@ -23314,8 +24444,10 @@ and O
 G B-Method
 DeNet I-Method
 . O
+
 Fig O
 . O
+
 We O
 can O
 see O
@@ -23335,6 +24467,7 @@ CNN I-Method
 - I-Method
 4 I-Method
 and O
+
 Similarly O
 , O
 where O
@@ -23356,6 +24489,7 @@ fields O
 in O
 total O
 . O
+
 Recall O
 that O
 we O
@@ -23372,6 +24506,7 @@ game O
 state O
 space O
 . O
+
 Thirdly O
 , O
 labelling B-Task
@@ -23391,6 +24526,7 @@ to O
 be O
 guessed O
 . O
+
 It O
 is O
 required O
@@ -23406,6 +24542,7 @@ and O
 low B-Metric
 latency I-Metric
 . O
+
 The O
 content B-Task
 loss I-Task
@@ -23431,10 +24568,12 @@ to O
 our O
 work O
 . O
+
 subsection O
 : O
 Experiment O
 Settings O
+
 However O
 , O
 the O
@@ -23491,6 +24630,7 @@ and O
 foreground O
 occlusions O
 . O
+
 Some O
 improved O
 methods O
@@ -23519,6 +24659,7 @@ Multi B-Method
 Perspective I-Method
 CNN I-Method
 . O
+
 " O
 are O
 answered O
@@ -23545,6 +24686,7 @@ number O
 ' O
 questions O
 . O
+
 Stanford O
 University O
 demonstrate O
@@ -23567,6 +24709,7 @@ our O
 training O
 data O
 . O
+
 The O
 images O
 and O
@@ -23599,6 +24742,7 @@ the O
 bootstrapping B-Method
 process I-Method
 . O
+
 To O
 monitor O
 the O
@@ -23629,6 +24773,7 @@ the O
 validation O
 images O
 . O
+
 We O
 sort O
 all O
@@ -23655,6 +24800,7 @@ for O
 each O
 update O
 . O
+
 We O
 express O
 this O
@@ -23663,6 +24809,7 @@ adversarial O
 loss O
 as O
 : O
+
 While O
 single B-Method
 - I-Method
@@ -23686,13 +24833,16 @@ too O
 many O
 heads O
 . O
+
 section O
 : O
 Abstract O
+
 Method O
 - O
 related O
 limitations O
+
 The O
 results O
 of O
@@ -23705,6 +24855,7 @@ shown O
 in O
 Fig O
 . O
+
 We O
 compared O
 two O
@@ -23715,6 +24866,7 @@ capturing O
 these O
 images O
 . O
+
 For O
 qualitative B-Task
 analysis I-Task
@@ -23731,6 +24883,7 @@ shown O
 in O
 Fig O
 . O
+
 In O
 Table O
 3 O
@@ -23748,6 +24901,7 @@ different O
 SR B-Task
 methods O
 . O
+
 We O
 also O
 evaluate O
@@ -23761,6 +24915,7 @@ DeepID2 B-Method
 + O
 nets O
 . O
+
 Then O
 , O
 D O
@@ -23789,6 +24944,7 @@ models I-Method
 with O
 ) O
 . O
+
 In O
 this O
 case O
@@ -23813,6 +24969,7 @@ for O
 pose B-Task
 evaluation I-Task
 . O
+
 Backbone B-Method
 - I-Method
 Style I-Method
@@ -23825,6 +24982,7 @@ PSPNet B-Method
 Deeplab O
 v3 O
 . O
+
 On O
 the O
 other O
@@ -23845,6 +25003,7 @@ using O
 either O
 IVs B-Method
 . O
+
 The O
 results O
 by O
@@ -23857,6 +25016,7 @@ shown O
 in O
 Fig O
 . O
+
 Its O
 success O
 in O
@@ -23889,6 +25049,7 @@ language B-Task
 modeling I-Task
 bowman2015generating O
 . O
+
 Based O
 on O
 the O
@@ -23911,6 +25072,7 @@ the O
 same O
 results O
 . O
+
 Increasing O
 the O
 field O
@@ -23924,6 +25086,7 @@ to O
 improve O
 performance O
 . O
+
 Our O
 main O
 goal O
@@ -23950,6 +25113,7 @@ encoded O
 by O
 graphs O
 . O
+
 In O
 particular O
 , O
@@ -23984,6 +25148,7 @@ exactly O
 the O
 same O
 . O
+
 Or O
 equivalently O
 , O
@@ -24012,6 +25177,7 @@ interleaving O
 the O
 outputs O
 . O
+
 This O
 is O
 achieved O
@@ -24032,11 +25198,13 @@ term O
 of O
 eqn O
 . O
+
 subsection O
 : O
 Effect O
 on O
 features O
+
 Deeper B-Method
 VGG I-Method
 architecture I-Method
@@ -24048,6 +25216,7 @@ reaching O
 % O
 PCK B-Metric
 . O
+
 Finally O
 , O
 this O
@@ -24063,6 +25232,7 @@ for O
 emotion B-Task
 classification I-Task
 . O
+
 However O
 , O
 noticing O
@@ -24104,6 +25274,7 @@ the O
 sequence O
 length O
 . O
+
 There O
 are O
 also O
@@ -24142,6 +25313,7 @@ sophisticated O
 gated B-Method
 architecture I-Method
 . O
+
 Each O
 part O
 is O
@@ -24156,6 +25328,7 @@ original O
 pedestrian O
 image O
 . O
+
 These O
 methods O
 either O
@@ -24248,6 +25421,7 @@ reference O
 reference O
 ] O
 , O
+
 - O
 gram O
 exact O
@@ -24271,6 +25445,7 @@ text O
 surrounding O
 entity O
 . O
+
 Sharing O
 parameters O
 between O
@@ -24288,6 +25463,7 @@ multi B-Task
 task I-Task
 learning I-Task
 . O
+
 Similarly O
 to O
 the O
@@ -24304,6 +25480,7 @@ a O
 target O
 word O
 . O
+
 Table O
 [ O
 reference O
@@ -24312,6 +25489,7 @@ is O
 a O
 summary O
 . O
+
 subsubsection O
 : O
 Multi B-Method
@@ -24323,6 +25501,7 @@ Tuning I-Method
 and O
 Model B-Method
 Assembling I-Method
+
 Further O
 evaluation O
 on O
@@ -24340,6 +25519,7 @@ constitutes O
 future O
 work O
 . O
+
 We O
 process O
 the O
@@ -24356,6 +25536,7 @@ procedure O
 introduced O
 in O
 . O
+
 The O
 key O
 insight O
@@ -24389,6 +25570,7 @@ heuristic B-Method
 parameter I-Method
 tuning I-Method
 . O
+
 CCPM B-Method
 has O
 1 O
@@ -24414,6 +25596,7 @@ in O
 total O
 ) O
 . O
+
 In O
 contrast O
 to O
@@ -24465,6 +25648,7 @@ unified B-Method
 deep I-Method
 network I-Method
 . O
+
 For O
 localization B-Task
 , O
@@ -24488,6 +25672,7 @@ to O
 improve O
 performance O
 . O
+
 Full B-Method
 - I-Method
 Resolution I-Method
@@ -24499,6 +25684,7 @@ Segmentation I-Task
 in O
 Street O
 Scenes O
+
 Good O
 initialization B-Method
 can O
@@ -24510,6 +25696,7 @@ glorot2010understanding O
 , O
 mishkin2015all O
 . O
+
 section O
 : O
 A O
@@ -24523,6 +25710,7 @@ Stack O
 of O
 CNN B-Method
 Layers O
+
 Interestingly O
 , O
 despite O
@@ -24542,6 +25730,7 @@ VGG B-Method
 - I-Method
 16 I-Method
 . O
+
 To O
 the O
 best O
@@ -24577,6 +25766,7 @@ to O
 Gabor B-Method
 wavelets I-Method
 . O
+
 We O
 want O
 to O
@@ -24590,6 +25780,7 @@ all O
 the O
 relations O
 . O
+
 Due O
 to O
 these O
@@ -24617,14 +25808,18 @@ voting I-Task
 , O
 etc O
 . O
+
 section O
 : O
 Conclusions O
+
 Fig O
 . O
+
 GRAPH B-Method
 ATTENTION I-Method
 NETWORKS I-Method
+
 This O
 is O
 particularly O
@@ -24639,6 +25834,7 @@ Figure O
 3a O
 ) O
 . O
+
 We O
 found O
 that O
@@ -24651,6 +25847,7 @@ easy O
 to O
 train O
 . O
+
 As O
 could O
 be O
@@ -24669,6 +25866,7 @@ a O
 walk B-Method
 mode I-Method
 . O
+
 Generate O
 a O
 sequence O
@@ -24680,6 +25878,7 @@ y1 O
 . O
 . O
 . O
+
 Networks O
 in O
 a O
@@ -24695,8 +25894,10 @@ by O
 - O
 one O
 . O
+
 NUS18 B-Method
 : O
+
 Our O
 understanding O
 is O
@@ -24714,6 +25915,7 @@ of O
 training O
 data O
 . O
+
 Larger O
 strides O
 imply O
@@ -24722,6 +25924,7 @@ neurons O
 per O
 bank O
 . O
+
 Theorem O
 [ O
 reference O
@@ -24759,16 +25962,19 @@ the O
 training B-Metric
 complexity I-Metric
 . O
+
 section O
 : O
 Scaling O
 Up O
 GANs B-Task
+
 [ O
 D O
 E O
 F O
 ] O
+
 [ O
 reference O
 ] O
@@ -24783,6 +25989,7 @@ to O
 some O
 attributes O
 . O
+
 In O
 this O
 section O
@@ -24808,8 +26015,10 @@ experiments O
 see O
 Sec O
 . O
+
 Fig O
 . O
+
 To O
 test O
 this O
@@ -24833,6 +26042,7 @@ inner O
 layer O
 width O
 . O
+
 We O
 train O
 our O
@@ -24845,6 +26055,7 @@ with O
 batch O
 size O
 . O
+
 Most O
 computer B-Method
 vision I-Method
@@ -24870,6 +26081,7 @@ as O
 Residual B-Method
 networks I-Method
 . O
+
 Self B-Method
 - I-Method
 attention I-Method
@@ -24906,9 +26118,11 @@ paulus2017deep O
 , O
 lin2017structured O
 . O
+
 section O
 : O
 Experiments O
+
 fine O
 - O
 tune O
@@ -24917,6 +26131,7 @@ conv2 I-Method
 and O
 up O
 . O
+
 Having O
 established O
 that O
@@ -24951,6 +26166,7 @@ that O
 are O
 learned O
 . O
+
 To O
 achieve O
 this O
@@ -24974,10 +26190,13 @@ domain O
 label O
 , O
 . O
+
 Eq O
 . O
+
 Baselines O
 . O
+
 Gadat O
 et O
 al O
@@ -25016,6 +26235,7 @@ rules I-Method
 of O
 Adam B-Method
 . O
+
 This O
 general O
 definition O
@@ -25028,6 +26248,7 @@ the O
 margin O
 function O
 . O
+
 A O
 max B-Method
 pooling I-Method
@@ -25051,6 +26272,7 @@ VGG B-Method
 - I-Method
 16 I-Method
 . O
+
 Dropout O
 of O
 0.3 O
@@ -25065,6 +26287,7 @@ used O
 regularization B-Method
 of I-Method
 . O
+
 We O
 report O
 experiments O
@@ -25090,6 +26313,7 @@ distinction O
 is O
 made O
 . O
+
 Runtime B-Metric
 comparison O
 between O
@@ -25109,6 +26333,7 @@ CNN I-Method
 and O
 SPPnet B-Method
 . O
+
 : O
 the O
 inverse O
@@ -25119,9 +26344,11 @@ mapping O
 from O
 to O
 . O
+
 [ O
 reference O
 ] O
+
 Instead O
 of O
 using O
@@ -25139,6 +26366,7 @@ of O
 complex B-Method
 embeddings I-Method
 . O
+
 This O
 is O
 because O
@@ -25155,6 +26383,7 @@ equivalent O
 shallow O
 GMM B-Method
 . O
+
 For O
 word B-Task
 - I-Task
@@ -25183,6 +26412,7 @@ dimensional O
 vector O
 space O
 . O
+
 Fourth O
 , O
 we O
@@ -25215,6 +26445,7 @@ networks O
 or O
 parameters O
 . O
+
 The O
 SVHN B-Material
 dataset O
@@ -25230,6 +26461,7 @@ K O
 test O
 points O
 . O
+
 blue!80!black!80 O
 to O
 [ O
@@ -25237,8 +26469,10 @@ out=180 O
 , O
 in=60 O
 ] O
+
 1497–1501 O
 . O
+
 Here O
 we O
 define O
@@ -25272,6 +26506,7 @@ section O
 reference O
 ] O
 . O
+
 We O
 fine O
 - O
@@ -25282,10 +26517,12 @@ parameters O
 during O
 training O
 . O
+
 [ O
 t O
 ] O
 0.26 O
+
 It O
 also O
 shows O
@@ -25300,10 +26537,12 @@ versus O
 LSTM B-Method
 models O
 . O
+
 Human B-Task
 pose I-Task
 estimation I-Task
 . O
+
 Fundamentally O
 , O
 we O
@@ -25326,6 +26565,7 @@ based I-Method
 reinforcement I-Method
 learning I-Method
 . O
+
 Typically O
 in O
 pose B-Task
@@ -25353,6 +26593,7 @@ position O
 , O
 e.g. O
 . O
+
 A O
 3D B-Method
 deconvolutional I-Method
@@ -25381,6 +26622,7 @@ into O
 a O
 voxel O
 . O
+
 Albeit O
 simple O
 , O
@@ -25415,6 +26657,7 @@ GAN B-Method
 generated O
 data O
 . O
+
 Our O
 method O
 achieves O
@@ -25431,6 +26674,7 @@ on O
 both O
 datasets O
 . O
+
 Let O
 us O
 define O
@@ -25449,12 +26693,14 @@ given O
 input O
 as O
 . O
+
 Stopher O
 , O
 Clifford O
 et O
 al O
 . O
+
 It O
 is O
 surprising O
@@ -25475,6 +26721,7 @@ responses O
 are O
 binarized O
 . O
+
 In O
 fact O
 , O
@@ -25485,8 +26732,10 @@ architecture O
 in O
 Fig O
 . O
+
 * O
 , O
+
 For O
 the O
 evaluation O
@@ -25532,6 +26781,7 @@ network O
 without O
 quantization B-Method
 . O
+
 These O
 results O
 indicate O
@@ -25557,6 +26807,7 @@ the O
 training O
 data O
 . O
+
 This O
 paper O
 is O
@@ -25572,6 +26823,7 @@ of O
 face O
 images O
 . O
+
 The O
 probability B-Method
 estimates I-Method
@@ -25601,6 +26853,7 @@ in O
 the O
 probability O
 estimates O
+
 We O
 evaluate O
 the O
@@ -25614,6 +26867,7 @@ question B-Task
 classification I-Task
 tasks I-Task
 . O
+
 More O
 specifically O
 , O
@@ -25668,6 +26922,7 @@ took O
 4.46 O
 ms O
 . O
+
 This O
 layer O
 contains O
@@ -25678,6 +26933,7 @@ filters O
 of O
 size O
 . O
+
 By O
 analogous O
 arguments O
@@ -25699,6 +26955,7 @@ represented O
 in O
 space B-Metric
 . O
+
 appendix O
 : O
 Additional O
@@ -25706,6 +26963,7 @@ Details O
 on O
 Network O
 Configurations O
+
 Keypoint B-Task
 - I-Task
 based I-Task
@@ -25728,6 +26986,7 @@ grouping O
 their O
 keypoints O
 . O
+
 We O
 thank O
 the O
@@ -25746,6 +27005,7 @@ comments O
 and O
 discussions O
 . O
+
 Santhanam O
 et O
 al O
@@ -25773,6 +27033,7 @@ to I-Task
 image I-Task
 regression I-Task
 . O
+
 It O
 can O
 be O
@@ -25819,6 +27080,7 @@ a O
 large O
 margin O
 . O
+
 [ O
 reference O
 ] O
@@ -25829,6 +27091,7 @@ pre B-Method
 normalization I-Method
 methods I-Method
 . O
+
 subsection O
 : O
 Dataset O
@@ -25837,9 +27100,11 @@ Setup O
 for O
 Document B-Task
 Modelling I-Task
+
 subsection O
 : O
 Settings O
+
 We O
 found O
 that O
@@ -25881,6 +27146,7 @@ any O
 specific O
 tuning O
 . O
+
 For O
 example O
 , O
@@ -25909,6 +27175,7 @@ MCMC B-Method
 ) O
 methods O
 . O
+
 The O
 authors O
 used O
@@ -25932,6 +27199,7 @@ fully B-Method
 connected I-Method
 CRFs I-Method
 . O
+
 The O
 closer O
 the O
@@ -25953,6 +27221,7 @@ by I-Metric
 query I-Metric
 performance I-Metric
 . O
+
 Target O
 node O
 ; O
@@ -25985,6 +27254,7 @@ maximum O
 PUCT O
 value O
 : O
+
 ( O
 aa B-Method
 ) O
@@ -25995,6 +27265,7 @@ latex O
 , O
 thick O
 ] O
+
 section O
 : O
 The O
@@ -26005,6 +27276,7 @@ Transformer I-Method
 ( O
 NAT B-Method
 ) O
+
 We O
 select O
 the O
@@ -26023,6 +27295,7 @@ the O
 word O
 vocabulary O
 . O
+
 While O
 these O
 models O
@@ -26054,6 +27327,7 @@ very O
 large O
 datasets O
 . O
+
 Thus O
 the O
 nonlinear B-Method
@@ -26069,6 +27343,7 @@ the O
 learning B-Method
 process I-Method
 . O
+
 The O
 reformulation O
 in O
@@ -26129,6 +27404,7 @@ to O
 be O
 investigated O
 . O
+
 In O
 particular O
 for O
@@ -26171,6 +27447,7 @@ have O
 superior O
 performance O
 . O
+
 The O
 test O
 results O
@@ -26184,6 +27461,7 @@ Table O
 reference O
 ] O
 . O
+
 Table O
 [ O
 reference O
@@ -26194,9 +27472,11 @@ POS B-Task
 tagging I-Task
 results O
 . O
+
 section O
 : O
 Background O
+
 The O
 proposed O
 training B-Method
@@ -26222,6 +27502,7 @@ to O
 test B-Task
 generation I-Task
 . O
+
 BSO B-Method
 and O
 ConBSO B-Method
@@ -26246,6 +27527,7 @@ most O
 on O
 LAS B-Task
 . O
+
 This O
 is O
 a O
@@ -26263,6 +27545,7 @@ language B-Task
 understanding I-Task
 tasks I-Task
 . O
+
 Despite O
 DC B-Method
 Flow I-Method
@@ -26297,6 +27580,7 @@ in O
 many O
 applications O
 . O
+
 Obviously O
 the O
 displayed O
@@ -26312,6 +27596,7 @@ of O
 this O
 mother O
 . O
+
 Therefore O
 , O
 our O
@@ -26346,6 +27631,7 @@ keypoint O
 indicator O
 function O
 . O
+
 Let O
 be O
 the O
@@ -26365,6 +27651,7 @@ to O
 - O
 one O
 . O
+
 Under O
 above O
 assumptions O
@@ -26383,6 +27670,7 @@ a.s O
 . O
 ) O
 . O
+
 The O
 generators O
 in O
@@ -26397,6 +27685,7 @@ added O
 noise O
 vectors O
 . O
+
 Given O
 a O
 face O
@@ -26436,6 +27725,7 @@ weakly B-Task
 supervised I-Task
 step I-Task
 . O
+
 We O
 elaborately O
 conduct O
@@ -26455,9 +27745,11 @@ of O
 our O
 method O
 . O
+
 ( O
 2 O
 ) O
+
 We O
 train O
 our O
@@ -26478,10 +27770,12 @@ to O
 per O
 GPU O
 . O
+
 paragraph O
 : O
 Textual O
 entailment O
+
 In O
 this O
 work O
@@ -26498,6 +27792,7 @@ InPlace B-Task
 - I-Task
 ABN I-Task
 ) O
+
 Inspired O
 by O
 , O
@@ -26533,6 +27828,7 @@ sentiment O
 resources O
 attention O
 . O
+
 The O
 overall O
 algorithm O
@@ -26544,10 +27840,12 @@ Figure O
 reference O
 ] O
 . O
+
 paragraph O
 : O
 Gradient B-Method
 Descent I-Method
+
 The O
 training B-Metric
 objective I-Metric
@@ -26561,6 +27859,7 @@ Eq O
 . O
 6 O
 . O
+
 To O
 better O
 utilize O
@@ -26590,6 +27889,7 @@ final O
 pedestrian B-Method
 representation I-Method
 . O
+
 Similarly O
 to O
 bimodal B-Method
@@ -26636,6 +27936,7 @@ trimodal O
 feature O
 vector O
 . O
+
 Interestingly O
 , O
 similarly O
@@ -26645,6 +27946,7 @@ He O
 et O
 al O
 . O
+
 As O
 a O
 summary O
@@ -26719,6 +28021,7 @@ with O
 L2 B-Method
 regularisation I-Method
 . O
+
 Some O
 insight O
 into O
@@ -26740,6 +28043,7 @@ Zeiler O
 et O
 al O
 . O
+
 δ O
 is O
 a O
@@ -26753,6 +28057,7 @@ the O
 rescale O
 activation O
 . O
+
 The O
 memory O
 access O
@@ -26784,12 +28089,14 @@ each O
 hop O
 , O
 . O
+
 subsection O
 : O
 Key O
 - O
 Value O
 Memories O
+
 For O
 example O
 , O
@@ -26835,9 +28142,11 @@ corrects O
 the O
 mistake O
 . O
+
 section O
 : O
 Conclusion O
+
 See O
 the O
 implementation O
@@ -26854,6 +28163,7 @@ for O
 an O
 example O
 . O
+
 We O
 start O
 with O
@@ -26887,6 +28197,7 @@ new O
 3D B-Method
 model I-Method
 . O
+
 section O
 : O
 Can O
@@ -26896,6 +28207,7 @@ to O
 new O
 domains O
 ? O
+
 This O
 mimics O
 the O
@@ -26920,6 +28232,7 @@ bahdanau2014neural B-Method
 , O
 JonasFaceNet2017 B-Method
 . O
+
 The O
 result O
 indicates O
@@ -26947,6 +28260,7 @@ environmental O
 differences O
 exist O
 . O
+
 That O
 is O
 , O
@@ -26984,6 +28298,7 @@ than O
 the O
 margin O
 . O
+
 In O
 our O
 work O
@@ -27009,12 +28324,14 @@ Gumbel B-Method
 softmax I-Method
 trick I-Method
 . O
+
 There O
 are O
 a O
 few O
 differences O
 . O
+
 kim O
 proposed O
 a O
@@ -27032,6 +28349,7 @@ size O
 ) O
 and O
 two O
+
 subsection O
 : O
 Model O
@@ -27043,6 +28361,7 @@ and O
 WikiText B-Material
 - I-Material
 2 I-Material
+
 We O
 extract O
 features O
@@ -27068,8 +28387,10 @@ to O
 the O
 keypoint O
 . O
+
 = O
 0 O
+
 This O
 dataset O
 is O
@@ -27081,6 +28402,7 @@ Appendix O
 reference O
 ] O
 . O
+
 In O
 recent O
 years O
@@ -27099,6 +28421,7 @@ transformation O
 14 O
 ] O
 . O
+
 GAN B-Method
 , O
 description O
@@ -27108,6 +28431,7 @@ GenerativeAdversarialNetwork O
 first= O
 GAN B-Method
 ( O
+
 In O
 this O
 manner O
@@ -27122,6 +28446,7 @@ can O
 be O
 generated O
 . O
+
 We O
 propose O
 to O
@@ -27148,6 +28473,7 @@ Mikolajczyk O
 and O
 Matas O
 . O
+
 The O
 first O
 uses O
@@ -27172,10 +28498,12 @@ tracking I-Task
 e.g. O
 ) O
 . O
+
 subsection O
 : O
 Classification B-Task
 results O
+
 We O
 next O
 discuss O
@@ -27185,6 +28513,7 @@ of O
 this O
 process O
 . O
+
 The O
 convolutional B-Method
 layers I-Method
@@ -27211,6 +28540,7 @@ size O
 3 O
 3 O
 . O
+
 Thus O
 , O
 Therefore O
@@ -27223,6 +28553,7 @@ small O
 , O
 we O
 have O
+
 In O
 this O
 work O
@@ -27243,6 +28574,7 @@ Cost I-Method
 WPDC B-Method
 ) O
 . O
+
 found O
 that O
 a O
@@ -27260,6 +28592,7 @@ the O
 source O
 text O
 . O
+
 R B-Method
 - I-Method
 CNN I-Method
@@ -27286,6 +28619,7 @@ box I-Method
 regression I-Method
 ) O
 . O
+
 The O
 effect O
 is O
@@ -27316,6 +28650,7 @@ single O
 cleaner O
 annotation B-Task
 . O
+
 The O
 system O
 is O
@@ -27339,6 +28674,7 @@ gradient B-Method
 based I-Method
 optimization I-Method
 . O
+
 Table O
 [ O
 reference O
@@ -27351,6 +28687,7 @@ of O
 this O
 phenomenon O
 . O
+
 The O
 image B-Metric
 super I-Metric
@@ -27378,6 +28715,7 @@ Table O
 reference O
 ] O
 . O
+
 The O
 rescored O
 N O
@@ -27403,6 +28741,7 @@ nbest I-Method
 rover I-Method
 tool I-Method
 . O
+
 Using O
 the O
 mask O
@@ -27419,10 +28758,12 @@ a O
 single O
 equation O
 : O
+
 section O
 : O
 Qualitative B-Task
 Analysis I-Task
+
 Our O
 method O
 is O
@@ -27431,6 +28772,7 @@ simpler O
 and O
 faster O
 . O
+
 By O
 using O
 attention O
@@ -27452,6 +28794,7 @@ RNNs B-Method
 for O
 NMT B-Task
 . O
+
 [ O
 reference O
 ] O
@@ -27481,6 +28824,7 @@ reID I-Material
 , O
 respectively O
 . O
+
 The O
 most O
 popular O
@@ -27575,6 +28919,7 @@ of O
 various O
 length O
 . O
+
 In O
 this O
 paper O
@@ -27590,9 +28935,11 @@ for O
 face B-Task
 detection I-Task
 . O
+
 section O
 : O
 Experiments O
+
 However O
 , O
 historians O
@@ -27607,6 +28954,7 @@ refused O
 to O
 evacuate O
 … O
+
 Although O
 the O
 number O
@@ -27640,6 +28988,7 @@ using O
 normal B-Method
 embeddings I-Method
 . O
+
 DeepID2 B-Method
 + I-Method
 and O
@@ -27665,6 +29014,7 @@ identification B-Task
 and O
 verification B-Task
 . O
+
 The O
 entire O
 network O
@@ -27716,6 +29066,7 @@ enforces O
 geometry O
 constraint O
 . O
+
 While O
 sub B-Method
 - I-Method
@@ -27751,11 +29102,13 @@ incorporate O
 such O
 representations O
 . O
+
 and O
 Microsoft B-Material
 COCO I-Material
 dataset I-Material
 . O
+
 The O
 context O
 provided O
@@ -27767,6 +29120,7 @@ a O
 sequential B-Method
 one O
 . O
+
 Simply O
 comparing O
 the O
@@ -27787,6 +29141,7 @@ perfectly O
 realistic O
 outputs O
 . O
+
 Our O
 results O
 indicate O
@@ -27815,6 +29170,7 @@ of I-Task
 neural I-Task
 networks I-Task
 . O
+
 We O
 observed O
 that O
@@ -27839,7 +29195,9 @@ is O
 used O
 . O
 except O
+
 1 O
+
 In O
 Table O
 [ O
@@ -27886,14 +29244,17 @@ to O
 group O
 pixels O
 . O
+
 As O
 illustrated O
 in O
 Fig O
 . O
+
 section O
 : O
 Experiments O
+
 We O
 hypothesize O
 that O
@@ -27921,6 +29282,7 @@ fusion O
 of O
 modalities O
 . O
+
 The O
 results O
 are O
@@ -27929,6 +29291,7 @@ in O
 Table O
 3 O
 . O
+
 We O
 take O
 to O
@@ -27939,6 +29302,7 @@ sentence O
 level O
 BLEU B-Metric
 . O
+
 In O
 this O
 section O
@@ -27961,6 +29325,7 @@ function B-Task
 approximation I-Task
 setting I-Task
 . O
+
 Third O
 , O
 we O
@@ -27988,6 +29353,7 @@ to O
 maximize O
 quality B-Metric
 . O
+
 In O
 this O
 paradigm O
@@ -28002,6 +29368,7 @@ arriving O
 final O
 phase O
 . O
+
 In O
 particular O
 , O
@@ -28024,6 +29391,7 @@ with O
 a O
 slope O
 . O
+
 For O
 CIFAR O
 and O
@@ -28057,6 +29425,7 @@ applied O
 after O
 each O
 . O
+
 Other O
 losses O
 which O
@@ -28077,6 +29446,7 @@ were O
 proposed O
 in O
 . O
+
 The O
 experiments O
 that O
@@ -28086,6 +29456,7 @@ use O
 of O
 both O
 . O
+
 [ O
 reference O
 ] O
@@ -28102,6 +29473,7 @@ f O
 ) O
 ) O
 . O
+
 We O
 suspect O
 that O
@@ -28115,6 +29487,7 @@ an O
 asymmetric O
 relation O
 . O
+
 It O
 demonstrates O
 that O
@@ -28157,6 +29530,7 @@ the O
 pedestrian O
 instances O
 . O
+
 Thereafter O
 , O
 we O
@@ -28171,6 +29545,7 @@ person B-Task
 detection I-Task
 subnet O
 . O
+
 In O
 case O
 of O
@@ -28191,10 +29566,12 @@ the O
 top O
 gradient O
 . O
+
 n02097209 O
 , O
 n02097298 O
 , O
+
 Feats2s B-Method
 have O
 utilized O
@@ -28215,6 +29592,7 @@ data O
 - O
 driven O
 . O
+
 When O
 applied O
 alone O
@@ -28231,15 +29609,18 @@ other O
 two O
 methods O
 . O
+
 section O
 : O
 B. O
 Further O
 qualitative O
 results O
+
 section O
 : O
 Appendix O
+
 Thus O
 , O
 the O
@@ -28251,6 +29632,7 @@ is O
 ( O
 ) O
 . O
+
 match O
 the O
 passage O
@@ -28269,6 +29651,7 @@ normalizing B-Method
 probability I-Method
 distributions I-Method
 . O
+
 [ O
 reference O
 ] O
@@ -28276,6 +29659,7 @@ for O
 graphical O
 illustration O
 . O
+
 CNN O
 - O
 based O
@@ -28290,6 +29674,7 @@ networks I-Method
 FCNs B-Method
 ) O
 . O
+
 Function B-Method
 approximation I-Method
 methods I-Method
@@ -28306,6 +29691,7 @@ parameterised B-Method
 functional I-Method
 form I-Method
 . O
+
 [ O
 reference O
 ] O
@@ -28352,10 +29738,12 @@ method I-Method
 ( O
 HeatDist B-Method
 ) O
+
 section O
 : O
 Related O
 Work O
+
 The O
 error B-Metric
 rate I-Metric
@@ -28403,18 +29791,21 @@ open O
 ended O
 conversations O
 . O
+
 Results O
 are O
 shown O
 in O
 Fig O
 . O
+
 section O
 : O
 Quantitative B-Metric
 and I-Metric
 qualitative I-Metric
 evaluation I-Metric
+
 In O
 this O
 work O
@@ -28459,6 +29850,7 @@ time O
 performance O
 gains O
 . O
+
 The O
 PixelCNN B-Method
 has O
@@ -28466,6 +29858,7 @@ has O
 layers O
 and O
 . O
+
 — O
 times O
 more O
@@ -28475,6 +29868,7 @@ in O
 our O
 networks O
 . O
+
 The O
 BigGAN B-Method
 - I-Method
@@ -28493,10 +29887,12 @@ in O
 several O
 aspects O
 . O
+
 section O
 : O
 Related O
 work O
+
 [ O
 reference O
 ] O
@@ -28539,6 +29935,7 @@ structures I-Task
 in O
 MRI O
 . O
+
 For O
 other O
 tasks O
@@ -28561,6 +29958,7 @@ on O
 the O
 weights O
 . O
+
 • O
 additional O
 set O
@@ -28574,6 +29972,7 @@ the O
 virtual O
 adversarial O
 examples O
+
 The O
 pooling B-Method
 component I-Method
@@ -28598,6 +29997,7 @@ and O
 feature O
 dimensions O
 . O
+
 The O
 basic O
 schedule O
@@ -28613,6 +30013,7 @@ some O
 minor O
 changes O
 . O
+
 This O
 design O
 leads O
@@ -28633,6 +30034,7 @@ for O
 flow B-Task
 inference I-Task
 . O
+
 Recurrent B-Method
 steps I-Method
 are O
@@ -28658,6 +30060,7 @@ sequence O
 of O
 words O
 . O
+
 Similarly O
 , O
 Zhang O
@@ -28678,6 +30081,7 @@ Networks I-Method
 CFAN B-Method
 ) I-Method
 . O
+
 The O
 setup O
 of O
@@ -28723,6 +30127,7 @@ following O
 feature B-Method
 templates I-Method
 : O
+
 The O
 parameter O
 vector O
@@ -28745,6 +30150,7 @@ output O
 embedding O
 dimension O
 . O
+
 The O
 TwoPathCNN B-Method
 * I-Method
@@ -28762,10 +30168,12 @@ the O
 - O
 art O
 . O
+
 subsection O
 : O
 Evaluation B-Metric
 Metrics I-Metric
+
 The O
 main O
 drawback O
@@ -28789,6 +30197,7 @@ performed O
 many O
 times O
 . O
+
 Video O
 example O
 can O
@@ -28797,6 +30206,7 @@ accessed O
 through O
 link O
 . O
+
 We O
 report O
 similar O
@@ -28823,6 +30233,7 @@ after O
 fine B-Method
 tuning I-Method
 . O
+
 Neural B-Task
 Text I-Task
 Generation I-Task
@@ -28835,6 +30246,7 @@ to O
 the O
 Biography O
 Domain O
+
 Rather O
 , O
 this O
@@ -28882,8 +30294,10 @@ in O
 the O
 source O
 . O
+
 Fig O
 . O
+
 Learning B-Task
 on I-Task
 graphs I-Task
@@ -28922,6 +30336,7 @@ and O
 computer B-Task
 vision I-Task
 . O
+
 In O
 practice O
 , O
@@ -28945,6 +30360,7 @@ be O
 further O
 considered O
 . O
+
 WSABIE B-Method
 uses O
 images O
@@ -28971,12 +30387,14 @@ different O
 data O
 modalities O
 . O
+
 addressref O
 = O
 aff1 O
 , O
 corref O
 = O
+
 This O
 situation O
 is O
@@ -29023,6 +30441,7 @@ in O
 this O
 domain O
 . O
+
 The O
 results O
 ( O
@@ -29040,6 +30459,7 @@ by O
 0.5 O
 BLEU B-Metric
 . O
+
 In O
 this O
 paper O
@@ -29064,6 +30484,7 @@ a O
 CNN B-Method
 framework I-Method
 . O
+
 Sometimes O
 I O
 think O
@@ -29088,6 +30509,7 @@ she O
 said O
 . O
 ' O
+
 To O
 ensure O
 that O
@@ -29125,6 +30547,7 @@ record O
 an O
 utterance O
 . O
+
 At O
 extreme O
 scales O
@@ -29148,6 +30571,7 @@ in O
 the O
 image O
 ! O
+
 Furthermore O
 , O
 when O
@@ -29169,9 +30593,11 @@ identification I-Task
 and O
 disambiguation B-Task
 . O
+
 section O
 : O
 Approach O
+
 We O
 investigate O
 conditional B-Method
@@ -29192,6 +30618,7 @@ image I-Task
 translation I-Task
 problems I-Task
 . O
+
 The O
 motivations O
 of O
@@ -29205,6 +30632,7 @@ of O
 four O
 folds O
 . O
+
 The O
 learning B-Metric
 rate I-Metric
@@ -29218,6 +30646,7 @@ after O
 K O
 iterations O
 . O
+
 The O
 first O
 , O
@@ -29240,6 +30669,7 @@ multi I-Task
 - I-Task
 modal I-Task
 images I-Task
+
 Face B-Task
 detection I-Task
 [ O
@@ -29264,6 +30694,7 @@ two O
 stage B-Method
 methods I-Method
 . O
+
 Unlike O
 deep B-Method
 RNNs I-Method
@@ -29287,6 +30718,7 @@ under O
 general O
 conditions O
 . O
+
 Global B-Method
 covariance I-Method
 pooling I-Method
@@ -29306,6 +30738,7 @@ first B-Method
 order I-Method
 pooling I-Method
 . O
+
 This O
 means O
 that O
@@ -29330,6 +30763,7 @@ the O
 folded B-Method
 version I-Method
 . O
+
 Center O
 : O
 full B-Method
@@ -29341,6 +30775,7 @@ three O
 latent B-Method
 layers I-Method
 . O
+
 On O
 the O
 other O
@@ -29363,6 +30798,7 @@ any O
 two O
 units O
 . O
+
 Finally O
 , O
 we O
@@ -29380,6 +30816,7 @@ Figure O
 reference O
 ] O
 . O
+
 To O
 show O
 this O
@@ -29396,6 +30833,7 @@ PRN B-Method
 in O
 Fig O
 . O
+
 Though O
 the O
 authors O
@@ -29436,6 +30874,7 @@ operation I-Method
 is O
 defined O
 . O
+
 In O
 the O
 literature O
@@ -29462,6 +30901,7 @@ and O
 piecewise B-Method
 learning I-Method
 . O
+
 Thus O
 convolutions O
 in O
@@ -29484,6 +30924,7 @@ factor O
 of O
 4 O
 . O
+
 Recurrent O
 depth O
 has O
@@ -29504,6 +30945,7 @@ for O
 sequence B-Task
 modelling I-Task
 . O
+
 Analogous O
 to O
 the O
@@ -29518,6 +30960,7 @@ sources O
 ( O
 yi O
 , O
+
 The O
 powerful O
 learning B-Method
@@ -29553,6 +30996,7 @@ JFLEG B-Material
 benchmark I-Material
 datasets I-Material
 . O
+
 Although O
 this O
 dataset O
@@ -29581,6 +31025,7 @@ the O
 same O
 range O
 . O
+
 To O
 resolve O
 this O
@@ -29596,10 +31041,12 @@ a O
 shortcut O
 connection O
 . O
+
 section O
 : O
 Unigram B-Metric
 accuracy I-Metric
+
 If O
 , O
 the O
@@ -29619,6 +31066,7 @@ output O
 range O
 of O
 . O
+
 However O
 , O
 attempts O
@@ -29639,6 +31087,7 @@ lead O
 to O
 overfitting O
 . O
+
 To O
 compute O
 human B-Metric
@@ -29673,6 +31122,7 @@ and O
 abstract B-Material
 scenes I-Material
 . O
+
 paragraph O
 : O
 Eqn O
@@ -29684,6 +31134,7 @@ reference O
 dot O
 product O
 . O
+
 Comparing O
 rows O
 1 O
@@ -29736,11 +31187,14 @@ dimensionality B-Method
 reduction I-Method
 FC I-Method
 . O
+
 black O
+
 [ O
 scale=0.55 O
 ] O
 phrase_bar_percent.pdf O
+
 We O
 will O
 introduce O
@@ -29751,10 +31205,12 @@ the O
 following O
 subsections O
 . O
+
 subsection O
 : O
 Submitting O
 Papers O
+
 z O
 RECOVERMAP O
 ( O
@@ -29762,6 +31218,7 @@ z O
 ) O
 5 O
 : O
+
 Recently O
 , O
 deep B-Method
@@ -29785,6 +31242,7 @@ showed O
 promising O
 results O
 . O
+
 The O
 first O
 group O
@@ -29796,6 +31254,7 @@ and O
 discriminant O
 features O
 . O
+
 These O
 very O
 deep B-Method
@@ -29817,8 +31276,11 @@ ImageNet O
 and O
 COCO O
 . O
+
 + O
+
 “ O
+
 section O
 : O
 Enhanced B-Task
@@ -29826,6 +31288,7 @@ prediction I-Task
 ( O
 E B-Method
 ) O
+
 , O
 the O
 best O
@@ -29854,6 +31317,7 @@ SoA O
 ) O
 significantly O
 . O
+
 Joutel O
 et O
 al O
@@ -29876,12 +31340,14 @@ different O
 image O
 scales O
 . O
+
 Building O
 Tree O
 Sky O
 Car O
 Sign O
 Road O
+
 One O
 of O
 the O
@@ -29912,6 +31378,7 @@ and O
 question O
 together O
 . O
+
 Then O
 , O
 the O
@@ -29931,6 +31398,7 @@ of I-Method
 step I-Method
 distributions I-Method
 . O
+
 And O
 as O
 far O
@@ -29967,6 +31435,7 @@ their O
 density O
 with O
 . O
+
 In O
 this O
 model O
@@ -29986,6 +31455,7 @@ U B-Method
 - I-Method
 Net I-Method
 model O
+
 When O
 ReasoNet B-Method
 is O
@@ -30022,6 +31492,7 @@ the O
 memory B-Method
 module I-Method
 . O
+
 DAgger B-Method
 is O
 a O
@@ -30059,6 +31530,7 @@ past O
 several O
 years O
 . O
+
 Semi B-Task
 - I-Task
 Supervised I-Task
@@ -30066,6 +31538,7 @@ Pre I-Task
 - I-Task
 Training I-Task
 . O
+
 The O
 inner B-Method
 product I-Method
@@ -30096,9 +31569,11 @@ solving O
 other O
 problems O
 . O
+
 ( O
 i O
 ) O
+
 [ O
 reference O
 ] O
@@ -30106,8 +31581,10 @@ reference O
 b O
 ) O
 . O
+
 1pt O
 40 O
+
 [ O
 h O
 ] O
@@ -30161,6 +31638,7 @@ randomly O
 sampling O
 ; O
 ; O
+
 Long B-Method
 term I-Method
 components I-Method
@@ -30171,6 +31649,7 @@ for O
 deep B-Method
 recursions I-Method
 . O
+
 While O
 SPyNet B-Method
 + O
@@ -30194,6 +31673,7 @@ on O
 different O
 data O
 . O
+
 However O
 , O
 these O
@@ -30217,6 +31697,7 @@ to O
 unseen O
 faces O
 . O
+
 During O
 training O
 , O
@@ -30246,6 +31727,7 @@ as O
 the O
 target O
 . O
+
 First O
 , O
 we O
@@ -30271,6 +31753,7 @@ the O
 continuous O
 space O
 . O
+
 We O
 empirically O
 study O
@@ -30322,6 +31805,7 @@ ILSVRC O
 ImageNet O
 dataset O
 . O
+
 Mining B-Task
 opinions I-Task
 from O
@@ -30339,6 +31823,7 @@ sentiment I-Task
 analysis I-Task
 technology I-Task
 . O
+
 Similarly O
 , O
 we O
@@ -30365,9 +31850,11 @@ scales O
 1 O
 ) O
 . O
+
 Blob B-Task
 extraction I-Task
 : O
+
 Moreover O
 , O
 common O
@@ -30405,6 +31892,7 @@ snli B-Material
 : O
 emnlp2015 O
 . O
+
 As O
 in O
 , O
@@ -30418,6 +31906,7 @@ closed O
 world O
 assumption O
 . O
+
 Decoding B-Task
 is O
 performed O
@@ -30446,6 +31935,7 @@ the O
 learner O
 corpus O
 . O
+
 The O
 approximation O
 introduced O
@@ -30462,6 +31952,7 @@ of O
 the O
 power O
 iterations O
+
 The O
 balanced B-Material
 dataset I-Material
@@ -30479,6 +31970,7 @@ from O
 dataset O
 biases O
 . O
+
 Reconstruction B-Method
 net I-Method
 also O
@@ -30488,6 +31980,7 @@ neighbors O
 into O
 account O
 . O
+
 subsection O
 : O
 MAP B-Method
@@ -30495,9 +31988,11 @@ Inference I-Method
 Guided I-Method
 Discriminative I-Method
 Learning I-Method
+
 section O
 : O
 Implementation O
+
 Our O
 recursive B-Method
 - I-Method
@@ -30511,6 +32006,7 @@ training O
 recursive B-Method
 networks I-Method
 . O
+
 The O
 reward O
 at O
@@ -30539,6 +32035,7 @@ points O
 between O
 frames O
 . O
+
 The O
 overall O
 experimental O
@@ -30559,6 +32056,7 @@ Table O
 reference O
 ] O
 . O
+
 The O
 dilation B-Method
 starts O
@@ -30572,6 +32070,7 @@ last O
 hidden O
 layer O
 . O
+
 We O
 were O
 able O
