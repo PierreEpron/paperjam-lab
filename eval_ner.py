@@ -8,8 +8,8 @@ from spacy import displacy
 from thinc.api import Config
 
 LABELS = ['Material', 'Metric', 'Task']
-MODEL_PATH = "training/base/output/model-best"
-TEST_PATH = "training/corpus/tdm_test.spacy"
+# MODEL_PATH = "training/base/output/model-best"
+# TEST_PATH = "training/corpus/tdm_test.spacy"
 HTML_PATH = "training/base/html"
 
 def ner_html(path, examples, manual=False, options={}, filter_labels=[]):
