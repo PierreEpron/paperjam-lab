@@ -56,14 +56,11 @@ class BaseDataLoader(object):
         return create_dataloader(data, self.collate_fn, batch_size=batch_size, num_workers=num_workers, **kwgs)
 
 class NERDataLoader(BaseDataLoader):
-    
-    def __init__(self):
-        super().__init__()
-    
-    def __init__(self, tokenizer, label_ids):
 
+    def __init__(self, tokenizer, label_ids={}):
         self.tokenizer = tokenizer
         self.label_ids = label_ids
+        super().__init__()
 
     def tokenize_and_align_labels(self, sample):
         """
@@ -165,6 +162,11 @@ class NERDataLoader(BaseDataLoader):
             'iob_labels': iob_labels
         }
 
+    def create_dataloader(self, data, batch_size=1, num_workers=1, **kwgs):
+        label_ids, ner = data_to_ner(data)
+        self.label_ids = label_ids
+        return super().create_dataloader(ner, batch_size, num_workers, **kwgs)
+
 if __name__ == "__main__":
     from transformers import AutoTokenizer
     from helpers import read_jsonl
@@ -172,9 +174,9 @@ if __name__ == "__main__":
     model_name = 'allenai/scibert_scivocab_uncased'
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     
-    label_ids, ner = data_to_ner(read_jsonl('data/train.jsonl'))
+    data = read_jsonl('data/train.jsonl')
+    loader = NERDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
     
-    data = NERDataLoader(tokenizer, label_ids).create_dataloader(ner, prefetch_factor=1)
-    for b in data:
+    for b in loader:
         print(b)
         break
