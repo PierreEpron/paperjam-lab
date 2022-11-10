@@ -1,19 +1,19 @@
 from typing import Dict, List
 from tqdm import tqdm
-import torch
+
 from torch import nn
+import torch
 
 from transformers import AutoTokenizer, AutoModel
-from allennlp.modules.conditional_random_field import ConditionalRandomField, allowed_transitions
+
 from seqeval.metrics import f1_score, classification_report
-from helpers import select_first_subword
-
 from seqeval.metrics.sequence_labeling import get_entities
-from dataset import DataSeqLab
 
+from allennlp.modules.conditional_random_field import ConditionalRandomField, allowed_transitions
 from allennlp.modules.seq2seq_encoders import LstmSeq2SeqEncoder, PytorchTransformer
-from allennlp.modules.feedforward import FeedForward
-from allennlp.nn.activations import Activation
+
+from helpers import select_first_subword
+from dataset import NERDataLoader
 
 
 class BertWordCRF(nn.Module):
@@ -53,7 +53,7 @@ class BertWordCRF(nn.Module):
         self.crf_layer = ConditionalRandomField(
             n_labels, constraints=constraints)
 
-        self.data_processor = DataSeqLab(self.tokenizer, tag_to_id)
+        self.data_processor = NERDataLoader(self.tokenizer)
 
     def forward(self, x, compute_loss=False):
 
@@ -100,27 +100,6 @@ class BertWordCRF(nn.Module):
         for i in sequence:
             out.append(self.id_to_tag[i])
         return out
-
-    def evalutate_on_data(self, data, **loader_kwgs):
-
-        loader = self.data_processor.create_dataloader(data, **loader_kwgs)
-
-        accum_true = []
-        accum_pred = []
-
-        for x in tqdm(loader):
-
-            pred = self.predict(x)
-            true = x['iob_labels']
-
-            accum_pred.extend(pred)
-            accum_true.extend(true)
-
-        return {
-            'f1_micro': f1_score(accum_true, accum_pred, average='micro'),
-            'f1_macro': f1_score(accum_true, accum_pred, average='macro'),
-            'report': classification_report(accum_true, accum_pred, digits=4)
-        }
 
     def predict_from_tokens(self, tokens: List[List[str]], **loader_kwgs):
 

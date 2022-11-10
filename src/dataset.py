@@ -1,6 +1,7 @@
 import torch
 from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
+import functools
 
 def create_dataloader(data, collate_fn, batch_size=1, num_workers=1, **kwgs):
     """
@@ -25,7 +26,9 @@ def ents_to_iob(words, ner):
             iob[i] = f'I-{ent_label}'
     return iob
 
-def labels_to_id(labels):
+def labels_to_id(data):
+    labels = [[ent_label for _, _, ent_label in item['ner']] for item in data]
+    labels = functools.reduce(lambda a, b : a + b, labels)
     ids = {'O': 0}
     for label in set(labels):
         ids.update({f'B-{label}':len(ids)})
@@ -34,15 +37,13 @@ def labels_to_id(labels):
 
 def data_to_ner(data):
     sents = []
-    labels = []
     for item in data:
         words = item['words']
         ner = item['ner']
         iob = ents_to_iob(words, ner)
-        labels += [ent_label for _, _, ent_label in ner]
         for sent_start, sent_end in item['sentences']:
             sents.append({'tokens': words[sent_start:sent_end], 'tags': iob[sent_start:sent_end]})
-    return labels_to_id(labels), sents
+    return sents
 
 class BaseDataLoader(object):
     
@@ -119,7 +120,7 @@ class NERDataLoader(BaseDataLoader):
 
         return {
             'input_ids': encoded_sentence, 'aligned_labels': aligned_labels,
-            'iob_labels': iob_labels, 'seq_length': lengths, 'word_label': word_label
+            'true': iob_labels, 'seq_length': lengths, 'word_label': word_label
         }
 
     def collate_fn(self, batch_as_list):
@@ -141,7 +142,7 @@ class NERDataLoader(BaseDataLoader):
         aligned_labels = pad_sequence(
             [b['aligned_labels'] for b in batch], batch_first=True, padding_value=-1)
 
-        iob_labels = [b['iob_labels'] for b in batch]
+        iob_labels = [b['true'] for b in batch]
 
         word_label = pad_sequence(
             [b['word_label'] for b in batch], batch_first=True, padding_value=0)
@@ -159,12 +160,12 @@ class NERDataLoader(BaseDataLoader):
             'seq_length': seq_length,
             'subword_mask': subword_mask,
             'word_label': word_label,
-            'iob_labels': iob_labels
+            'true': iob_labels
         }
 
     def create_dataloader(self, data, batch_size=1, num_workers=1, **kwgs):
-        label_ids, ner = data_to_ner(data)
-        self.label_ids = label_ids
+        ner = data_to_ner(data)
+        self.label_ids = labels_to_id(data)
         return super().create_dataloader(ner, batch_size, num_workers, **kwgs)
 
 if __name__ == "__main__":
@@ -176,7 +177,7 @@ if __name__ == "__main__":
     
     data = read_jsonl('data/train.jsonl')
     loader = NERDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
-    
+    print([[ent_label for _, _, ent_label in item['ner']] for item in data])
     for b in loader:
         print(b)
         break
