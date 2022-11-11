@@ -8,7 +8,7 @@ if __name__ == '__main__':
     dev_path = "data/dev.jsonl"
 
     config = create_config(
-        name, dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=5, num_workers=1, 
+        name, dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
         model_name='allenai/scibert_scivocab_uncased').hner
     
     model = BertWordCRF(
