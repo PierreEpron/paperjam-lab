@@ -20,7 +20,7 @@ class ModelTrainer(pl.LightningModule):
         super().__init__()
 
         self.model = model
-        self.save_hyperparameters(ignore=['model'])
+        self.save_hyperparameters()
 
         self.config = config
 
