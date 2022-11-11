@@ -1,22 +1,12 @@
+from collections import Counter
 import torch
 from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
+
 import functools
+import itertools
 
-def create_dataloader(data, collate_fn, batch_size=1, num_workers=1, **kwgs):
-    """
-    Create a torch dataloader
-
-    Args:
-        data (list[dict]): data to load.
-        collate_fn (callable): collate_fn for DataLoader.
-        batch_size (int): batch_size for DataLoader (default=1)
-        num_workers (int): num_workers for DataLoader (default=1).
-
-    Returns:
-        Torch dataloader
-    """
-    return DataLoader(data, batch_size=batch_size, num_workers=num_workers, collate_fn=collate_fn, **kwgs)
+# NER 
 
 def ents_to_iob(words, ner):
     iob = ['O'] * len(words)
@@ -45,6 +35,65 @@ def data_to_ner(data):
             sents.append({'tokens': words[sent_start:sent_end], 'tags': iob[sent_start:sent_end]})
     return sents
 
+# Coref
+
+def generate_pairs(data):
+    pairs = []
+    for item in data:
+        # create Span : Label clusters 
+        # TODO : information on multiple label by span
+        clusters = {}
+        for k, vlist in item["coref"].items():
+            for v in vlist:
+                if tuple(v) not in clusters:
+                    clusters[tuple(v)] = []
+                clusters[tuple(v)].append(k)
+
+        clusters = {k: set(v) for k, v in clusters.items()}
+        
+        # print('\n'.join([f'{k} : {v} : {item["words"][k[0]:k[1]]}' for k, v in clusters.items() if len(v) > 1]))
+        
+        # entities = [tuple(x) for x in ]
+        for ent_1, ent_2 in itertools.combinations(item["ner"], 2):
+            
+            # unpack ents
+            start_1, end_1, type_1 = ent_1
+            start_2, end_2, type_2 = ent_2
+
+            # if ents share type continue 
+            if type_1 != type_2:
+                continue
+
+            # retrieve cluster labels associate to ents, empty set if ents not found
+            cluster_labels_1 = clusters.get((start_1, end_1), set())
+            cluster_labels_2 = clusters.get((start_2, end_2), set())
+
+            # ents words 
+            w1 = item["words"][start_1:end_1]
+            w2 = item["words"][start_2:end_2]
+
+
+            # by default b-classification is negatif
+            gold_label = 0
+
+            # if ents strings are the same or if ents share a cluster label : b-classification is positif 
+            if " ".join(w1).lower() == " ".join(w2).lower() or len(cluster_labels_1 & cluster_labels_2) > 0:
+                gold_label = 1
+            # if ents has no cluster label classification : skip
+            elif len(cluster_labels_1) == 0 and len(cluster_labels_2) == 0:
+                continue
+
+            # TODO : We should be sure we want handle words equality in training
+
+            pairs.append((type_1, w1, type_2, w2, gold_label))
+    return pairs
+
+def compute_prob(pairs):
+    c = Counter([x[-1] for x in pairs])
+    min_count = min(c.values())
+    prob = {k: min(1, min_count / v) for k, v in c.items()}
+    return prob
+
 class BaseDataLoader(object):
     
     def __init__(self):
@@ -54,7 +103,19 @@ class BaseDataLoader(object):
         return {}
     
     def create_dataloader(self, data, batch_size=1, num_workers=1, **kwgs):
-        return create_dataloader(data, self.collate_fn, batch_size=batch_size, num_workers=num_workers, **kwgs)
+        """
+        Create a torch dataloader
+
+        Args:
+            data (list[dict]): data to load.
+            collate_fn (callable): collate_fn for DataLoader.
+            batch_size (int): batch_size for DataLoader (default=1)
+            num_workers (int): num_workers for DataLoader (default=1).
+
+        Returns:
+            Torch dataloader
+        """
+        return DataLoader(data, batch_size=batch_size, num_workers=num_workers, collate_fn=self.collate_fn, **kwgs)
 
 class NERDataLoader(BaseDataLoader):
 
@@ -168,6 +229,59 @@ class NERDataLoader(BaseDataLoader):
         self.label_ids = labels_to_id(data)
         return super().create_dataloader(ner, batch_size, num_workers, **kwgs)
 
+class CorefDataLoader(BaseDataLoader):
+    def __init__(self, tokenizer, prob={}):
+        self.tokenizer = tokenizer
+        self.prob = {}
+        super().__init__()
+
+    def collate_fn(self, batch_as_list):
+        """
+        Batchification
+
+        Args:
+            batch_as_list (list[dict]): ...
+
+        Returns:
+            Input tensors for model
+        """
+        
+        for t1, w1, t2, w2, gold_label in batch_as_list:
+
+            tokens = ['[CLS]', t1] + w1 + ['[SEP]', t2] +  w2
+            encoded_sentence = []
+            
+            for t in tokens:
+
+                encoded_token = self.tokenizer.tokenize(t)
+                
+                if len(encoded_token) < 1:
+                    encoded_token = [self.tokenizer.unk_token]
+
+                encoded_token = self.tokenizer.convert_tokens_to_ids(encoded_token)
+
+                if len(encoded_sentence) + len(encoded_token) > 512:
+                    break
+                    # TODO : Warnings with a verbose args ?
+
+                encoded_sentence.extend(encoded_token)
+
+        return {
+            "tokens": encoded_sentence,
+            "label": gold_label,
+            "metadata": {
+                "premise_tokens": [t1] + w1,
+                "hypothesis_tokens": [t2] + w2,
+                "keep_prob": self.prob[gold_label],
+            }
+        }
+
+    def create_dataloader(self, data, keep_prob=True, batch_size=1, num_workers=1, **kwgs):
+        pairs = generate_pairs(data)
+        self.prob = compute_prob(pairs)
+        self.prob = self.prob if keep_prob else {k:1 for k, v in self.prob.items()}
+        return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
+
 if __name__ == "__main__":
     from transformers import AutoTokenizer
     from helpers import read_jsonl
@@ -176,8 +290,13 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     
     data = read_jsonl('data/train.jsonl')
-    loader = NERDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
-    print([[ent_label for _, _, ent_label in item['ner']] for item in data])
+
+    # Coref
+    loader = CorefDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
+
+    # NER 
+    # loader = NERDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
+
     for b in loader:
         print(b)
-        break
+        break     
