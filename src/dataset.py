@@ -1,4 +1,5 @@
 from collections import Counter
+import random
 import torch
 from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
@@ -71,7 +72,6 @@ def generate_pairs(data):
             # ents words 
             w1 = item["words"][start_1:end_1]
             w2 = item["words"][start_2:end_2]
-
 
             # by default b-classification is negatif
             gold_label = 0
@@ -224,16 +224,46 @@ class NERDataLoader(BaseDataLoader):
             'true': iob_labels
         }
 
-    def create_dataloader(self, data, batch_size=1, num_workers=1, **kwgs):
+    def create_dataloader(self, data, is_train=False, batch_size=1, num_workers=1, **kwgs):
         ner = data_to_ner(data)
         self.label_ids = labels_to_id(data)
         return super().create_dataloader(ner, batch_size, num_workers, **kwgs)
 
 class CorefDataLoader(BaseDataLoader):
-    def __init__(self, tokenizer, prob={}):
+    def __init__(self, tokenizer):
         self.tokenizer = tokenizer
-        self.prob = {}
         super().__init__()
+
+    def tokenize(self, sample):
+
+        t1, w1, t2, w2, gold_label = sample
+
+        tokens = [self.tokenizer.cls_token, t1] + w1 + [self.tokenizer.sep_token, t2] +  w2
+        encoded_sentence = []
+            
+        for t in tokens:
+
+            encoded_token = self.tokenizer.tokenize(t)
+            
+            if len(encoded_token) < 1:
+                encoded_token = [self.tokenizer.unk_token]
+
+            encoded_token = self.tokenizer.convert_tokens_to_ids(encoded_token)
+
+            if len(encoded_sentence) + len(encoded_token) > 512:
+                break
+                # TODO : Warnings with a verbose args ?
+
+            encoded_sentence.extend(encoded_token)
+
+        return {
+            'input_ids': torch.LongTensor(encoded_sentence),
+            'true': gold_label,
+            "metadata": {
+                "premise_tokens": [t1] + w1,
+                "hypothesis_tokens": [t2] + w2,
+            }
+        }
 
     def collate_fn(self, batch_as_list):
         """
@@ -246,40 +276,32 @@ class CorefDataLoader(BaseDataLoader):
             Input tensors for model
         """
         
-        for t1, w1, t2, w2, gold_label in batch_as_list:
+        batch = [self.tokenize(b) for b in batch_as_list]
+        
+        input_ids = pad_sequence([b['input_ids'] for b in batch],
+                                 batch_first=True, padding_value=self.tokenizer.pad_token_id)
 
-            tokens = ['[CLS]', t1] + w1 + ['[SEP]', t2] +  w2
-            encoded_sentence = []
-            
-            for t in tokens:
-
-                encoded_token = self.tokenizer.tokenize(t)
-                
-                if len(encoded_token) < 1:
-                    encoded_token = [self.tokenizer.unk_token]
-
-                encoded_token = self.tokenizer.convert_tokens_to_ids(encoded_token)
-
-                if len(encoded_sentence) + len(encoded_token) > 512:
-                    break
-                    # TODO : Warnings with a verbose args ?
-
-                encoded_sentence.extend(encoded_token)
+        attention_mask = (input_ids != self.tokenizer.pad_token_id).float()
+        
+        metadata = [b['metadata'] for b in batch]
+        true = [b['true'] for b in batch]
 
         return {
-            "tokens": encoded_sentence,
-            "label": gold_label,
-            "metadata": {
-                "premise_tokens": [t1] + w1,
-                "hypothesis_tokens": [t2] + w2,
-                "keep_prob": self.prob[gold_label],
-            }
+            "tokens": input_ids,
+            "attention_mask": attention_mask,
+            "metadata": metadata,
+            "true": torch.IntTensor(true)
         }
 
-    def create_dataloader(self, data, keep_prob=True, batch_size=1, num_workers=1, **kwgs):
+    def create_dataloader(self, data, is_train=False, batch_size=1, num_workers=1, **kwgs):
         pairs = generate_pairs(data)
-        self.prob = compute_prob(pairs)
-        self.prob = self.prob if keep_prob else {k:1 for k, v in self.prob.items()}
+        if is_train:
+            prob = compute_prob(pairs)
+            print(len(pairs))
+            random.seed(42)
+            pairs = [pair for pair in pairs if random.random() < prob[pair[-1]]]
+            print(len(pairs))
+
         return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
 
 if __name__ == "__main__":
@@ -292,7 +314,7 @@ if __name__ == "__main__":
     data = read_jsonl('data/train.jsonl')
 
     # Coref
-    loader = CorefDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
+    loader = CorefDataLoader(tokenizer).create_dataloader(data, is_train=True, prefetch_factor=1)
 
     # NER 
     # loader = NERDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
