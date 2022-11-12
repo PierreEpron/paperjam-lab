@@ -5,24 +5,24 @@ import torch
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 
-from seqeval.metrics import f1_score
-
-from model import BertWordCRF
 from dataset import labels_to_id
 from helpers import read_jsonl
 
 
 
+
 class ModelTrainer(pl.LightningModule):
 
-    def __init__(self, model, config):
+    def __init__(self, model, f1, config):
 
         super().__init__()
 
         self.model = model
-        self.save_hyperparameters()
-
         self.config = config
+
+        self.save_hyperparameters()
+        
+        self.f1 = f1
 
     def training_step(self, batch, batch_idx):
 
@@ -38,13 +38,13 @@ class ModelTrainer(pl.LightningModule):
 
         # TODO : This should work for all model (by put the evaluation method in model or on config ?)
         # We should use nereval here for consistency
-        f1_micro_base = f1_score(val_batch['true'], prediction, average="micro")
+        f1_micro_base = self.f1(val_batch['true'], prediction, average="micro")
 
         self.log('f1_score', f1_micro_base, prog_bar=True)
 
     def train_dataloader(self):
         return self.model.data_processor.create_dataloader(
-            read_jsonl(self.config.train_path), 
+            read_jsonl(self.config.train_path), is_train=True, 
             batch_size=self.config.train_batch_size, 
             num_workers=self.config.num_workers, 
             shuffle=True)
@@ -62,12 +62,12 @@ class ModelTrainer(pl.LightningModule):
         return optimizer
 
 
-def train_model(model, config):
+def train_model(model, f1, config):
 
     ckpt_path = Path(f'{config.dirpath}{config.name}.ckpt')
 
 
-    lightning_model = ModelTrainer(model, config)
+    lightning_model = ModelTrainer(model, f1, config)
 
     model_ckp = ModelCheckpoint(dirpath=config.dirpath, save_top_k=1,
                                 monitor='f1_score', mode='max', filename=config.name)
@@ -101,6 +101,8 @@ def create_config(name, dirpath, train_path, dev_path, model_name, word_encoder=
 
     tag_to_id = labels_to_id(read_jsonl(train_path))
 
+    # TODO : ATM it's hner and coref is same but as the end they should be different
+
     hner = ConfigClass(
         tag_to_id=tag_to_id, name=name, dirpath=dirpath, train_path=train_path, dev_path=dev_path, word_encoder=word_encoder, mode=mode, 
         model_name=model_name, device=device, train_batch_size=train_batch_size, val_batch_size=val_batch_size, 
@@ -108,6 +110,13 @@ def create_config(name, dirpath, train_path, dev_path, model_name, word_encoder=
         check_val_every_n_epoch=check_val_every_n_epoch, limit_train_batches=limit_train_batches, 
         limit_val_batches=limit_val_batches, val_check_interval=val_check_interval)
 
-    cfg = ConfigClass(hner=hner)
+    coref = ConfigClass(
+        tag_to_id=tag_to_id, name=name, dirpath=dirpath, train_path=train_path, dev_path=dev_path, word_encoder=word_encoder, mode=mode, 
+        model_name=model_name, device=device, train_batch_size=train_batch_size, val_batch_size=val_batch_size, 
+        num_workers=num_workers, learning_rate=learning_rate, max_epoch=max_epoch, tag_format=tag_format,
+        check_val_every_n_epoch=check_val_every_n_epoch, limit_train_batches=limit_train_batches, 
+        limit_val_batches=limit_val_batches, val_check_interval=val_check_interval)
+
+    cfg = ConfigClass(hner=hner, coref=coref)
 
     return cfg
