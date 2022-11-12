@@ -6,18 +6,60 @@ import torch
 
 from transformers import AutoTokenizer, AutoModel
 
-from seqeval.metrics import f1_score, classification_report
 from seqeval.metrics.sequence_labeling import get_entities
 
 from allennlp.modules.conditional_random_field import ConditionalRandomField, allowed_transitions
 from allennlp.modules.seq2seq_encoders import LstmSeq2SeqEncoder, PytorchTransformer
 
 from helpers import select_first_subword
-from dataset import NERDataLoader
+from dataset import NERDataLoader, CorefDataLoader
 
+class BertCoref(nn.Module):
+    def __init__(self, model_name='allenai/scibert_scivocab_uncased'):
+        
+        super().__init__()
+        
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self.bert_layer = AutoModel.from_pretrained(model_name)
+
+        self.dropout = nn.Dropout(p=.0)
+
+        self.classification_layer = nn.Sequential(
+            nn.Sequential(
+                nn.Linear(768, 200),
+                nn.ReLU(),
+                nn.Dropout(p=.2),
+            ),
+            nn.Sequential(
+                nn.Linear(200, 2),
+                nn.Dropout(p=0),
+            )
+        )       
+
+        self.loss = nn.CrossEntropyLoss()
+        
+        self.data_processor = CorefDataLoader(self.tokenizer)
+
+    def forward(self, x, compute_loss=False):
+        
+        pooled = self.dropout(self.bert_layer(x['tokens'], x['attention_mask']).pooler_output)
+        logits = self.classification_layer(pooled)
+
+        outputs = {"logits": logits}
+
+        if compute_loss:
+            outputs["loss"] = self.loss(logits, x['true'].long().view(-1))
+
+        return outputs
+
+    def predict(self, x):
+        with torch.no_grad():
+            outputs = self.forward(x, compute_loss=False)
+            probs = nn.functional.softmax(outputs['logits'], dim=-1)[..., 1]
+            prediction = (probs > .5).int()
+        return prediction
 
 class BertWordCRF(nn.Module):
-
     def __init__(
         self, tag_to_id, model_name='allenai/scibert_scivocab_uncased', 
         tag_format='BIO', word_encoder='transformer', mode='word'):
@@ -34,7 +76,6 @@ class BertWordCRF(nn.Module):
         n_labels = len(self.id_to_tag)
 
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-
         self.bert_layer = AutoModel.from_pretrained(model_name)
 
         self.h_size = self.bert_layer.config.hidden_size
@@ -139,3 +180,16 @@ class BertWordCRF(nn.Module):
             k.append(s)
 
         return k
+
+if __name__ == "__main__":
+    from helpers import read_jsonl
+
+    data = read_jsonl('data/train.jsonl')
+
+    model = BertCoref()
+
+    loader = model.data_processor.create_dataloader(data, batch_size=8)
+
+    for b in loader:
+        print(model.predict(b))
+        break
