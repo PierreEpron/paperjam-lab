@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     config = create_config(
         name, dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
-        model_name='allenai/scibert_scivocab_uncased').coref
+        model_name='allenai/scibert_scivocab_uncased', train_batch_size=64, val_batch_size=64).coref
     
     model = BertCoref(model_name=config.model_name)
 
