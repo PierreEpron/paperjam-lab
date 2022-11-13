@@ -12,13 +12,10 @@ def evaluate_file(file_path, model_path, **loader_kwgs):
     model = load_model(model_path)
 
     data = read_jsonl(file_path)
-    loader = model.data_processor.create_dataloader(data, is_train=True, **loader_kwgs)
+    loader = model.data_processor.create_dataloader(data, **loader_kwgs)
     
     trues = []
     preds = []
-
-    print()
-
 
     for x in tqdm(loader):
 
