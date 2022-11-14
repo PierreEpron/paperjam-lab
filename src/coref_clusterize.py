@@ -53,7 +53,6 @@ def clusterize(file_path, **loader_kwgs):
             output = model.predict_probs(x)
             scores.extend(output['probs'].cpu().numpy())
             metadata.extend(output['metadata'])
-            break
         doc['pairwise_coreference_scores'] = []
         doc['spans'] = []
         for s, m in zip(scores, metadata): 
@@ -87,4 +86,4 @@ if __name__ == '__main__':
 
     f1 = None
 
-    write_jsonl('data/coref_clusters.jsonl', clusterize(test_path, batch_size=64, num_workers=8))
+    write_jsonl('data/coref_clusters.jsonl', clusterize(test_path, batch_size=64))
