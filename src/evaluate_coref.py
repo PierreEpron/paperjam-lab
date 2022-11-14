@@ -35,4 +35,4 @@ if __name__ == '__main__':
     
     f1=None
 
-    evaluate_file(test_path, model_path, batch_size=64,num_workers=8)
+    evaluate_file(test_path, model_path, batch_size=64)
