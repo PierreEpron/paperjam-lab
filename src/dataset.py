@@ -85,11 +85,11 @@ def generate_pairs(data):
 
             # TODO : We should be sure we want handle words equality in training
 
-            pairs.append((type_1, w1, type_2, w2, gold_label))
+            pairs.append((type_1, w1, type_2, w2, gold_label), (start_1, end_1), (start_2, end_2))
     return pairs
 
 def compute_prob(pairs):
-    c = Counter([x[-1] for x in pairs])
+    c = Counter([x[-1] for x, _, _ in pairs])
     min_count = min(c.values())
     prob = {k: min(1, min_count / v) for k, v in c.items()}
     return prob
@@ -236,6 +236,7 @@ class CorefDataLoader(BaseDataLoader):
 
     def tokenize(self, sample):
 
+        sample, span_1, span_2 = sample
         t1, w1, t2, w2, gold_label = sample
 
         tokens = [self.tokenizer.cls_token, t1] + w1 + [self.tokenizer.sep_token, t2] +  w2
@@ -260,8 +261,8 @@ class CorefDataLoader(BaseDataLoader):
             'input_ids': torch.LongTensor(encoded_sentence),
             'true': gold_label,
             "metadata": {
-                "premise_tokens": [t1] + w1,
-                "hypothesis_tokens": [t2] + w2,
+                "span_1": span_1,
+                "span_2": span_2,
             }
         }
 
@@ -299,7 +300,7 @@ class CorefDataLoader(BaseDataLoader):
             prob = compute_prob(pairs)
             print(len(pairs))
             random.seed(42)
-            pairs = [pair for pair in pairs if random.random() < prob[pair[-1]]]
+            pairs = [pair for pair, _, _ in pairs if random.random() < prob[pair[-1]]]
             print(len(pairs))
 
         return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
