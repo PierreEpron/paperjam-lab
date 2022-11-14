@@ -44,7 +44,7 @@ def clusterize(file_path, **loader_kwgs):
     
     cluster_outputs = []
 
-    for item in data[:1]:
+    for item in data:
         doc = {'doc_id':item['doc_id']}
         loader = model.data_processor.create_dataloader([item], **loader_kwgs)
         scores = []
