@@ -52,6 +52,13 @@ class BertCoref(nn.Module):
 
         return outputs
 
+    def predict_probs(self, x):
+        with torch.no_grad():
+            outputs = self.forward(x, compute_loss=False)
+            probs = nn.functional.softmax(outputs['logits'], dim=-1)[..., 1]
+            outputs["probs"] = probs
+        return outputs
+
     def predict(self, x):
         with torch.no_grad():
             outputs = self.forward(x, compute_loss=False)
