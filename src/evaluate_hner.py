@@ -21,14 +21,14 @@ def evaluate_file(file_path, model_path, **loader_kwgs):
 
     for x in tqdm(loader):
 
-        pred.extend(v)
+        pred.extend(model.predict(x))
         true.extend(x['true'])
 
 
     evaluator = Evaluator(true, pred, tags=['Task', 'Material', 'Metric', 'Method'], loader="list")
     results, results_by_tag = evaluator.evaluate()
 
-    print(confusion_matrix(true, pred))
+    # print(confusion_matrix(true, pred))
 
     Path(model_path).with_name('full.json').write_text(json.dumps(results))
     for k, v in results_by_tag.items():
