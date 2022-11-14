@@ -85,7 +85,7 @@ def generate_pairs(data):
 
             # TODO : We should be sure we want handle words equality in training
 
-            pairs.append((type_1, w1, type_2, w2, gold_label), (start_1, end_1), (start_2, end_2))
+            pairs.append(((type_1, w1, type_2, w2, gold_label), (start_1, end_1), (start_2, end_2)))
     return pairs
 
 def compute_prob(pairs):
