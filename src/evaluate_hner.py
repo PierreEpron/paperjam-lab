@@ -1,10 +1,13 @@
 from nervaluate import Evaluator
+from sklearn.metrics import classification_report, confusion_matrix
+
 from inference import load_model
 from pathlib import Path
 import json
 
 from tqdm import tqdm
 from helpers import read_jsonl
+
 
 def evaluate_file(file_path, model_path, **loader_kwgs):
     
@@ -13,24 +16,23 @@ def evaluate_file(file_path, model_path, **loader_kwgs):
     data = read_jsonl(file_path)
     loader = model.data_processor.create_dataloader(data, **loader_kwgs)
     
-    trues = []
-    preds = []
+    true = []
+    pred = []
 
     for x in tqdm(loader):
 
-        pred = model.predict(x)
-        true = x['true']
-
-        preds.extend(pred)
-        trues.extend(true)
+        pred.extend(v)
+        true.extend(x['true'])
 
 
-    evaluator = Evaluator(trues, preds, tags=['Task', 'Material', 'Metric', 'Method'], loader="list")
+    evaluator = Evaluator(true, pred, tags=['Task', 'Material', 'Metric', 'Method'], loader="list")
     results, results_by_tag = evaluator.evaluate()
 
-    Path('output/tdmm_slvl/full.json').write_text(json.dumps(results))
+    print(confusion_matrix(true, pred))
+
+    Path(model_path).with_name('full.json').write_text(json.dumps(results))
     for k, v in results_by_tag.items():
-        Path(f'output/tdmm_slvl/{k}.json').write_text(json.dumps(v))
+        Path(model_path).with_name(f'{k.lower()}.json').write_text(json.dumps(v))
 
 if __name__ == '__main__': 
 
@@ -40,34 +42,3 @@ if __name__ == '__main__':
     test_path = "data/test.jsonl"
     
     evaluate_file(test_path, model_path)
-
-
-    # load test data
-    # data = pickle.loads(Path(data_path).read_bytes())['test']
-    # test_tokens = [item['tokens'] for item in data]
-    # test_tags = [item['tags'] for item in data]
-
-
-    # load model
-    # model = load_model(model_path)
-    # predictions = model.extract_entities(test_tokens)
-
-
-    # prediction
-    # preds = []
-    # for tokens, item in zip(test_tokens, predictions):
-    #     pred = ['O'] * len(tokens)
-    #     for ent in item:
-    #         start, end = ent['span']
-    #         pred[start] = f"B-{ent['type']}"
-    #         for i in range(start+1, end+1):
-    #             pred[i] = f"I-{ent['type']}"
-    #     preds.append(pred)
-
-    # for token, tag in zip(test_tokens[3], preds[3]):
-    #     print(token, tag)
-
-
-    # evaluation
-    # evaluator = Evaluator(test_tags, preds, tags=['Task', 'Material', 'Metric', 'Method'], loader="list")
-    # results, results_by_tag = evaluator.evaluate()
