@@ -45,7 +45,7 @@ class BertCoref(nn.Module):
         pooled = self.dropout(self.bert_layer(x['tokens'], x['attention_mask']).pooler_output)
         logits = self.classification_layer(pooled)
 
-        outputs = {"logits": logits}
+        outputs = {"logits": logits, "metadata":x["metadata"]}
 
         if compute_loss:
             outputs["loss"] = self.loss(logits, x['true'].long().view(-1))
