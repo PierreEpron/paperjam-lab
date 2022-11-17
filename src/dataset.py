@@ -190,7 +190,7 @@ class NERDataLoader(BaseDataLoader):
         encoded_sentence = []
         aligned_labels = []
         word_label = []
-        iob_labels = []
+        golds = []
 
         for t, n in zip(tokens, tags):
 
@@ -213,7 +213,7 @@ class NERDataLoader(BaseDataLoader):
             )
 
             word_label.append(self.label_ids[n])
-            iob_labels.append(n)
+            golds.append(n)
 
         assert len(encoded_sentence) == len(aligned_labels)
 
@@ -221,11 +221,11 @@ class NERDataLoader(BaseDataLoader):
         aligned_labels = torch.LongTensor(aligned_labels)
         word_label = torch.LongTensor(word_label)
 
-        lengths = len(iob_labels)
+        lengths = len(golds)
 
         return {
             'input_ids': encoded_sentence, 'aligned_labels': aligned_labels,
-            'true': iob_labels, 'seq_length': lengths, 'word_label': word_label
+            'golds': golds, 'seq_length': lengths, 'word_label': word_label
         }
 
     def collate_fn(self, batch_as_list):
@@ -247,7 +247,7 @@ class NERDataLoader(BaseDataLoader):
         aligned_labels = pad_sequence(
             [b['aligned_labels'] for b in batch], batch_first=True, padding_value=-1)
 
-        iob_labels = [b['true'] for b in batch]
+        golds = [b['golds'] for b in batch]
 
         word_label = pad_sequence(
             [b['word_label'] for b in batch], batch_first=True, padding_value=0)
@@ -265,7 +265,7 @@ class NERDataLoader(BaseDataLoader):
             'seq_length': seq_length,
             'subword_mask': subword_mask,
             'word_label': word_label,
-            'true': iob_labels
+            'golds': golds
         }
 
     def create_dataloader(self, data, is_train=False, batch_size=1, num_workers=1, **kwgs):
@@ -279,7 +279,6 @@ class CorefDataLoader(BaseDataLoader):
         super().__init__()
 
     def tokenize(self, sample):
-
         sample, span_1, span_2 = sample
         t1, w1, t2, w2, gold_label = sample
 
@@ -303,7 +302,7 @@ class CorefDataLoader(BaseDataLoader):
 
         return {
             'input_ids': torch.LongTensor(encoded_sentence),
-            'true': gold_label,
+            'gold_label': gold_label,
             "metadata": {
                 "span_1": span_1,
                 "span_2": span_2,
@@ -329,13 +328,13 @@ class CorefDataLoader(BaseDataLoader):
         attention_mask = (input_ids != self.tokenizer.pad_token_id).float()
         
         metadata = [b['metadata'] for b in batch]
-        true = [b['true'] for b in batch]
+        golds = [b['gold_label'] for b in batch]
 
         return {
             "tokens": input_ids,
             "attention_mask": attention_mask,
             "metadata": metadata,
-            "true": torch.IntTensor(true)
+            "golds": golds
         }
 
     def create_dataloader(self, data, is_train=False, batch_size=1, num_workers=1, **kwgs):
@@ -343,7 +342,7 @@ class CorefDataLoader(BaseDataLoader):
         if is_train:
             prob = compute_prob(pairs)
             random.seed(42)
-            pairs = [pair for pair, _, _ in pairs if random.random() < prob[pair[-1]]]
+            pairs = [pair for pair in pairs if random.random() < prob[pair[0][-1]]]
 
         return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
 

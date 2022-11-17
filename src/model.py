@@ -185,26 +185,23 @@ class BertRel(nn.Module):
         relation_logits = self.antecedent_scorer(relation_embeddings).squeeze(-1).squeeze(0)
         # print('relation_logits.shape : ', relation_logits.shape)
 
-        # # print('relation_scores.shape : ', relation_scores.shape)
-        # # print(relation_scores)
-
-        output_dict={'doc_id':x['doc_id'], 'logits':relation_logits, 'true':candidate_relations_labels}
+        outputs={'doc_id':x['doc_id'], 'logits':relation_logits, 'golds':candidate_relations_labels}
 
         if compute_loss:
-            output_dict["loss"] = nn.functional.binary_cross_entropy_with_logits(
+            outputs["loss"] = nn.functional.binary_cross_entropy_with_logits(
                 relation_logits,
                 candidate_relations_labels_tensor.float(),
                 reduction="mean",
-                    # pos_weight=torch.Tensor([self._pos_weight]).to(relation_logits.device)
             )
 
-        return output_dict
+        outputs["probs"] = torch.sigmoid(outputs['logits'])
+
+        return outputs
 
     def predict(self, x):
         with torch.no_grad():
             outputs = self.forward(x, compute_loss=False)
-            outputs["probs"] = torch.sigmoid(outputs['logits'])
-            outputs["pred"] = (outputs["probs"] > 5).int()
+            outputs['preds'] = (outputs["probs"] > 5).int().cpu().numpy()
         return outputs
 
 class BertCoref(nn.Module):
@@ -238,26 +235,20 @@ class BertCoref(nn.Module):
         pooled = self.dropout(self.bert_layer(x['tokens'], x['attention_mask']).pooler_output)
         logits = self.classification_layer(pooled)
 
-        outputs = {"logits": logits, "metadata":x["metadata"]}
+        outputs = {"logits": logits, 'golds':x['golds']}
 
         if compute_loss:
-            outputs["loss"] = self.loss(logits, x['true'].long().view(-1))
+            outputs["loss"] = self.loss(logits, torch.LongTensor(x['golds']).to(logits.device).long().view(-1))
 
-        return outputs
+        outputs["probs"] = nn.functional.softmax(outputs['logits'], dim=-1)[..., 1]
 
-    def predict_probs(self, x):
-        with torch.no_grad():
-            outputs = self.forward(x, compute_loss=False)
-            probs = nn.functional.softmax(outputs['logits'], dim=-1)[..., 1]
-            outputs["probs"] = probs
         return outputs
 
     def predict(self, x):
         with torch.no_grad():
             outputs = self.forward(x, compute_loss=False)
-            probs = nn.functional.softmax(outputs['logits'], dim=-1)[..., 1]
-            prediction = (probs > .5).int()
-        return prediction
+            outputs['preds'] = (outputs['probs'] > .5).int().cpu().numpy()
+        return outputs
 
 class BertWordCRF(nn.Module):
     def __init__(
@@ -321,7 +312,7 @@ class BertWordCRF(nn.Module):
 
         logits = self.output_layer(h)
 
-        outputs = {'logits': logits, 'word_mask': out_sel['word_mask']}
+        outputs = {'logits': logits, 'golds':x['golds'], 'word_mask':word_mask}
 
         if compute_loss:
             loss = - self.crf_layer(logits, x['word_label'], word_mask)
@@ -332,9 +323,9 @@ class BertWordCRF(nn.Module):
     def predict(self, x):
         with torch.no_grad():
             outputs = self.forward(x, compute_loss=False)
-            prediction = self.crf_layer.viterbi_tags(
-                outputs['logits'], outputs['word_mask'])
-        return [self.id_to_IOB(i[0]) for i in prediction]
+            prediction = self.crf_layer.viterbi_tags(outputs['logits'], outputs['word_mask'])
+            outputs['preds'] = [self.id_to_IOB(i[0]) for i in prediction]
+        return outputs
 
     def id_to_IOB(self, sequence):
         out = []
@@ -387,6 +378,7 @@ if __name__ == "__main__":
     data = read_jsonl('data/train.jsonl')
 
     model = BertRel()
+
 
     loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1, shuffle=False)
 

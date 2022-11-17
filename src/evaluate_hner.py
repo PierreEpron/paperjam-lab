@@ -21,8 +21,8 @@ def evaluate_file(file_path, model_path, **loader_kwgs):
 
     for x in tqdm(loader):
 
-        pred.extend(model.predict(x))
-        true.extend(x['true'])
+        pred.extend(model.predict(x)['preds'])
+        true.extend(x['golds'])
 
 
     evaluator = Evaluator(true, pred, tags=['Task', 'Material', 'Metric', 'Method'], loader="list")
@@ -30,9 +30,9 @@ def evaluate_file(file_path, model_path, **loader_kwgs):
 
     # print(confusion_matrix(true, pred))
 
-    Path(model_path).with_name('full.json').write_text(json.dumps(results))
+    Path(model_path).with_name('full_.json').write_text(json.dumps(results))
     for k, v in results_by_tag.items():
-        Path(model_path).with_name(f'{k.lower()}.json').write_text(json.dumps(v))
+        Path(model_path).with_name(f'{k.lower()}_.json').write_text(json.dumps(v))
 
 if __name__ == '__main__': 
 

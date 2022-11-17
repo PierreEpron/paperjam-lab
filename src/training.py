@@ -35,7 +35,7 @@ class ModelTrainer(pl.LightningModule):
 
         # TODO : This should work for all model (by put the evaluation method in model or on config ?)
         # We should use nereval here for consistency
-        f1_micro_base = self.f1(output['true'], output['pred'].cpu().numpy(), average="micro")
+        f1_micro_base = self.f1(output['golds'], output['preds'], average="micro")
 
         self.log('f1_score', f1_micro_base, prog_bar=True)
 
@@ -123,3 +123,58 @@ def create_config(name, dirpath, train_path, dev_path, model_name, word_encoder=
     cfg = ConfigClass(hner=hner, coref=coref, rel=rel)
 
     return cfg
+
+
+if __name__ == "__main__":
+    from helpers import read_jsonl
+    from model import BertWordCRF, BertCoref, BertRel
+    from seqeval.metrics import f1_score as ner_f1
+    from sklearn.metrics import f1_score as binary_f1
+
+
+    dirpath= ""
+    train_path = "data/train.jsonl"
+    dev_path = "data/dev.jsonl"
+
+    # REL
+
+    f1 = binary_f1
+
+    config = create_config(
+    'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
+    model_name='allenai/scibert_scivocab_uncased', train_batch_size=1, val_batch_size=1).rel
+
+    model = BertRel(model_name=config.model_name)
+
+    # COREF 
+
+    # f1 = binary_f1
+
+    # config = create_config(
+    #     'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
+    #     model_name='allenai/scibert_scivocab_uncased', train_batch_size=64, val_batch_size=64).coref
+    
+    # model = BertCoref(model_name=config.model_name)
+
+    # HNER 
+
+    # f1 = ner_f1
+
+    # config = create_config(
+    #     'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
+    #     model_name='allenai/scibert_scivocab_uncased').hner
+    
+    # model = BertWordCRF(
+    #         tag_to_id=config.tag_to_id, model_name=config.model_name, tag_format=config.tag_format, 
+    #         word_encoder=config.word_encoder, mode=config.mode)
+
+
+    lightning_model = ModelTrainer(model, f1, config)
+    
+    for b in lightning_model.train_dataloader():
+        lightning_model.training_step(b, 0)
+        break
+
+    for b in lightning_model.val_dataloader():
+        lightning_model.validation_step(b, 0)
+        break
