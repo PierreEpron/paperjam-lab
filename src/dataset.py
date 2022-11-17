@@ -362,6 +362,9 @@ class RelDataLoader(BaseDataLoader):
     def label_onehot(self, ids, idx_label_map):
         return [1 if i in ids else 0 for i in range(len(idx_label_map))]
 
+    def chunk_sentence(self, start, end):
+        return [[i, min(i+self.max_paragraph_len, end)] for i in range(start, end, self.max_paragraph_len)]
+
     def section_to_paragraphs(self, section_span, doc):
 
         # retrieve all section sentences        
@@ -374,11 +377,13 @@ class RelDataLoader(BaseDataLoader):
             # if current paragraph is longer than self.max_paragraph_len
             # append it into paragraph_spans and start a new paragraph
             if sentence_end - paragraph_start > self.max_paragraph_len:
-                paragraph_spans.append([paragraph_start, paragraph_end])
+                paragraph_spans.extend(self.chunk_sentence(paragraph_start, paragraph_end))
                 paragraph_start = sentence_start
             paragraph_end = sentence_end
         # append the last paragraph of the section
-        paragraph_spans.append([paragraph_start, paragraph_end])
+       
+        # handle case of first sentence is larger self.max_paragraph_len
+        paragraph_spans.extend(self.chunk_sentence(paragraph_start, paragraph_end))
         
         # make sure pragraphs length equals to section length
         assert section_span[1] - section_span[0] == paragraph_spans[-1][1] - paragraph_spans[0][0], \
