@@ -60,17 +60,16 @@ def clusterize(file_path, **loader_kwgs):
             doc['spans'].extend([m['span_1'], m['span_2']])
         doc['spans'] = sorted(list(set(doc['spans'])))
 
-    matrix = generate_matrix_for_document(doc, 'spans', 'pairwise_coreference_scores')
-    n_clusters, cluster_labels = cluster_with_clustering(matrix)
-    span_to_cluster_label = map_back_to_spans(doc, 'spans', cluster_labels)
+        matrix = generate_matrix_for_document(doc, 'spans', 'pairwise_coreference_scores')
+        n_clusters, cluster_labels = cluster_with_clustering(matrix)
+        span_to_cluster_label = map_back_to_spans(doc, 'spans', cluster_labels)
 
-    clusters = [{'spans' : [], 'words': set(), 'types' : set()} for _ in range(n_clusters)]
-    for s, l in span_to_cluster_label.items() :
-        clusters[l]['spans'].append(s)
+        clusters = [{'spans' : [], 'words': set(), 'types' : set()} for _ in range(n_clusters)]
+        for s, l in span_to_cluster_label.items() :
+            clusters[l]['spans'].append(s)
 
-    coref_clusters = {str(i): v["spans"] for i, v in enumerate(clusters)}
-
-    cluster_outputs.append({'doc_id' : doc['doc_id'], 'spans' : doc['spans'], 'clusters' : coref_clusters})
+        coref_clusters = {str(i): v["spans"] for i, v in enumerate(clusters)}
+        cluster_outputs.append({'doc_id' : doc['doc_id'], 'spans' : doc['spans'], 'clusters' : coref_clusters})
 
     return cluster_outputs
 #         'pairwise_coreference_scores' : List[(s_1, e_1), (s_2, e_2), float (3 sig. digits) in [0, 1]]
