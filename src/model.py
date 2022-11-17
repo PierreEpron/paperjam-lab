@@ -83,7 +83,7 @@ class BertRel(nn.Module):
 
         if len(span_clusters) == 0:
             return {'doc_id':x['doc_id'], "loss": 0.0}
-            
+
         cluster_to_type_arr = x['cluster_to_type_arr']
         entity_to_clusters = x['entity_to_clusters']
         relation_to_cluster_ids = x['relation_to_cluster_ids']
@@ -176,11 +176,18 @@ class BertRel(nn.Module):
         # print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
 
         candidate_relations_labels_tensor = torch.LongTensor(candidate_relations_labels).to(text_embeddings.device)
-
-        relation_embeddings = util.batched_index_select(
-            paragraph_cluster_embeddings,
-            candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
-        )
+        try:
+            relation_embeddings = util.batched_index_select(
+                paragraph_cluster_embeddings,
+                candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
+            )
+        except:
+            print('doc_id : ', x['doc_id'])
+            print('span_clusters.shape : ', span_clusters.shape)
+            print('candidate_relations.shape : ', candidate_relations.shape)
+            print("paragraph_cluster_embeddings.shape : ", paragraph_cluster_embeddings.shape)
+            print("candidate_relations_tensor.shape : ", candidate_relations_tensor.shape)
+            return {'doc_id':x['doc_id'], "loss": 0.0}
 
         relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
