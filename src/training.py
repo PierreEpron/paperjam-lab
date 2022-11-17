@@ -31,11 +31,14 @@ class ModelTrainer(pl.LightningModule):
 
     def validation_step(self, val_batch, batch_idx):
 
-        output = self.model.predict(val_batch)
+        outputs = self.model.predict(val_batch)
 
         # TODO : This should work for all model (by put the evaluation method in model or on config ?)
         # We should use nereval here for consistency
-        f1_micro_base = self.f1(output['golds'], output['preds'], average="micro")
+        if 'golds' in outputs and 'preds' in outputs:
+            f1_micro_base = self.f1(outputs['golds'], outputs['preds'], average="micro")
+        else:
+            f1_micro_base = 1
 
         self.log('f1_score', f1_micro_base, prog_bar=True)
 

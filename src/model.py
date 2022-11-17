@@ -63,6 +63,10 @@ class BertRel(nn.Module):
 
     def forward(self, x, compute_loss=False):
 
+        torch.cuda.empty_cache()
+
+
+
         input_ids, attention_mask = (x['input_ids'], x['attention_mask'])
         # print('input_ids.shape : ', input_ids.shape)
         # print('attention_mask.shape : ', attention_mask.shape)
@@ -77,9 +81,13 @@ class BertRel(nn.Module):
         # print('span_section_features.shape : ', span_section_features.shape)
         # print('span_clusters.shape : ', span_clusters.shape)
 
+        if len(span_clusters) == 0:
+            return {'doc_id':x['doc_id'], "loss": 0.0}
+            
         cluster_to_type_arr = x['cluster_to_type_arr']
         entity_to_clusters = x['entity_to_clusters']
         relation_to_cluster_ids = x['relation_to_cluster_ids']
+
 
         # print(relation_to_cluster_ids)
 
@@ -161,21 +169,19 @@ class BertRel(nn.Module):
                 candidate_relations_labels.append(1 if len(common_relations) > 0 else 0)
             #     candidate_relations_types.append(self._relation_type_map[tuple(e)])
 
+        if len(candidate_relations) == 0:
+            return {'doc_id':x['doc_id'], "loss": 0.0}
+
         candidate_relations_tensor = torch.LongTensor(candidate_relations).to(text_embeddings.device)
         # print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
 
         candidate_relations_labels_tensor = torch.LongTensor(candidate_relations_labels).to(text_embeddings.device)
 
-        try:
-            relation_embeddings = util.batched_index_select(
-                        paragraph_cluster_embeddings,
-                        candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
-                    )
-        except:
-            print(x['doc_id'])
-            print('relation_embeddings.shape', relation_embeddings)
-            print('relation_embeddings.shape : ', relation_embeddings.shape)
-        
+        relation_embeddings = util.batched_index_select(
+            paragraph_cluster_embeddings,
+            candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
+        )
+
         relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
 
@@ -204,7 +210,7 @@ class BertRel(nn.Module):
     def predict(self, x):
         with torch.no_grad():
             outputs = self.forward(x, compute_loss=False)
-            outputs['preds'] = (outputs["probs"] > 5).int().cpu().numpy()
+            outputs['preds'] = (outputs["probs"] > 5).int().cpu().numpy() if 'probs' in outputs else []
         return outputs
 
 class BertCoref(nn.Module):
