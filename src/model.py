@@ -165,13 +165,16 @@ class BertRel(nn.Module):
         # print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
 
         candidate_relations_labels_tensor = torch.LongTensor(candidate_relations_labels).to(text_embeddings.device)
-        # print('candidate_relations_labels_tensor.shape : ', candidate_relations_labels_tensor.shape)
 
-        relation_embeddings = util.batched_index_select(
-                    paragraph_cluster_embeddings,
-                    candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
-                )
-        # print('relation_embeddings.shape : ', relation_embeddings.shape)
+        try:
+            relation_embeddings = util.batched_index_select(
+                        paragraph_cluster_embeddings,
+                        candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
+                    )
+        except:
+            print(x['doc_id'])
+            print('relation_embeddings.shape', relation_embeddings)
+            print('relation_embeddings.shape : ', relation_embeddings.shape)
         
         relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
@@ -379,9 +382,8 @@ if __name__ == "__main__":
 
     model = BertRel()
 
-
-    loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1, shuffle=False)
+    loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1, shuffle=True)
 
     for b in loader:
-        # print(model.predict(b))
+        print(model.forward(b))
         break
