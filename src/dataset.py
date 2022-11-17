@@ -7,6 +7,8 @@ from torch.nn.utils.rnn import pad_sequence
 import functools
 import itertools
 
+import numpy as np
+
 # NER 
 
 def ents_to_iob(words, ner):
@@ -52,8 +54,6 @@ def generate_pairs(data):
 
         clusters = {k: set(v) for k, v in clusters.items()}
         
-        # print('\n'.join([f'{k} : {v} : {item["words"][k[0]:k[1]]}' for k, v in clusters.items() if len(v) > 1]))
-        
         # entities = [tuple(x) for x in ]
         for ent_1, ent_2 in itertools.combinations(item["ner"], 2):
             
@@ -93,6 +93,50 @@ def compute_prob(pairs):
     min_count = min(c.values())
     prob = {k: min(1, min_count / v) for k, v in c.items()}
     return prob
+
+# Relation Extraction 
+
+experiment_words_to_check = set("experiment|evaluation|evaluate|evaluate".split("|"))
+dataset_words_to_check = set("dataset|corpus|corpora".split("|"))
+
+def get_ent_type(span, doc):
+    ''' Find entity span in document ner data for given span'''
+    span_start, span_end = span
+    for ent in doc['ner']:
+        if span_start == ent[0] and span_end == ent[1]:
+            return ent[2]
+    raise RuntimeError(f"No entity type found for {span} in {doc['doc_id']}")
+
+def is_span_inside(span, other):
+    return span[0] >= other[0] and span[1] <= other[1]
+
+def get_span_words(span, doc):
+    return doc['words'][span[0]:span[1]]
+
+def get_section_features(doc):
+    features_list = []
+    for i, (s, e) in enumerate(doc['sections']):
+        features = []
+        words = " ".join(doc['words'][s:e]).lower()
+        if i == 0:
+            features.append("Heading")
+
+        if "abstract" in words:
+            features.append("Abstract")
+        if "introduction" in words:
+            features.append("Introduction")
+
+        if any(w in words for w in dataset_words_to_check):
+            features.append("Dataset")
+            features.append("Experiment")
+
+        if any(w in words for w in experiment_words_to_check):
+            features.append("Experiment")
+
+        features_list.append(sorted(list(set(features))))
+
+    return features_list
+
 
 class BaseDataLoader(object):
     
@@ -298,12 +342,266 @@ class CorefDataLoader(BaseDataLoader):
         pairs = generate_pairs(data)
         if is_train:
             prob = compute_prob(pairs)
-            print(len(pairs))
             random.seed(42)
             pairs = [pair for pair, _, _ in pairs if random.random() < prob[pair[-1]]]
-            print(len(pairs))
 
         return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
+
+class RelDataLoader(BaseDataLoader):
+    def __init__(self, tokenizer, labels=None, max_paragraph_len=300):
+        self.tokenizer = tokenizer
+        self.max_paragraph_len = max_paragraph_len
+        self.labels = labels if labels else ['Task', 'Material', 'Metric', 'Method']
+        self.label_idx_map = {l:i for i, l in enumerate(self.labels)}
+        self.idx_label_map = {i:l for i, l in enumerate(self.labels)}
+
+        self.sf_labels = ['Abstract', 'Dataset', 'Experiment', 'Heading', 'Introduction']
+        self.sf_idx_map = {l:i for i, l in enumerate(self.sf_labels)}
+        self.idx_sf_map = {i:l for i, l in enumerate(self.sf_labels)}
+        super().__init__()    
+
+    def label_onehot(self, ids, idx_label_map):
+        return [1 if i in ids else 0 for i in range(len(idx_label_map))]
+
+    def section_to_paragraphs(self, section_span, doc):
+
+        # retrieve all section sentences        
+        sentence_spans = [sentence for sentence in doc['sentences'] if is_span_inside(sentence, section_span)]
+
+        paragraph_spans = []
+        # start paragraph with first sentence of section
+        paragraph_start, paragraph_end = sentence_spans[0]
+        for sentence_start, sentence_end in sentence_spans[1:]:
+            # if current paragraph is longer than self.max_paragraph_len
+            # append it into paragraph_spans and start a new paragraph
+            if sentence_end - paragraph_start > self.max_paragraph_len:
+                paragraph_spans.append([paragraph_start, paragraph_end])
+                paragraph_start = sentence_start
+            paragraph_end = sentence_end
+        # append the last paragraph of the section
+        paragraph_spans.append([paragraph_start, paragraph_end])
+        
+        # make sure pragraphs length equals to section length
+        assert section_span[1] - section_span[0] == paragraph_spans[-1][1] - paragraph_spans[0][0], \
+            f"section length  ({section_span}, {section_span[1] - section_span[0]}) don't match paragraph length ([{paragraph_spans[0][0]}, {paragraph_spans[-1][1]}], {paragraph_spans[-1][1] - paragraph_spans[0][0]})"
+
+        return paragraph_spans
+
+    def doc_to_paragraphs(self, doc):
+
+        doc_id = doc['doc_id']
+        coref = doc['coref']
+        words = doc['words']
+        n_ary_relations = doc['n_ary_relations']
+
+        ccluster_idx_map = {l:i for i, l in enumerate(coref) if len(coref[l]) > 0}
+        idx_ccluster_map = {i:l for i, l in enumerate(coref) if len(coref[l]) > 0}
+        ccluster_label_map = {ccluster_idx_map[k]:self.label_idx_map[get_ent_type(v[0], doc)] for k, v in coref.items() if len(v) > 0}
+
+        # I should make entity_to_clusters here
+        relation_to_cluster_ids = {}
+        for rel_idx, rel in enumerate(n_ary_relations):
+            relation_to_cluster_ids[rel_idx] = []
+            for entity in self.labels:
+                if rel[entity] in ccluster_idx_map:
+                    relation_to_cluster_ids[rel_idx].append(ccluster_idx_map[rel[entity]])
+
+        section_features = get_section_features(doc)
+        refs = functools.reduce(lambda a, b : a  + b, coref.values())
+
+        def span_has_ref(span):
+            ''' Return true if there is at least 1 mention from 1 coref in span'''
+            for ref_span in refs:
+                if is_span_inside(ref_span, span):
+                    return True
+            return False
+
+        # break section into paragraphs 
+        # TODO : Handle sentences longer than self.max_paragraph_len
+        paragraph_spans = []
+        paragraph_sf = []
+        for section_span, sf in zip(doc['sections'], section_features):
+            p = self.section_to_paragraphs(section_span, doc)
+            paragraph_spans.extend(p)
+            for _ in p:
+                paragraph_sf.append([self.sf_idx_map[sfl] for sfl in sf])
+
+        # ATM remove paragraph without any mention
+        paragraph_spans = [p for p in paragraph_spans if span_has_ref(p)]
+        paragraph_sf = [sf for p, sf in zip(paragraph_spans, paragraph_sf) if span_has_ref(p)]
+
+        sentences_spans = []
+        coref_spans = []
+        coref_spans_type_map = []
+        coref_sf_map = []
+        coref_cluster_map = []
+
+        entity_to_clusters = {k:[] for k in self.idx_label_map}
+
+        for paragraph_span, sf in zip(paragraph_spans, paragraph_sf):
+            sentences_spans.append([sentence_span for sentence_span in doc['sentences'] if is_span_inside(sentence_span, paragraph_span)])
+            coref_spans.append([])
+            coref_spans_type_map.append([])
+            coref_sf_map.append([])
+            coref_cluster_map.append([])
+            for k, listv in coref.items():
+                if len(listv) == 0:
+                    continue
+                ent_type = self.label_idx_map[get_ent_type(listv[0], doc)]
+                for v in listv:
+                    if is_span_inside(v, paragraph_span):
+                        coref_spans[-1].append(v)
+                        coref_spans_type_map[-1].append(ent_type)
+                        coref_sf_map[-1].append(sf)
+                        coref_cluster_map[-1].append(ccluster_idx_map[k])
+                entity_to_clusters[ent_type].append(ccluster_idx_map[k])
+        
+        entity_to_clusters = {k:list(set(v)) for k, v in entity_to_clusters.items()}
+
+        return {
+            'doc_id':doc_id,
+            'coref':coref,
+            'words':words,
+            
+            'ccluster_idx_map':ccluster_idx_map,
+            'idx_ccluster_map':idx_ccluster_map,
+            'ccluster_label_map':ccluster_label_map,
+            'entity_to_clusters':entity_to_clusters,
+            'relation_to_cluster_ids':relation_to_cluster_ids,
+            
+            'paragraph_spans':paragraph_spans,
+            'sentence_spans':sentences_spans,
+            'coref_spans':coref_spans,
+            'coref_spans_type_map':coref_spans_type_map,
+            'coref_sf_map':coref_sf_map,
+            'coref_cluster_map':coref_cluster_map
+        }   
+
+    def tokenize_word(self, word):
+        token = self.tokenizer.tokenize([word], is_split_into_words=True)
+        
+        if len(token) < 1:
+            token = [self.tokenizer.unk_token]
+
+        return self.tokenizer.convert_tokens_to_ids(token)
+
+    def tokenize_sentence(self, sentence, doc):
+        return functools.reduce(
+            lambda a, b : a + b, 
+            [self.tokenize_word(word) for word in get_span_words(sentence, doc)])
+
+    def tokenize_paragraph(self, paragraph_sentences, doc):
+
+        tokens = [self.tokenize_sentence(sentence, doc) for sentence in paragraph_sentences]
+        tokens = functools.reduce(lambda a, b : a  + b, tokens)
+
+        if len(tokens) > 512:
+            print(f"MAXIMUM TOKEN SIZE ({len(tokens)}/512) REACHED FOR DOC : {doc['doc_id']}")
+            tokens = tokens[:512]
+
+        return tokens
+
+    def collate_fn(self, batch_as_list):
+        b = batch_as_list[0]
+ 
+        ccluster_idx_map, idx_ccluster_map, ccluster_label_map = (b['ccluster_idx_map'], b['idx_ccluster_map'], b['ccluster_label_map'])
+        relation_to_cluster_ids = b['relation_to_cluster_ids']
+            
+
+        # Tokenize words
+        tokens = [torch.LongTensor(self.tokenize_paragraph(paragraph_sentences, b)) for paragraph_sentences in b['sentence_spans']]
+
+        # Pad tokens
+        input_ids = pad_sequence(tokens, batch_first=True, padding_value=self.tokenizer.pad_token_id)
+        
+        # print('input_ids.shape : ', input_ids.shape)
+
+        # Mask padded tokens
+        attention_mask = (input_ids != self.tokenizer.pad_token_id).float()
+
+        # print('attention_mask.shape : ', attention_mask.shape)
+        
+        # Make coref spans inclusif and relatif to paragraph
+        # Also make coref spans mean position
+        # Also make coref label onehot
+
+        doc_length = len(b['words'])
+        
+        relatif_spans = []
+        spans_position = []
+        spans_label_onehot = []
+        spans_sf_onehot = []
+        spans_ccluster_onehot = []
+
+        for coref_spans, paragraph_spans, coref_spans_type_map, coref_sf_map, coref_cluster_map  in zip(
+            b['coref_spans'], 
+            b['paragraph_spans'], 
+            b['coref_spans_type_map'], 
+            b['coref_sf_map'],
+            b['coref_cluster_map']):
+
+            paragraph_start, _ = paragraph_spans
+            
+            relatif_spans.append([])
+            spans_position.append([])
+            spans_label_onehot.append([])
+            spans_sf_onehot.append([])
+            spans_ccluster_onehot.append([])
+
+            for coref_span, coref_span_type, coref_sf, coref_cluster in zip(coref_spans, coref_spans_type_map, coref_sf_map, coref_cluster_map):
+                coref_start, coref_end = coref_span
+                relatif_spans[-1].append([coref_start-paragraph_start, coref_end-paragraph_start-1])
+                spans_position[-1].append(np.mean([coref_start, coref_end]) / doc_length)
+                spans_label_onehot[-1].append(self.label_onehot([coref_span_type], self.idx_label_map))
+                spans_sf_onehot[-1].append(self.label_onehot(coref_sf, self.idx_sf_map))
+                spans_ccluster_onehot[-1].append(self.label_onehot([coref_cluster], idx_ccluster_map))
+
+        # Pad relatif_spans & spans_position & spans_label_onehot & spans_sf_onehot
+        max_span_count = max([len(s) for s in relatif_spans])
+
+        for spans, positions, label_onehot, sf_onehot, ccluster_onehot in zip(relatif_spans, spans_position, spans_label_onehot, spans_sf_onehot, spans_ccluster_onehot):
+            for i in range(len(spans), max_span_count):
+                spans.append([0,0])
+                positions.append(0)
+                label_onehot.append(self.label_onehot([], self.idx_label_map))
+                sf_onehot.append(self.label_onehot([], self.idx_sf_map))
+                ccluster_onehot.append(self.label_onehot([], idx_ccluster_map))
+
+        relatif_spans = torch.LongTensor(relatif_spans)
+        spans_position = torch.FloatTensor(spans_position).unsqueeze(-1)
+        spans_label_onehot = torch.FloatTensor(spans_label_onehot)
+        spans_sf_onehot = torch.FloatTensor(spans_sf_onehot)
+        spans_ccluster_onehot = torch.FloatTensor(spans_ccluster_onehot)
+
+        # print('relatif_spans.shape : ', relatif_spans.shape)
+        # print('spans_position.shape : ', spans_position.shape)
+        # print('spans_label_onehot.shape : ', spans_label_onehot.shape)
+        # print('spans_sf_onehot.shape : ', spans_sf_onehot.shape)
+        # print('coref_cluster_onehot.shape : ', coref_cluster_onehot.shape)
+
+        # Mask padded spans
+        spans_mask = (relatif_spans != 0).sum(-1).bool()
+        # print('spans_mask.shape : ', spans_mask.shape)
+
+        return {
+            'doc_id' : b['doc_id'],
+            'cluster_to_type_arr': [t for _, t in sorted(ccluster_label_map.items())],
+            'entity_to_clusters':b['entity_to_clusters'],
+            'relation_to_cluster_ids':relation_to_cluster_ids,
+            'input_ids' : input_ids,
+            'attention_mask' : attention_mask,
+            'coref_spans':relatif_spans,
+            'coref_spans_mask':spans_mask,
+            'coref_spans_position': spans_position, # (B, P, 1)
+            'coref_spans_labels': spans_label_onehot, # (B, P, L)
+            'coref_spans_sf':spans_sf_onehot, # (B, S, SF)
+            'coref_spans_cluster':spans_ccluster_onehot, # (B, S, C)
+        }
+
+    def create_dataloader(self, data, is_train=False, batch_size=1, num_workers=1, **kwgs):
+        docs = [self.doc_to_paragraphs(doc) for doc in data]
+        return super().create_dataloader(docs, batch_size, num_workers, **kwgs)
+    
 
 if __name__ == "__main__":
     from transformers import AutoTokenizer
@@ -314,12 +612,21 @@ if __name__ == "__main__":
     
     data = read_jsonl('data/train.jsonl')
 
+    # Relation
+
+    loader = RelDataLoader(tokenizer).create_dataloader(data, batch_size=1, prefetch_factor=1)
+
+    for b in loader:
+        print(b)
+        # from pathlib import Path
+        # import json
+        # Path('a.json').write_text(json.dumps({'coref':b['coref'], 'paragraph_spans':b['paragraph_spans'], 'coref_sf':b['coref_sf']}))
+        break
+
     # Coref
-    loader = CorefDataLoader(tokenizer).create_dataloader(data, is_train=True, prefetch_factor=1)
+    # loader = CorefDataLoader(tokenizer).create_dataloader(data, is_train=True, prefetch_factor=1)
 
     # NER 
     # loader = NERDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
 
-    for b in loader:
-        print(b)
-        break     
+   

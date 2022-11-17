@@ -8,9 +8,6 @@ from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from dataset import labels_to_id
 from helpers import read_jsonl
 
-
-
-
 class ModelTrainer(pl.LightningModule):
 
     def __init__(self, model, f1, config):
@@ -34,11 +31,11 @@ class ModelTrainer(pl.LightningModule):
 
     def validation_step(self, val_batch, batch_idx):
 
-        prediction = self.model.predict(val_batch)
+        output = self.model.predict(val_batch)
 
         # TODO : This should work for all model (by put the evaluation method in model or on config ?)
         # We should use nereval here for consistency
-        f1_micro_base = self.f1(val_batch['true'], prediction, average="micro")
+        f1_micro_base = self.f1(output['true'], output['pred'].cpu().numpy(), average="micro")
 
         self.log('f1_score', f1_micro_base, prog_bar=True)
 
@@ -117,6 +114,12 @@ def create_config(name, dirpath, train_path, dev_path, model_name, word_encoder=
         check_val_every_n_epoch=check_val_every_n_epoch, limit_train_batches=limit_train_batches, 
         limit_val_batches=limit_val_batches, val_check_interval=val_check_interval)
 
-    cfg = ConfigClass(hner=hner, coref=coref)
+    rel = ConfigClass(name=name, dirpath=dirpath, train_path=train_path, dev_path=dev_path, word_encoder=word_encoder, mode=mode, 
+        model_name=model_name, device=device, train_batch_size=train_batch_size, val_batch_size=val_batch_size, 
+        num_workers=num_workers, learning_rate=learning_rate, max_epoch=max_epoch, tag_format=tag_format,
+        check_val_every_n_epoch=check_val_every_n_epoch, limit_train_batches=limit_train_batches, 
+        limit_val_batches=limit_val_batches, val_check_interval=val_check_interval)
+
+    cfg = ConfigClass(hner=hner, coref=coref, rel=rel)
 
     return cfg

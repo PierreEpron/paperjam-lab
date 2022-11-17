@@ -1,8 +1,10 @@
+from collections import defaultdict
+from itertools import combinations, product
 from typing import Dict, List
 from tqdm import tqdm
 
-from torch import nn
 import torch
+from torch import nn
 
 from transformers import AutoTokenizer, AutoModel
 
@@ -10,9 +12,200 @@ from seqeval.metrics.sequence_labeling import get_entities
 
 from allennlp.modules.conditional_random_field import ConditionalRandomField, allowed_transitions
 from allennlp.modules.seq2seq_encoders import LstmSeq2SeqEncoder, PytorchTransformer
+from allennlp.modules.span_extractors import EndpointSpanExtractor, SelfAttentiveSpanExtractor
+from allennlp.nn import util
+from allennlp.modules import FeedForward, TimeDistributed
 
 from helpers import select_first_subword
-from dataset import NERDataLoader, CorefDataLoader
+from dataset import NERDataLoader, CorefDataLoader, RelDataLoader
+
+class BertRel(nn.Module):
+    def __init__(self,
+        model_name='allenai/scibert_scivocab_uncased',
+        lexical_dropout = .2,
+        context_hidden_size=200,
+        relation_cardinality=2):
+
+        super().__init__()
+        
+        self.relation_cardinality = relation_cardinality
+
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self.bert_layer = AutoModel.from_pretrained(model_name)
+
+        self.lexical_dropout = nn.Dropout(p=lexical_dropout)
+
+        self.context_layer = LstmSeq2SeqEncoder(768, context_hidden_size, bidirectional=True)
+        
+        self.attended_extractor = SelfAttentiveSpanExtractor(self.context_layer.get_output_dim())
+        
+        self.endpoint_extractor = EndpointSpanExtractor(self.context_layer.get_output_dim(), combination="x,y")
+
+        self.bias_vectors = torch.nn.Parameter(torch.zeros((1, 4, 1210)))
+
+        feedforward = nn.Sequential(
+            nn.Sequential(
+                nn.Linear(1210*self.relation_cardinality, 150),
+                nn.GELU(),
+                nn.Dropout(p=.2),
+            ),
+            nn.Sequential(
+                nn.Linear(150, 150),
+                nn.GELU(),
+                nn.Dropout(p=.2),
+            )
+        ) 
+        self.antecedent_feedforward = TimeDistributed(feedforward)
+        
+        self.antecedent_scorer = TimeDistributed(torch.nn.Linear(150, 1))
+
+        self.data_processor = RelDataLoader(self.tokenizer)
+
+    def forward(self, x, compute_loss=False):
+
+        input_ids, attention_mask = (x['input_ids'], x['attention_mask'])
+        # print('input_ids.shape : ', input_ids.shape)
+        # print('attention_mask.shape : ', attention_mask.shape)
+        
+        spans, spans_mask = (x['coref_spans'], x['coref_spans_mask'])
+        # print('spans.shape : ', spans.shape)
+        # print('spans_mask.shape : ', spans_mask.shape)
+
+        span_position, span_type_labels_one_hot, span_section_features, span_clusters = (x['coref_spans_position'], x['coref_spans_labels'], x['coref_spans_sf'], x['coref_spans_cluster'])
+        # print('span_position.shape : ', span_position.shape)
+        # print('span_type_labels_one_hot.shape : ', span_type_labels_one_hot.shape)
+        # print('span_section_features.shape : ', span_section_features.shape)
+        # print('span_clusters.shape : ', span_clusters.shape)
+
+        cluster_to_type_arr = x['cluster_to_type_arr']
+        entity_to_clusters = x['entity_to_clusters']
+        relation_to_cluster_ids = x['relation_to_cluster_ids']
+
+        # print(relation_to_cluster_ids)
+
+        text_embeddings = self.bert_layer(input_ids, attention_mask).last_hidden_state
+        # print('text_embeddings.shape : ', text_embeddings.shape)
+
+        # TODO : flatten like scirex here ?
+
+        contextualized_embeddings = self.context_layer(text_embeddings, attention_mask)
+        # print('contextualized_embeddings.shape : ', contextualized_embeddings.shape)
+
+        attented_span_embeddings = self.attended_extractor(contextualized_embeddings, spans, attention_mask, spans_mask)
+        # print('attented_span_embeddings.shape : ', attented_span_embeddings.shape)
+
+        # TODO : I don't know why they do that :'(
+        # spans_relu =  nn.functional.relu(spans.float()).long()
+        # # print('spans_relu.shape : ', spans_relu.shape)
+        # # print(torch.equal(spans, spans_relu)) # Equal True ...
+
+        endpoint_span_embeddings = self.endpoint_extractor(contextualized_embeddings, spans, attention_mask, spans_mask)
+        # print('endpoint_span_embeddings.shape : ', endpoint_span_embeddings.shape)
+        
+        span_embeddings = torch.cat([endpoint_span_embeddings, attented_span_embeddings], -1)
+        # print('span_embeddings.shape : ', span_embeddings.shape)
+
+        span_features = torch.cat([span_position, span_type_labels_one_hot.float(), span_section_features.float()], dim=-1) 
+        # print('span_features.shape : ', span_features.shape)
+
+        featured_span_embeddings = torch.cat([span_embeddings, span_features], dim=-1)
+        # print('featured_span_embeddings.shape : ', featured_span_embeddings.shape)
+
+        keep_spans_idx = spans_mask.view(-1).nonzero().squeeze(1).long()
+        
+        sum_embeddings = (featured_span_embeddings.unsqueeze(2) * span_clusters.unsqueeze(-1)).sum(1)
+        # print('sum_embeddings.shape : ', sum_embeddings.shape)
+
+        length_embeddings =  (span_clusters.unsqueeze(-1).sum(1) + 1e-5)
+        # print('length_embeddings.shape : ', length_embeddings.shape)
+
+        cluster_span_embeddings = sum_embeddings / length_embeddings
+        # print('cluster_span_embeddings.shape : ', cluster_span_embeddings.shape)
+
+        paragraph_cluster_mask = (span_clusters.sum(1) > 0).float().unsqueeze(-1)
+        # print('paragraph_cluster_mask.shape : ', paragraph_cluster_mask.shape)
+
+        cluster_type_embeddings = self.bias_vectors[:, cluster_to_type_arr]
+        # print('cluster_type_embeddings.shape : ', cluster_type_embeddings.shape)
+
+        paragraph_cluster_embeddings = cluster_span_embeddings * paragraph_cluster_mask + cluster_type_embeddings * (1 - paragraph_cluster_mask)
+        # print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)
+
+        paragraph_cluster_embeddings = torch.cat(
+            [paragraph_cluster_embeddings, self.bias_vectors.expand(paragraph_cluster_embeddings.shape[0], -1, -1)],
+            dim=1,
+        ) 
+        # print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)  # (P, C+T, E)
+
+        n_true_clusters = span_clusters.shape[-1]
+        used_entities = list(self.data_processor.idx_label_map.keys())
+        # bias_vectors_clusters = {x: i + n_true_clusters for i, x in enumerate(used_entities)}
+
+        cluster_to_relations_id = defaultdict(set)
+        for r, clist in relation_to_cluster_ids.items():
+            # for t in bias_vectors_clusters.values():
+            #     cluster_to_relations_id[t].add(r)
+            for c in clist:
+                cluster_to_relations_id[c].add(r)
+
+        candidate_relations = []
+        candidate_relations_labels = []
+        # candidate_relations_types = []
+
+        for e in combinations(used_entities, self.relation_cardinality):
+            type_lists = [entity_to_clusters[x] for x in e]
+            for clist in product(*type_lists):
+
+                candidate_relations.append(clist)
+                common_relations = set.intersection(*[cluster_to_relations_id[c] for c in clist])
+                candidate_relations_labels.append(1 if len(common_relations) > 0 else 0)
+            #     candidate_relations_types.append(self._relation_type_map[tuple(e)])
+
+        candidate_relations_tensor = torch.LongTensor(candidate_relations).to(text_embeddings.device)
+        # print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
+
+        candidate_relations_labels_tensor = torch.LongTensor(candidate_relations_labels).to(text_embeddings.device)
+        # print('candidate_relations_labels_tensor.shape : ', candidate_relations_labels_tensor.shape)
+
+        relation_embeddings = util.batched_index_select(
+                    paragraph_cluster_embeddings,
+                    candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
+                )
+        # print('relation_embeddings.shape : ', relation_embeddings.shape)
+        
+        relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
+        # print('relation_embeddings.shape : ', relation_embeddings.shape)
+
+        relation_embeddings = self.antecedent_feedforward(relation_embeddings)
+        # print('relation_embeddings.shape : ', relation_embeddings.shape)
+
+        relation_embeddings = relation_embeddings.max(0, keepdim=True)[0]
+        # print('relation_embeddings.shape : ', relation_embeddings.shape)
+
+        relation_logits = self.antecedent_scorer(relation_embeddings).squeeze(-1).squeeze(0)
+        # print('relation_logits.shape : ', relation_logits.shape)
+
+        # # print('relation_scores.shape : ', relation_scores.shape)
+        # # print(relation_scores)
+
+        output_dict={'doc_id':x['doc_id'], 'logits':relation_logits, 'true':candidate_relations_labels}
+
+        if compute_loss:
+            output_dict["loss"] = nn.functional.binary_cross_entropy_with_logits(
+                relation_logits,
+                candidate_relations_labels_tensor.float(),
+                reduction="mean",
+                    # pos_weight=torch.Tensor([self._pos_weight]).to(relation_logits.device)
+            )
+
+        return output_dict
+
+    def predict(self, x):
+        with torch.no_grad():
+            outputs = self.forward(x, compute_loss=False)
+            outputs["probs"] = torch.sigmoid(outputs['logits'])
+            outputs["pred"] = (outputs["probs"] > 5).int()
+        return outputs
 
 class BertCoref(nn.Module):
     def __init__(self, model_name='allenai/scibert_scivocab_uncased'):
@@ -193,10 +386,10 @@ if __name__ == "__main__":
 
     data = read_jsonl('data/train.jsonl')
 
-    model = BertCoref()
+    model = BertRel()
 
-    loader = model.data_processor.create_dataloader(data, batch_size=8)
+    loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1, shuffle=False)
 
     for b in loader:
-        print(model.predict(b))
+        # print(model.predict(b))
         break
