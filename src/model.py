@@ -184,7 +184,7 @@ class BertRel(nn.Module):
         except:
             print('doc_id : ', x['doc_id'])
             print('span_clusters.shape : ', span_clusters.shape)
-            print('candidate_relations.shape : ', candidate_relations.shape)
+            print('candidate_relations.shape : ', len(candidate_relations))
             print("paragraph_cluster_embeddings.shape : ", paragraph_cluster_embeddings.shape)
             print("candidate_relations_tensor.shape : ", candidate_relations_tensor.shape)
             return {'doc_id':x['doc_id'], "loss": 0.0}
