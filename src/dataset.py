@@ -431,8 +431,8 @@ class RelDataLoader(BaseDataLoader):
                 paragraph_sf.append([self.sf_idx_map[sfl] for sfl in sf])
 
         # ATM remove paragraph without any mention
-        paragraph_spans = [p for p in paragraph_spans if span_has_ref(p)]
-        paragraph_sf = [sf for p, sf in zip(paragraph_spans, paragraph_sf) if span_has_ref(p)]
+        # paragraph_spans = [p for p in paragraph_spans if span_has_ref(p)]
+        # paragraph_sf = [sf for p, sf in zip(paragraph_spans, paragraph_sf) if span_has_ref(p)]
 
         coref_spans = []
         coref_spans_type_map = []
