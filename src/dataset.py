@@ -434,7 +434,6 @@ class RelDataLoader(BaseDataLoader):
         paragraph_spans = [p for p in paragraph_spans if span_has_ref(p)]
         paragraph_sf = [sf for p, sf in zip(paragraph_spans, paragraph_sf) if span_has_ref(p)]
 
-        sentences_spans = []
         coref_spans = []
         coref_spans_type_map = []
         coref_sf_map = []
@@ -443,7 +442,6 @@ class RelDataLoader(BaseDataLoader):
         entity_to_clusters = {k:[] for k in self.idx_label_map}
 
         for paragraph_span, sf in zip(paragraph_spans, paragraph_sf):
-            sentences_spans.append([sentence_span for sentence_span in doc['sentences'] if is_span_inside(sentence_span, paragraph_span)])
             coref_spans.append([])
             coref_spans_type_map.append([])
             coref_sf_map.append([])
@@ -474,7 +472,6 @@ class RelDataLoader(BaseDataLoader):
             'relation_to_cluster_ids':relation_to_cluster_ids,
             
             'paragraph_spans':paragraph_spans,
-            'sentence_spans':sentences_spans,
             'coref_spans':coref_spans,
             'coref_spans_type_map':coref_spans_type_map,
             'coref_sf_map':coref_sf_map,
@@ -489,14 +486,14 @@ class RelDataLoader(BaseDataLoader):
 
         return self.tokenizer.convert_tokens_to_ids(token)
 
-    def tokenize_sentence(self, sentence, doc):
-        return functools.reduce(
-            lambda a, b : a + b, 
-            [self.tokenize_word(word) for word in get_span_words(sentence, doc)])
+    # def tokenize_sentence(self, sentence, doc):
+    #     return functools.reduce(
+    #         lambda a, b : a + b, 
+    #         [self.tokenize_word(word) for word in get_span_words(sentence, doc)])
 
-    def tokenize_paragraph(self, paragraph_sentences, doc):
+    def tokenize_paragraph(self, paragraph, doc):
 
-        tokens = [self.tokenize_sentence(sentence, doc) for sentence in paragraph_sentences]
+        tokens = [self.tokenize_word(word) for word in get_span_words(paragraph, doc)]
         tokens = functools.reduce(lambda a, b : a  + b, tokens)
 
         if len(tokens) > 512:
@@ -513,7 +510,7 @@ class RelDataLoader(BaseDataLoader):
             
 
         # Tokenize words
-        tokens = [torch.LongTensor(self.tokenize_paragraph(paragraph_sentences, b)) for paragraph_sentences in b['sentence_spans']]
+        tokens = [torch.LongTensor(self.tokenize_paragraph(paragraph_spans, b)) for paragraph_spans in b['paragraph_spans']]
 
         # Pad tokens
         input_ids = pad_sequence(tokens, batch_first=True, padding_value=self.tokenizer.pad_token_id)
