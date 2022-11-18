@@ -180,7 +180,7 @@ class BertRel(nn.Module):
                 paragraph_cluster_embeddings,
                 candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
             )
-        except:
+        except Exception:
 
             print('doc_id : ', x['doc_id'])
             print('span_clusters.shape : ', span_clusters.shape)
@@ -188,8 +188,8 @@ class BertRel(nn.Module):
             print("paragraph_cluster_embeddings.shape : ", paragraph_cluster_embeddings.shape)
             print("candidate_relations_tensor.shape : ", candidate_relations_tensor.shape)
 
-            _, exc_value, _ = sys.exc_info()
-            traceback.print_exception(exc_value)  
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            traceback.print_exception(exc_type, exc_value, exc_traceback)  
 
             return {'doc_id':x['doc_id'], "loss": None}
             
@@ -396,10 +396,11 @@ if __name__ == "__main__":
     from helpers import read_jsonl
 
     data = read_jsonl('data/train.jsonl')
+    doc = [doc for doc in data if doc['doc_id'] == '007ab5528b3bd310a80d553cccad4b78dc496b02']
 
     model = BertRel()
 
-    loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1, shuffle=True)
+    loader = model.data_processor.create_dataloader(doc, batch_size=1, prefetch_factor=1, shuffle=True)
 
     for b in loader:
         print(model.forward(b))
