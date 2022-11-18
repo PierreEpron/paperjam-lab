@@ -67,18 +67,18 @@ class BertRel(nn.Module):
         torch.cuda.empty_cache()
 
         input_ids, attention_mask = (x['input_ids'], x['attention_mask'])
-        # print('input_ids.shape : ', input_ids.shape)
-        # print('attention_mask.shape : ', attention_mask.shape)
+        print('input_ids.shape : ', input_ids.shape)
+        print('attention_mask.shape : ', attention_mask.shape)
         
         spans, spans_mask = (x['coref_spans'], x['coref_spans_mask'])
-        # print('spans.shape : ', spans.shape)
-        # print('spans_mask.shape : ', spans_mask.shape)
+        print('spans.shape : ', spans.shape)
+        print('spans_mask.shape : ', spans_mask.shape)
 
         span_position, span_type_labels_one_hot, span_section_features, span_clusters = (x['coref_spans_position'], x['coref_spans_labels'], x['coref_spans_sf'], x['coref_spans_cluster'])
-        # print('span_position.shape : ', span_position.shape)
-        # print('span_type_labels_one_hot.shape : ', span_type_labels_one_hot.shape)
-        # print('span_section_features.shape : ', span_section_features.shape)
-        # print('span_clusters.shape : ', span_clusters.shape)
+        print('span_position.shape : ', span_position.shape)
+        print('span_type_labels_one_hot.shape : ', span_type_labels_one_hot.shape)
+        print('span_section_features.shape : ', span_section_features.shape)
+        print('span_clusters.shape : ', span_clusters.shape)
 
         if len(span_clusters) == 0:
             return {'doc_id':x['doc_id'], "loss": None}
@@ -87,64 +87,58 @@ class BertRel(nn.Module):
         entity_to_clusters = x['entity_to_clusters']
         relation_to_cluster_ids = x['relation_to_cluster_ids']
 
-
-        # print(relation_to_cluster_ids)
-
         text_embeddings = self.bert_layer(input_ids, attention_mask).last_hidden_state
-        # print('text_embeddings.shape : ', text_embeddings.shape)
+        print('text_embeddings.shape : ', text_embeddings.shape)
 
         # TODO : flatten like scirex here ?
 
         contextualized_embeddings = self.context_layer(text_embeddings, attention_mask)
-        # print('contextualized_embeddings.shape : ', contextualized_embeddings.shape)
+        print('contextualized_embeddings.shape : ', contextualized_embeddings.shape)
 
         attented_span_embeddings = self.attended_extractor(contextualized_embeddings, spans, attention_mask, spans_mask)
-        # print('attented_span_embeddings.shape : ', attented_span_embeddings.shape)
+        print('attented_span_embeddings.shape : ', attented_span_embeddings.shape)
 
         # TODO : I don't know why they do that :'(
         # spans_relu =  nn.functional.relu(spans.float()).long()
-        # # print('spans_relu.shape : ', spans_relu.shape)
-        # # print(torch.equal(spans, spans_relu)) # Equal True ...
+        # print('spans_relu.shape : ', spans_relu.shape)
+        # print(torch.equal(spans, spans_relu)) # Equal True ...
 
         endpoint_span_embeddings = self.endpoint_extractor(contextualized_embeddings, spans, attention_mask, spans_mask)
-        # print('endpoint_span_embeddings.shape : ', endpoint_span_embeddings.shape)
+        print('endpoint_span_embeddings.shape : ', endpoint_span_embeddings.shape)
         
         span_embeddings = torch.cat([endpoint_span_embeddings, attented_span_embeddings], -1)
-        # print('span_embeddings.shape : ', span_embeddings.shape)
+        print('span_embeddings.shape : ', span_embeddings.shape)
 
         span_features = torch.cat([span_position, span_type_labels_one_hot.float(), span_section_features.float()], dim=-1) 
-        # print('span_features.shape : ', span_features.shape)
+        print('span_features.shape : ', span_features.shape)
 
         featured_span_embeddings = torch.cat([span_embeddings, span_features], dim=-1)
-        # print('featured_span_embeddings.shape : ', featured_span_embeddings.shape)
+        print('featured_span_embeddings.shape : ', featured_span_embeddings.shape)
 
-        keep_spans_idx = spans_mask.view(-1).nonzero().squeeze(1).long()
-        
         sum_embeddings = (featured_span_embeddings.unsqueeze(2) * span_clusters.unsqueeze(-1)).sum(1)
-        # print('sum_embeddings.shape : ', sum_embeddings.shape)
+        print('sum_embeddings.shape : ', sum_embeddings.shape)
 
         length_embeddings =  (span_clusters.unsqueeze(-1).sum(1) + 1e-5)
-        # print('length_embeddings.shape : ', length_embeddings.shape)
+        print('length_embeddings.shape : ', length_embeddings.shape)
 
         cluster_span_embeddings = sum_embeddings / length_embeddings
-        # print('cluster_span_embeddings.shape : ', cluster_span_embeddings.shape)
+        print('cluster_span_embeddings.shape : ', cluster_span_embeddings.shape)
 
         paragraph_cluster_mask = (span_clusters.sum(1) > 0).float().unsqueeze(-1)
-        # print('paragraph_cluster_mask.shape : ', paragraph_cluster_mask.shape)
+        print('paragraph_cluster_mask.shape : ', paragraph_cluster_mask.shape)
 
         cluster_type_embeddings = self.bias_vectors[:, cluster_to_type_arr]
-        # print('cluster_type_embeddings.shape : ', cluster_type_embeddings.shape)
+        print('cluster_type_embeddings.shape : ', cluster_type_embeddings.shape)
 
         paragraph_cluster_embeddings = cluster_span_embeddings * paragraph_cluster_mask + cluster_type_embeddings * (1 - paragraph_cluster_mask)
-        # print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)
+        print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)
 
         paragraph_cluster_embeddings = torch.cat(
             [paragraph_cluster_embeddings, self.bias_vectors.expand(paragraph_cluster_embeddings.shape[0], -1, -1)],
             dim=1,
         ) 
-        # print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)  # (P, C+T, E)
+        print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)  # (P, C+T, E)
 
-        n_true_clusters = span_clusters.shape[-1]
         used_entities = list(self.data_processor.idx_label_map.keys())
         # bias_vectors_clusters = {x: i + n_true_clusters for i, x in enumerate(used_entities)}
 
@@ -172,7 +166,7 @@ class BertRel(nn.Module):
             return {'doc_id':x['doc_id'], "loss": None}
 
         candidate_relations_tensor = torch.LongTensor(candidate_relations).to(text_embeddings.device)
-        # print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
+        print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
 
         candidate_relations_labels_tensor = torch.LongTensor(candidate_relations_labels).to(text_embeddings.device)
         try:
@@ -181,29 +175,23 @@ class BertRel(nn.Module):
                 candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
             )
         except Exception:
-
-            print('doc_id : ', x['doc_id'])
-            print('span_clusters.shape : ', span_clusters.shape)
-            print('candidate_relations.shape : ', len(candidate_relations))
-            print("paragraph_cluster_embeddings.shape : ", paragraph_cluster_embeddings.shape)
-            print("candidate_relations_tensor.shape : ", candidate_relations_tensor.shape)
-
+            print(candidate_relations)
+            print(".shape", candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1).shape)
             exc_type, exc_value, exc_traceback = sys.exc_info()
-            traceback.print_exception(exc_type, exc_value, exc_traceback)  
-
+            traceback.print_exception(exc_type, exc_value, exc_traceback)
             return {'doc_id':x['doc_id'], "loss": None}
             
         relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
-        # print('relation_embeddings.shape : ', relation_embeddings.shape)
+        print('relation_embeddings.shape : ', relation_embeddings.shape)
 
         relation_embeddings = self.antecedent_feedforward(relation_embeddings)
-        # print('relation_embeddings.shape : ', relation_embeddings.shape)
+        print('relation_embeddings.shape : ', relation_embeddings.shape)
 
         relation_embeddings = relation_embeddings.max(0, keepdim=True)[0]
-        # print('relation_embeddings.shape : ', relation_embeddings.shape)
+        print('relation_embeddings.shape : ', relation_embeddings.shape)
 
         relation_logits = self.antecedent_scorer(relation_embeddings).squeeze(-1).squeeze(0)
-        # print('relation_logits.shape : ', relation_logits.shape)
+        print('relation_logits.shape : ', relation_logits.shape)
 
         outputs={'doc_id':x['doc_id'], 'logits':relation_logits, 'golds':candidate_relations_labels}
 
@@ -405,3 +393,5 @@ if __name__ == "__main__":
     for b in loader:
         print(model.forward(b))
         break
+
+    print(len([v for v in doc[0]['coref'].values() if len(v) > 0]))

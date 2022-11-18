@@ -394,12 +394,12 @@ class RelDataLoader(BaseDataLoader):
     def doc_to_paragraphs(self, doc):
 
         doc_id = doc['doc_id']
-        coref = doc['coref']
+        coref = {k:v for k, v in doc['coref'].items() if len(v) > 0}
         words = doc['words']
         n_ary_relations = doc['n_ary_relations']
 
-        ccluster_idx_map = {l:i for i, l in enumerate(coref) if len(coref[l]) > 0}
-        idx_ccluster_map = {i:l for i, l in enumerate(coref) if len(coref[l]) > 0}
+        ccluster_idx_map = {l:i for i, l in enumerate(coref)}
+        idx_ccluster_map = {i:l for i, l in enumerate(coref)}
         ccluster_label_map = {ccluster_idx_map[k]:self.label_idx_map[get_ent_type(v[0], doc)] for k, v in coref.items() if len(v) > 0}
 
         # I should make entity_to_clusters here
@@ -411,7 +411,7 @@ class RelDataLoader(BaseDataLoader):
                     relation_to_cluster_ids[rel_idx].append(ccluster_idx_map[rel[entity]])
 
         section_features = get_section_features(doc)
-        refs = functools.reduce(lambda a, b : a  + b, coref.values())
+        refs = functools.reduce(lambda a, b : a  + b, coref.values()) if len(coref) > 0 else []
 
         def span_has_ref(span):
             ''' Return true if there is at least 1 mention from 1 coref in span'''
@@ -447,8 +447,6 @@ class RelDataLoader(BaseDataLoader):
             coref_sf_map.append([])
             coref_cluster_map.append([])
             for k, listv in coref.items():
-                if len(listv) == 0:
-                    continue
                 ent_type = self.label_idx_map[get_ent_type(listv[0], doc)]
                 for v in listv:
                     if is_span_inside(v, paragraph_span):
@@ -459,6 +457,9 @@ class RelDataLoader(BaseDataLoader):
                 entity_to_clusters[ent_type].append(ccluster_idx_map[k])
         
         entity_to_clusters = {k:list(set(v)) for k, v in entity_to_clusters.items()}
+
+        # print('ccluster_idx_map : ', ccluster_idx_map)
+        # print('entity_to_clusters : ', entity_to_clusters)
 
         return {
             'doc_id':doc_id,
@@ -583,6 +584,9 @@ class RelDataLoader(BaseDataLoader):
         # Mask padded spans
         spans_mask = (relatif_spans != 0).sum(-1).bool()
         # print('spans_mask.shape : ', spans_mask.shape)
+        
+        # print('paragraph_spans.len : ', len(b['paragraph_spans']))
+        # print('ccluster_label_map.len : ', len(ccluster_label_map))
 
         return {
             'doc_id' : b['doc_id'],
