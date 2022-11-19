@@ -1,6 +1,6 @@
 from collections import Counter
 import random
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, Iterable, List, Tuple
 import torch
 from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
@@ -406,12 +406,6 @@ class RelDataLoader(BaseDataLoader):
 
         super().__init__()    
 
-    # def is_valid_n_ary_relation(relation, coref):
-    #     return len(set(relation.values()).intersection(coref))
-
-    # def filter_n_ary_relations(doc, coref):
-    #     return [relation for relation in doc['n_ary_relations'] if RelDataLoader.is_valid_n_ary_relation(relation, coref)]
-
     def get_map_lists(list_1 : List[Any], list_2 : List[Any] = None) -> Tuple[Dict[Any, Any], Dict[Any, Any]]:
         """
             Return mapping dicts for list_1 to list_2 and list_2 to list_1.
@@ -436,7 +430,25 @@ class RelDataLoader(BaseDataLoader):
         list_2 = list_2 if list_2 else list(range(len(list_1)))
 
         return {l1:l2 for l1, l2 in zip(list_1, list_2)}, {l2:l1 for l1, l2 in zip(list_1, list_2)}
-        
+
+    def filter_relations(doc : Iterable[Dict[str, str]], coref_keys : Iterable[str]):
+        """
+        Filter relations in `doc` with valid coref keys.
+
+        Parameters
+        ----------
+        doc : `Iterable[Dict[str, str]]`
+            Dictionary with a 'n_ary_relations' key associated to a list of relations.
+        corefs : `Iterable[str]`
+            List of coref valid keys used to  filter
+
+        Returns
+        -------
+        filtered_relations : `List[Dict[str, str]]` 
+            Filtered list of relations.
+        """
+        return [relation for relation in doc['n_ary_relations'] if set(relation.values()).intersection(coref_keys)]
+
     def get_onehot(one_ids : List[int], full_ids : List[int]) -> List[int]:
         """
             Return onehot encoded vector of `one_ids` in `full_ids`.
@@ -490,22 +502,27 @@ class RelDataLoader(BaseDataLoader):
         words = doc['words']
         
         # Remove empty values coref and out of scope coref entity
+        # TODO : Test
         corefs = {k:v for k, v in doc['coref'].items() if len(v) > 0 and self.get_ent_type(v[0], doc) in self.entities}
        
         # Map corefs with ids
         coref_to_idx, idx_to_coref = self.get_map_lists(corefs)
         
         # Map coref clusters to entity types by ids
+        # TODO : Test
         coref_idx_to_entity_idx = {coref_to_idx[k]:self.entity_to_idx[self.get_ent_type(v[0], doc)] for k, v in corefs.items()}
 
-        # I should make entity_to_clusters here
-        # TODO : I SHOULD CHECK EMPTY RELATION
+        # Map relation and coref ids
+        # Map entity and coref ids
         relation_idx_to_cluster_idx = {}
-        for rel_idx, rel in enumerate(doc['n_ary_relations']):
+        entity_idx_to_cluster_idx = {k:[] for k in self.idx_to_entity}
+
+        for rel_idx, rel in enumerate(self.filter_relations(doc['n_ary_relations'])):
             relation_idx_to_cluster_idx[rel_idx] = []
             for entity in self.entities:
                 if rel[entity] in coref_to_idx:
                     relation_idx_to_cluster_idx[rel_idx].append(coref_to_idx[rel[entity]])
+                    entity_idx_to_cluster_idx[ent_type].append(coref_to_idx[k])
 
         section_features = get_section_features(doc)
         # refs = functools.reduce(lambda a, b : a  + b, coref.values()) if len(coref) > 0 else []
@@ -535,7 +552,6 @@ class RelDataLoader(BaseDataLoader):
         coref_sf_map = []
         coref_cluster_map = []
 
-        entity_to_clusters = {k:[] for k in self.idx_to_entity}
 
         for paragraph_span, sf in zip(paragraph_spans, paragraph_sf):
             coref_spans.append([])
@@ -550,19 +566,15 @@ class RelDataLoader(BaseDataLoader):
                         coref_spans_type_map[-1].append(ent_type)
                         coref_sf_map[-1].append(sf)
                         coref_cluster_map[-1].append(coref_to_idx[k])
-                entity_to_clusters[ent_type].append(coref_to_idx[k])
         
-        entity_to_clusters = {k:list(set(v)) for k, v in entity_to_clusters.items()}
-
         return {
             'doc_id':doc_id,
-            'coref':coref,
             'words':words,
             
             'coref_to_idx':coref_to_idx,
             'idx_to_coref':idx_to_coref,
             'coref_idx_to_entity_idx':coref_idx_to_entity_idx,
-            'entity_to_clusters':entity_to_clusters,
+            'entity_idx_to_cluster_idx':entity_idx_to_cluster_idx,
             'relation_idx_to_cluster_idx':relation_idx_to_cluster_idx,
             
             'paragraph_spans':paragraph_spans,
@@ -683,7 +695,7 @@ class RelDataLoader(BaseDataLoader):
         return {
             'doc_id' : b['doc_id'],
             'cluster_to_type_arr': [t for _, t in sorted(coref_idx_to_entity_idx.items())],
-            'entity_to_clusters':b['entity_to_clusters'],
+            'entity_idx_to_cluster_idx':b['entity_idx_to_cluster_idx'],
             'relation_idx_to_cluster_idx':relation_idx_to_cluster_idx,
             'input_ids' : input_ids,
             'attention_mask' : attention_mask,

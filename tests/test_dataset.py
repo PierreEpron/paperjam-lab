@@ -11,11 +11,12 @@ class BaseDataLoaderText(unittest.TestCase):
             BaseDataLoader.get_ent_type((0,12), {'ner':[(0, 10, 'a'), (5, 12, 'b'), (42, 52, 'c')], 'doc_id':'id'})
 
 class RelDataLoaderTest(unittest.TestCase):
-
-    def test_get_onehot(self):
-        self.assertEqual(RelDataLoader.get_onehot([], [0,1,2]), [0,0,0])
-        self.assertEqual(RelDataLoader.get_onehot([1], [0,1,2]), [0,1,0])
-        self.assertEqual(RelDataLoader.get_onehot([0,1,2], [0,1,2]), [1,1,1])
+    
+    def test_filter_relations(self):
+        self.assertEqual(RelDataLoader.filter_relations({'n_ary_relations':[{'a':'b','c':'d'}, {'e':'f'}, {'g':'h'}]}, ['b', 'e', 'h']), [{'a':'b', 'c':'d'}, {'g':'h'}])
+        self.assertEqual(RelDataLoader.filter_relations({'n_ary_relations':[{'a':'b','c':'d'}, {'e':'f'}, {'g':'h'}]}, ['d']), [{'a':'b', 'c':'d'}])
+        self.assertEqual(RelDataLoader.filter_relations({'n_ary_relations':[]}, ['b', 'e', 'h']), [])
+        self.assertEqual(RelDataLoader.filter_relations({'n_ary_relations':[{'a':'b','c':'d'}, {'e':'f'}, {'g':'h'}]}, []), [])
 
     def test_get_map_lists(self):
         self.assertEqual(RelDataLoader.get_map_lists([0,1,2], [2,1,0]), ({0:2,1:1,2:0}, {2:0,1:1,0:2}))
@@ -24,6 +25,10 @@ class RelDataLoaderTest(unittest.TestCase):
         self.assertEqual(RelDataLoader.get_map_lists([]), ({}, {}))
         self.assertEqual(RelDataLoader.get_map_lists(['a', 'b', 'c'], [(0), (1), (2)]), ({'a':(0),'b':(1),'c':(2)}, {(0):'a',(1):'b',(2):'c'}))
         self.assertEqual(RelDataLoader.get_map_lists({'a':'z', 'b':'y', 'c':'x'}), ({'a':0, 'b':1, 'c':2}, {0:'a', 1:'b', 2:'c'}))
-
+    
+    def test_get_onehot(self):
+        self.assertEqual(RelDataLoader.get_onehot([], [0,1,2]), [0,0,0])
+        self.assertEqual(RelDataLoader.get_onehot([1], [0,1,2]), [0,1,0])
+        self.assertEqual(RelDataLoader.get_onehot([0,1,2], [0,1,2]), [1,1,1])
 if __name__ == '__main__':
     unittest.main()

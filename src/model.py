@@ -85,7 +85,7 @@ class BertRel(nn.Module):
             return {'doc_id':x['doc_id'], "loss": None}
 
         cluster_to_type_arr = x['cluster_to_type_arr']
-        entity_to_clusters = x['entity_to_clusters']
+        entity_idx_to_cluster_idx = x['entity_idx_to_cluster_idx']
         relation_idx_to_cluster_idx = x['relation_idx_to_cluster_idx']
 
         text_embeddings = self.bert_layer(input_ids, attention_mask).last_hidden_state
@@ -155,9 +155,8 @@ class BertRel(nn.Module):
         # candidate_relations_types = []
 
         for e in combinations(used_entities, self.relation_cardinality):
-            type_lists = [entity_to_clusters[x] for x in e]
+            type_lists = [entity_idx_to_cluster_idx[x] for x in e]
             for clist in product(*type_lists):
-
                 candidate_relations.append(clist)
                 common_relations = set.intersection(*[cluster_to_relations_id[c] for c in clist])
                 candidate_relations_labels.append(1 if len(common_relations) > 0 else 0)
