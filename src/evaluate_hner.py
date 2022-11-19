@@ -18,16 +18,28 @@ def evaluate_file(file_path, model_path, **loader_kwgs):
     
     true = []
     pred = []
+    
+    ids = []
+    golds = []
+    preds = []
 
     for x in tqdm(loader):
 
-        pred.extend(model.predict(x)['preds'])
-        true.extend(x['golds'])
+        p = model.predict(x)['preds']
+        g = x['golds']
+
+        pred.extend(p)
+        true.extend(g)
+
+        ids.append(ids)
+        golds.append(p)
+        preds.append(g)
 
 
     evaluator = Evaluator(true, pred, tags=['Task', 'Material', 'Metric', 'Method'], loader="list")
     results, results_by_tag = evaluator.evaluate()
 
+    Path('hner_results.json').write_text({'tags':['Task', 'Material', 'Metric', 'Method'], 'ids':ids, 'golds':golds, 'preds':preds}, encoding='utf-8')
     # print(confusion_matrix(true, pred))
 
     Path(model_path).with_name('full_.json').write_text(json.dumps(results))

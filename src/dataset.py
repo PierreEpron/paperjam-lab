@@ -1,5 +1,6 @@
 from collections import Counter
 import random
+from typing import Any, Dict, List
 import torch
 from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
@@ -8,6 +9,7 @@ import functools
 import itertools
 
 import numpy as np
+import transformers
 
 # NER 
 
@@ -347,20 +349,72 @@ class CorefDataLoader(BaseDataLoader):
         return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
 
 class RelDataLoader(BaseDataLoader):
-    def __init__(self, tokenizer, labels=None, max_paragraph_len=300):
+    """
+        Loader for Relation Classification Model.
+
+        Parameters
+        ----------
+        tokenizer : `transformers.AutoTokenizer`
+            Tokenizer used for preprocess data.
+        entities : `List[str]`, default=None 
+            Entity types that will be handled by this model 
+            if `None` assign ['Task', 'Material', 'Metric', 'Method'] by default.
+        sfeatures : `List[str]`, default=None 
+            Section Feature types that will be handled by this model 
+            if `None` assign  ['Abstract', 'Dataset', 'Experiment', 'Heading', 'Introduction'] by default.
+        max_paragraph_len : `int`, default=300
+            Maximum allowed paragraph len, all paragraph with length > `max_paragraph_len` will be truncated.
+        
+        Returns
+        -------
+        onehot_vector : `List[int]` One of vector of `one_ids` in `full_ids`
+    """
+    def __init__(
+        self, 
+        tokenizer : transformers.AutoTokenizer, 
+        entities: List[str] = None, 
+        sfeatures: List[str] = None, 
+        max_paragraph_len: int = 300
+        ):
         self.tokenizer = tokenizer
         self.max_paragraph_len = max_paragraph_len
-        self.labels = labels if labels else ['Task', 'Material', 'Metric', 'Method']
-        self.label_idx_map = {l:i for i, l in enumerate(self.labels)}
-        self.idx_label_map = {i:l for i, l in enumerate(self.labels)}
+        self.entities = entities if entities else ['Task', 'Material', 'Metric', 'Method']
+        self.sfeatures = sfeatures if sfeatures else ['Abstract', 'Dataset', 'Experiment', 'Heading', 'Introduction']
 
-        self.sf_labels = ['Abstract', 'Dataset', 'Experiment', 'Heading', 'Introduction']
-        self.sf_idx_map = {l:i for i, l in enumerate(self.sf_labels)}
-        self.idx_sf_map = {i:l for i, l in enumerate(self.sf_labels)}
+
+        # Map entities with ids
+        self.entity_to_idx = {l:i for i, l in enumerate(self.entities)}
+        self.idx_to_entity = {i:l for i, l in enumerate(self.entities)}
+
+        # Map sfeatures with ids
+        self.sfeature_to_idx = {l:i for i, l in enumerate(self.sfeatures)}
+        self.idx_to_sfeature = {i:l for i, l in enumerate(self.sfeatures)}
+
         super().__init__()    
 
-    def label_onehot(self, ids, idx_label_map):
-        return [1 if i in ids else 0 for i in range(len(idx_label_map))]
+    # def is_valid_n_ary_relation(relation, coref):
+    #     return len(set(relation.values()).intersection(coref))
+
+    # def filter_n_ary_relations(doc, coref):
+    #     return [relation for relation in doc['n_ary_relations'] if RelDataLoader.is_valid_n_ary_relation(relation, coref)]
+
+    def get_onehot(one_ids : List[int], full_ids : List[int]) -> List[int]:
+        """
+            Return onehot encoded vector of `one_ids` in `full_ids`.
+
+            Parameters
+            ----------
+            one_ids : `List[int]`
+                One ids of the onehot vector.
+            full_ids : str, List[int]`
+                Full ids of the onehot vector.
+
+            Returns
+            -------
+            onehot_vector : `List[int]`
+                One of vector of `one_ids` in `full_ids`
+        """
+        return [1 if i in one_ids else 0 for i in range(len(full_ids))]
 
     def chunk_sentence(self, start, end):
         return [[i, min(i+self.max_paragraph_len, end)] for i in range(start, end, self.max_paragraph_len)]
@@ -394,34 +448,37 @@ class RelDataLoader(BaseDataLoader):
     def doc_to_paragraphs(self, doc):
 
         doc_id = doc['doc_id']
-        coref = {k:v for k, v in doc['coref'].items() if len(v) > 0}
         words = doc['words']
-        n_ary_relations = doc['n_ary_relations']
-
-        ccluster_idx_map = {l:i for i, l in enumerate(coref)}
-        idx_ccluster_map = {i:l for i, l in enumerate(coref)}
-        ccluster_label_map = {ccluster_idx_map[k]:self.label_idx_map[get_ent_type(v[0], doc)] for k, v in coref.items() if len(v) > 0}
+        
+        # Remove empty values coref and out of scope coref entity
+        coref = {k:v for k, v in doc['coref'].items() if len(v) > 0 and get_ent_type(v[0], doc) in self.entities}
+       
+        # Map coref with ids
+        coref_to_idx = {l:i for i, l in enumerate(coref)}
+        idx_to_coref = {i:l for i, l in enumerate(coref)}
+        
+        coref_idx_to_entity_idx = {coref_to_idx[k]:self.entity_to_idx[get_ent_type(v[0], doc)] for k, v in coref.items()}
 
         # I should make entity_to_clusters here
-        relation_to_cluster_ids = {}
-        for rel_idx, rel in enumerate(n_ary_relations):
-            relation_to_cluster_ids[rel_idx] = []
-            for entity in self.labels:
-                if rel[entity] in ccluster_idx_map:
-                    relation_to_cluster_ids[rel_idx].append(ccluster_idx_map[rel[entity]])
+        # TODO : I SHOULD CHECK EMPTY RELATION
+        relation_idx_to_cluster_idx = {}
+        for rel_idx, rel in enumerate(doc['n_ary_relations']):
+            relation_idx_to_cluster_idx[rel_idx] = []
+            for entity in self.entities:
+                if rel[entity] in coref_to_idx:
+                    relation_idx_to_cluster_idx[rel_idx].append(coref_to_idx[rel[entity]])
 
         section_features = get_section_features(doc)
-        refs = functools.reduce(lambda a, b : a  + b, coref.values()) if len(coref) > 0 else []
+        # refs = functools.reduce(lambda a, b : a  + b, coref.values()) if len(coref) > 0 else []
 
-        def span_has_ref(span):
-            ''' Return true if there is at least 1 mention from 1 coref in span'''
-            for ref_span in refs:
-                if is_span_inside(ref_span, span):
-                    return True
-            return False
+        # def span_has_ref(span):
+        #     ''' Return true if there is at least 1 mention from 1 coref in span'''
+        #     for ref_span in refs:
+        #         if is_span_inside(ref_span, span):
+        #             return True
+        #     return False
 
         # break section into paragraphs 
-        # TODO : Handle sentences longer than self.max_paragraph_len
         paragraph_spans = []
         paragraph_sf = []
         for section_span, sf in zip(doc['sections'], section_features):
@@ -439,7 +496,7 @@ class RelDataLoader(BaseDataLoader):
         coref_sf_map = []
         coref_cluster_map = []
 
-        entity_to_clusters = {k:[] for k in self.idx_label_map}
+        entity_to_clusters = {k:[] for k in self.idx_to_entity}
 
         for paragraph_span, sf in zip(paragraph_spans, paragraph_sf):
             coref_spans.append([])
@@ -447,30 +504,27 @@ class RelDataLoader(BaseDataLoader):
             coref_sf_map.append([])
             coref_cluster_map.append([])
             for k, listv in coref.items():
-                ent_type = self.label_idx_map[get_ent_type(listv[0], doc)]
+                ent_type = self.entity_to_idx[get_ent_type(listv[0], doc)]
                 for v in listv:
                     if is_span_inside(v, paragraph_span):
                         coref_spans[-1].append(v)
                         coref_spans_type_map[-1].append(ent_type)
                         coref_sf_map[-1].append(sf)
-                        coref_cluster_map[-1].append(ccluster_idx_map[k])
-                entity_to_clusters[ent_type].append(ccluster_idx_map[k])
+                        coref_cluster_map[-1].append(coref_to_idx[k])
+                entity_to_clusters[ent_type].append(coref_to_idx[k])
         
         entity_to_clusters = {k:list(set(v)) for k, v in entity_to_clusters.items()}
-
-        # print('ccluster_idx_map : ', ccluster_idx_map)
-        # print('entity_to_clusters : ', entity_to_clusters)
 
         return {
             'doc_id':doc_id,
             'coref':coref,
             'words':words,
             
-            'ccluster_idx_map':ccluster_idx_map,
-            'idx_ccluster_map':idx_ccluster_map,
-            'ccluster_label_map':ccluster_label_map,
+            'coref_to_idx':coref_to_idx,
+            'idx_to_coref':idx_to_coref,
+            'coref_idx_to_entity_idx':coref_idx_to_entity_idx,
             'entity_to_clusters':entity_to_clusters,
-            'relation_to_cluster_ids':relation_to_cluster_ids,
+            'relation_idx_to_cluster_idx':relation_idx_to_cluster_idx,
             
             'paragraph_spans':paragraph_spans,
             'coref_spans':coref_spans,
@@ -506,8 +560,8 @@ class RelDataLoader(BaseDataLoader):
     def collate_fn(self, batch_as_list):
         b = batch_as_list[0]
  
-        ccluster_idx_map, idx_ccluster_map, ccluster_label_map = (b['ccluster_idx_map'], b['idx_ccluster_map'], b['ccluster_label_map'])
-        relation_to_cluster_ids = b['relation_to_cluster_ids']
+        idx_to_coref, coref_idx_to_entity_idx = ( b['idx_to_coref'], b['coref_idx_to_entity_idx'])
+        relation_idx_to_cluster_idx = b['relation_idx_to_cluster_idx']
             
 
         # Tokenize words
@@ -554,9 +608,9 @@ class RelDataLoader(BaseDataLoader):
                 coref_start, coref_end = coref_span
                 relatif_spans[-1].append([coref_start-paragraph_start, coref_end-paragraph_start-1])
                 spans_position[-1].append(np.mean([coref_start, coref_end]) / doc_length)
-                spans_label_onehot[-1].append(self.label_onehot([coref_span_type], self.idx_label_map))
-                spans_sf_onehot[-1].append(self.label_onehot(coref_sf, self.idx_sf_map))
-                spans_ccluster_onehot[-1].append(self.label_onehot([coref_cluster], idx_ccluster_map))
+                spans_label_onehot[-1].append(self.get_onehot([coref_span_type], self.idx_to_entity))
+                spans_sf_onehot[-1].append(self.get_onehot(coref_sf, self.idx_to_sfeature))
+                spans_ccluster_onehot[-1].append(self.get_onehot([coref_cluster], idx_to_coref))
 
         # Pad relatif_spans & spans_position & spans_label_onehot & spans_sf_onehot
         max_span_count = max([len(s) for s in relatif_spans])
@@ -565,9 +619,9 @@ class RelDataLoader(BaseDataLoader):
             for i in range(len(spans), max_span_count):
                 spans.append([0,0])
                 positions.append(0)
-                label_onehot.append(self.label_onehot([], self.idx_label_map))
-                sf_onehot.append(self.label_onehot([], self.idx_sf_map))
-                ccluster_onehot.append(self.label_onehot([], idx_ccluster_map))
+                label_onehot.append(self.get_onehot([], self.idx_to_entity))
+                sf_onehot.append(self.get_onehot([], self.idx_to_sfeature))
+                ccluster_onehot.append(self.get_onehot([], idx_to_coref))
 
         relatif_spans = torch.LongTensor(relatif_spans)
         spans_position = torch.FloatTensor(spans_position).unsqueeze(-1)
@@ -586,13 +640,12 @@ class RelDataLoader(BaseDataLoader):
         # print('spans_mask.shape : ', spans_mask.shape)
         
         # print('paragraph_spans.len : ', len(b['paragraph_spans']))
-        # print('ccluster_label_map.len : ', len(ccluster_label_map))
 
         return {
             'doc_id' : b['doc_id'],
-            'cluster_to_type_arr': [t for _, t in sorted(ccluster_label_map.items())],
+            'cluster_to_type_arr': [t for _, t in sorted(coref_idx_to_entity_idx.items())],
             'entity_to_clusters':b['entity_to_clusters'],
-            'relation_to_cluster_ids':relation_to_cluster_ids,
+            'relation_idx_to_cluster_idx':relation_idx_to_cluster_idx,
             'input_ids' : input_ids,
             'attention_mask' : attention_mask,
             'coref_spans':relatif_spans,

@@ -80,12 +80,13 @@ class BertRel(nn.Module):
         # print('span_section_features.shape : ', span_section_features.shape)
         # print('span_clusters.shape : ', span_clusters.shape)
 
-        if len(span_clusters) == 0:
+        if span_clusters.sum() == 0:
+            print(f'SPAN CLUSTERS IS EMPTY FOR DOC : {x["doc_id"]}')
             return {'doc_id':x['doc_id'], "loss": None}
 
         cluster_to_type_arr = x['cluster_to_type_arr']
         entity_to_clusters = x['entity_to_clusters']
-        relation_to_cluster_ids = x['relation_to_cluster_ids']
+        relation_idx_to_cluster_idx = x['relation_idx_to_cluster_idx']
 
         text_embeddings = self.bert_layer(input_ids, attention_mask).last_hidden_state
         # print('text_embeddings.shape : ', text_embeddings.shape)
@@ -143,7 +144,7 @@ class BertRel(nn.Module):
         # bias_vectors_clusters = {x: i + n_true_clusters for i, x in enumerate(used_entities)}
 
         cluster_to_relations_id = defaultdict(set)
-        for r, clist in relation_to_cluster_ids.items():
+        for r, clist in relation_idx_to_cluster_idx.items():
             # for t in bias_vectors_clusters.values():
             #     cluster_to_relations_id[t].add(r)
             for c in clist:
@@ -163,23 +164,17 @@ class BertRel(nn.Module):
             #     candidate_relations_types.append(self._relation_type_map[tuple(e)])
 
         if len(candidate_relations) == 0:
+            print(f'CANDIDATE RELATION IS EMPTY FOR DOC : {x["doc_id"]}')
             return {'doc_id':x['doc_id'], "loss": None}
 
         candidate_relations_tensor = torch.LongTensor(candidate_relations).to(text_embeddings.device)
         # print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
 
         candidate_relations_labels_tensor = torch.LongTensor(candidate_relations_labels).to(text_embeddings.device)
-        try:
-            relation_embeddings = util.batched_index_select(
-                paragraph_cluster_embeddings,
-                candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
-            )
-        except Exception:
-            # print(candidate_relations)
-            # print(".shape", candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1).shape)
-            exc_type, exc_value, exc_traceback = sys.exc_info()
-            traceback.print_exception(exc_type, exc_value, exc_traceback)
-            return {'doc_id':x['doc_id'], "loss": None}
+        relation_embeddings = util.batched_index_select(
+            paragraph_cluster_embeddings,
+            candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
+        )
             
         relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
@@ -384,14 +379,26 @@ if __name__ == "__main__":
     from helpers import read_jsonl
 
     data = read_jsonl('data/train.jsonl')
-    doc = [doc for doc in data if doc['doc_id'] == '007ab5528b3bd310a80d553cccad4b78dc496b02']
+    # doc = [doc for doc in data if doc['doc_id'] == '007ab5528b3bd310a80d553cccad4b78dc496b02']
 
     model = BertRel()
 
-    loader = model.data_processor.create_dataloader(doc, batch_size=1, prefetch_factor=1, shuffle=True)
+    loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1)
 
-    for b in loader:
-        # print(model.forward(b))
-        break
+    token_overflows = [
+        '0899bb0f3d5425c88b358638bb8556729720c8db',
+        '10fd174fefd5e36a523805e4c2d2fbf1d12a3ae8',
+        '1a6b67622d04df8e245575bf8fb2066fb6729720',
+        '218b80da3eb15ae35267d280dcc4a806d515334a',
+        '22aab110058ebbd198edb1f1e7b4f69fb13c0613'
+    ]
+
+    for b in tqdm(loader):
+        try:
+            model.forward(b)
+        except:
+            print(b['doc_id'])
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            traceback.print_exception(exc_type, exc_value, exc_traceback)
 
     # print(len([v for v in doc[0]['coref'].values() if len(v) > 0]))
