@@ -1,6 +1,6 @@
 from collections import Counter
 import random
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 import torch
 from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
@@ -101,13 +101,7 @@ def compute_prob(pairs):
 experiment_words_to_check = set("experiment|evaluation|evaluate|evaluate".split("|"))
 dataset_words_to_check = set("dataset|corpus|corpora".split("|"))
 
-def get_ent_type(span, doc):
-    ''' Find entity span in document ner data for given span'''
-    span_start, span_end = span
-    for ent in doc['ner']:
-        if span_start == ent[0] and span_end == ent[1]:
-            return ent[2]
-    raise RuntimeError(f"No entity type found for {span} in {doc['doc_id']}")
+
 
 def is_span_inside(span, other):
     return span[0] >= other[0] and span[1] <= other[1]
@@ -145,6 +139,28 @@ class BaseDataLoader(object):
     def __init__(self):
         pass
     
+    def get_ent_type(span : Tuple[int, int], doc : Dict[str, Any]) -> str:
+        """
+            Find entity type in `doc['ner']` value for given `span`.
+
+            Parameters
+            ----------
+            span : `Tuple[int, int]`
+                Target entity start and end.
+            doc : `Dict[str, Any]`
+                Dictionary with a 'ner' key associated to a list of entity tuple.
+
+            Returns
+            -------
+            entity_type : `str`
+                Return entity type associated to given `span`.
+        """
+        span_start, span_end = span
+        for ent in doc['ner']:
+            if span_start == ent[0] and span_end == ent[1]:
+                return ent[2]
+        raise RuntimeError(f"No entity type found for {span} in {doc['doc_id']}")
+
     def collate_fn(self, batch_as_list):
         return {}
     
@@ -367,7 +383,8 @@ class RelDataLoader(BaseDataLoader):
         
         Returns
         -------
-        onehot_vector : `List[int]` One of vector of `one_ids` in `full_ids`
+        onehot_vector : `List[int]` 
+            One of vector of `one_ids` in `full_ids`.
     """
     def __init__(
         self, 
@@ -381,14 +398,11 @@ class RelDataLoader(BaseDataLoader):
         self.entities = entities if entities else ['Task', 'Material', 'Metric', 'Method']
         self.sfeatures = sfeatures if sfeatures else ['Abstract', 'Dataset', 'Experiment', 'Heading', 'Introduction']
 
-
         # Map entities with ids
-        self.entity_to_idx = {l:i for i, l in enumerate(self.entities)}
-        self.idx_to_entity = {i:l for i, l in enumerate(self.entities)}
+        self.entity_to_idx, self.idx_to_entity = self.get_map_lists(self.entities)
 
         # Map sfeatures with ids
-        self.sfeature_to_idx = {l:i for i, l in enumerate(self.sfeatures)}
-        self.idx_to_sfeature = {i:l for i, l in enumerate(self.sfeatures)}
+        self.sfeature_to_idx, self.idx_to_sfeature = self.get_map_lists(self.sfeatures)
 
         super().__init__()    
 
@@ -398,6 +412,31 @@ class RelDataLoader(BaseDataLoader):
     # def filter_n_ary_relations(doc, coref):
     #     return [relation for relation in doc['n_ary_relations'] if RelDataLoader.is_valid_n_ary_relation(relation, coref)]
 
+    def get_map_lists(list_1 : List[Any], list_2 : List[Any] = None) -> Tuple[Dict[Any, Any], Dict[Any, Any]]:
+        """
+            Return mapping dicts for list_1 to list_2 and list_2 to list_1.
+            if list_2 is None assign ids of list_1.
+
+            Parameters
+            ----------
+            list_1 : `List[Any]`
+                First list to map.
+            list_2 : `List[Any]`, default=None
+                Second list to map.
+                if None assign `range(len(list_1))`
+
+            Returns
+            -------
+            list_1_to_list_2 : `Dict[Any, Any]`
+                Map items from list_1 to items from list_2.
+            list_2_to_list_1 : `Dict[Any, Any]`
+                Map items from list_2 to items from list_1.
+        """
+
+        list_2 = list_2 if list_2 else list(range(len(list_1)))
+
+        return {l1:l2 for l1, l2 in zip(list_1, list_2)}, {l2:l1 for l1, l2 in zip(list_1, list_2)}
+        
     def get_onehot(one_ids : List[int], full_ids : List[int]) -> List[int]:
         """
             Return onehot encoded vector of `one_ids` in `full_ids`.
@@ -412,7 +451,7 @@ class RelDataLoader(BaseDataLoader):
             Returns
             -------
             onehot_vector : `List[int]`
-                One of vector of `one_ids` in `full_ids`
+                One of vector of `one_ids` in `full_ids`.
         """
         return [1 if i in one_ids else 0 for i in range(len(full_ids))]
 
@@ -451,13 +490,13 @@ class RelDataLoader(BaseDataLoader):
         words = doc['words']
         
         # Remove empty values coref and out of scope coref entity
-        coref = {k:v for k, v in doc['coref'].items() if len(v) > 0 and get_ent_type(v[0], doc) in self.entities}
+        corefs = {k:v for k, v in doc['coref'].items() if len(v) > 0 and self.get_ent_type(v[0], doc) in self.entities}
        
-        # Map coref with ids
-        coref_to_idx = {l:i for i, l in enumerate(coref)}
-        idx_to_coref = {i:l for i, l in enumerate(coref)}
+        # Map corefs with ids
+        coref_to_idx, idx_to_coref = self.get_map_lists(corefs)
         
-        coref_idx_to_entity_idx = {coref_to_idx[k]:self.entity_to_idx[get_ent_type(v[0], doc)] for k, v in coref.items()}
+        # Map coref clusters to entity types by ids
+        coref_idx_to_entity_idx = {coref_to_idx[k]:self.entity_to_idx[self.get_ent_type(v[0], doc)] for k, v in corefs.items()}
 
         # I should make entity_to_clusters here
         # TODO : I SHOULD CHECK EMPTY RELATION
@@ -503,8 +542,8 @@ class RelDataLoader(BaseDataLoader):
             coref_spans_type_map.append([])
             coref_sf_map.append([])
             coref_cluster_map.append([])
-            for k, listv in coref.items():
-                ent_type = self.entity_to_idx[get_ent_type(listv[0], doc)]
+            for k, listv in corefs.items():
+                ent_type = self.entity_to_idx[self.get_ent_type(listv[0], doc)]
                 for v in listv:
                     if is_span_inside(v, paragraph_span):
                         coref_spans[-1].append(v)
