@@ -171,10 +171,16 @@ class BertRel(nn.Module):
         # print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
 
         candidate_relations_labels_tensor = torch.LongTensor(candidate_relations_labels).to(text_embeddings.device)
-        relation_embeddings = util.batched_index_select(
-            paragraph_cluster_embeddings,
-            candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
-        )
+
+        try:
+            relation_embeddings = util.batched_index_select(
+                paragraph_cluster_embeddings,
+                candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
+            )
+        except:
+            print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)
+            print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
+            raise
             
         relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
@@ -392,9 +398,12 @@ if __name__ == "__main__":
 
     loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1)
 
+    import sys
+
     for b in tqdm(loader):
         try:
-            model.forward(b)
+            # model.forward(b)
+            print(b['input_ids'].shape)
         except:
             print(b['doc_id'])
             exc_type, exc_value, exc_traceback = sys.exc_info()
