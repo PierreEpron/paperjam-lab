@@ -178,7 +178,8 @@ class BertRel(nn.Module):
                 candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
             )
         except:
-            print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)
+            print('doc_id : ', x['doc_id'])
+            print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
             print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
             raise
             
