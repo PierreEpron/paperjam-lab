@@ -1,5 +1,5 @@
 from collections import defaultdict
-from itertools import combinations, product
+from itertools import chain, combinations, product
 from typing import Dict, List
 from tqdm import tqdm
 import sys, traceback
@@ -72,6 +72,7 @@ class BertRel(nn.Module):
         
         spans, spans_mask = (x['coref_spans'], x['coref_spans_mask'])
         # print('spans.shape : ', spans.shape)
+        # print('spans : ', spans)
         # print('spans_mask.shape : ', spans_mask.shape)
 
         span_position, span_type_labels_one_hot, span_section_features, span_clusters = (x['coref_spans_position'], x['coref_spans_labels'], x['coref_spans_sf'], x['coref_spans_cluster'])
@@ -140,11 +141,11 @@ class BertRel(nn.Module):
         ) 
         # print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)  # (P, C+T, E)
 
-        used_entities = list(self.data_processor.idx_label_map.keys())
+        used_entities = list(self.data_processor.idx_to_entity.keys())
         # bias_vectors_clusters = {x: i + n_true_clusters for i, x in enumerate(used_entities)}
 
         cluster_to_relations_id = defaultdict(set)
-        for r, clist in relation_idx_to_cluster_idx.items():
+        for r, clist in enumerate(relation_idx_to_cluster_idx):
             # for t in bias_vectors_clusters.values():
             #     cluster_to_relations_id[t].add(r)
             for c in clist:
@@ -154,7 +155,7 @@ class BertRel(nn.Module):
         candidate_relations_labels = []
         # candidate_relations_types = []
 
-        for e in combinations(used_entities, self.relation_cardinality):
+        for e in chain(combinations(used_entities, self.relation_cardinality), [(ent, ent) for ent in used_entities]):
             type_lists = [entity_idx_to_cluster_idx[x] for x in e]
             for clist in product(*type_lists):
                 candidate_relations.append(clist)
@@ -378,19 +379,18 @@ if __name__ == "__main__":
     from helpers import read_jsonl
 
     data = read_jsonl('data/train.jsonl')
-    # doc = [doc for doc in data if doc['doc_id'] == '007ab5528b3bd310a80d553cccad4b78dc496b02']
 
     model = BertRel()
 
-    loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1)
 
     token_overflows = [
-        '0899bb0f3d5425c88b358638bb8556729720c8db',
-        '10fd174fefd5e36a523805e4c2d2fbf1d12a3ae8',
-        '1a6b67622d04df8e245575bf8fb2066fb6729720',
-        '218b80da3eb15ae35267d280dcc4a806d515334a',
-        '22aab110058ebbd198edb1f1e7b4f69fb13c0613'
+        '0373b97580cdfd0b69f165e1a946bae62da95dce', # CANDIDATE RELATION IS EMPTY
+        '0523e14247d74c4505cd5e32e1f0495f291ec432', # CANDIDATE RELATION IS EMPTY
     ]
+
+    # data = [doc for doc in data if doc['doc_id'] == '0899bb0f3d5425c88b358638bb8556729720c8db']
+
+    loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1)
 
     for b in tqdm(loader):
         try:
