@@ -23,8 +23,8 @@ class ModelTrainer(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
 
-        loss = self.model(batch, compute_loss=True)['loss'].detach()
-        self.log('train_loss', loss if loss else .0)
+        loss = self.model(batch, compute_loss=True)['loss']
+        self.log('train_loss', loss.detach() if loss else .0)
 
         return loss
 
