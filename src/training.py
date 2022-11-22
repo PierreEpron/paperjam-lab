@@ -77,7 +77,7 @@ def train_model(model, config):
                         model_ckp, early_stop], check_val_every_n_epoch=config.check_val_every_n_epoch, 
                         limit_val_batches=config.limit_val_batches, val_check_interval=config.val_check_interval)
 
-    trainer.log_dir = f'lightning_logs/{config.name}'
+    # trainer.log_dir = f'lightning_logs/{config.name}'
 
     if ckpt_path.is_file():
         print(f'Find a checkpoint at {ckpt_path} : resume training ...')
