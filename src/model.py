@@ -20,7 +20,6 @@ from allennlp.modules import FeedForward, TimeDistributed
 from helpers import select_first_subword
 from dataset import NERDataLoader, CorefDataLoader, RelDataLoader
 
-from nervaluate import Evaluator
 from seqeval.metrics import f1_score as ner_f1
 from sklearn.metrics import f1_score as binary_f1
 
