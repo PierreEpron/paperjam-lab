@@ -86,8 +86,11 @@ class BertRel(nn.Module):
             return {'doc_id':x['doc_id'], "loss": None}
 
         cluster_to_type_arr = x['cluster_to_type_arr']
-        entity_idx_to_cluster_idx = x['entity_idx_to_cluster_idx']
-        relation_idx_to_cluster_idx = x['relation_idx_to_cluster_idx']
+        # entity_idx_to_cluster_idx = x['entity_idx_to_cluster_idx']
+        # relation_idx_to_cluster_idx = x['relation_idx_to_cluster_idx']
+
+        candidate_relations, candidate_relations_labels, candidate_relations_types = (x['candidate_relations'], x['candidate_relations_labels'], x['candidate_relations_types'])
+
 
         text_embeddings = self.bert_layer(input_ids, attention_mask).last_hidden_state
         # print('text_embeddings.shape : ', text_embeddings.shape)
@@ -141,32 +144,32 @@ class BertRel(nn.Module):
         ) 
         # print('paragraph_cluster_embeddings.shape : ', paragraph_cluster_embeddings.shape)  # (P, C+T, E)
 
-        used_entities = list(self.data_processor.idx_to_entity.keys())
+        # used_entities = list(self.data_processor.idx_to_entity.keys())
         # bias_vectors_clusters = {x: i + n_true_clusters for i, x in enumerate(used_entities)}
 
-        cluster_to_relations_id = defaultdict(set)
-        for r, clist in enumerate(relation_idx_to_cluster_idx):
-            # for t in bias_vectors_clusters.values():
-            #     cluster_to_relations_id[t].add(r)
-            for c in clist:
-                cluster_to_relations_id[c].add(r)
+        # cluster_to_relations_id = defaultdict(set)
+        # for r, clist in enumerate(relation_idx_to_cluster_idx):
+        #     # for t in bias_vectors_clusters.values():
+        #     #     cluster_to_relations_id[t].add(r)
+        #     for c in clist:
+        #         cluster_to_relations_id[c].add(r)
 
-        candidate_relations = []
-        candidate_relations_labels = []
+        # candidate_relations = []
+        # candidate_relations_labels = []
         # candidate_relations_types = []
 
         # for e in chain(combinations(used_entities, self.relation_cardinality), [(ent, ent) for ent in used_entities]):
-        for e in combinations(used_entities, self.relation_cardinality):
-            type_lists = [entity_idx_to_cluster_idx[x] for x in e]
-            for clist in product(*type_lists):
-                candidate_relations.append(clist)   
-                common_relations = set.intersection(*[cluster_to_relations_id[c] for c in clist])
-                candidate_relations_labels.append(1 if len(common_relations) > 0 else 0)
+        # for e in combinations(used_entities, self.relation_cardinality):
+        #     type_lists = [entity_idx_to_cluster_idx[x] for x in e]
+        #     for clist in product(*type_lists):
+        #         candidate_relations.append(clist)   
+        #         common_relations = set.intersection(*[cluster_to_relations_id[c] for c in clist])
+        #         candidate_relations_labels.append(1 if len(common_relations) > 0 else 0)
             #     candidate_relations_types.append(self._relation_type_map[tuple(e)])
 
-        if len(candidate_relations) == 0:
-            # print(f'CANDIDATE RELATION IS EMPTY FOR DOC : {x["doc_id"]}')
-            return {'doc_id':x['doc_id'], "loss": None}
+        # if len(candidate_relations) == 0:
+        #     # print(f'CANDIDATE RELATION IS EMPTY FOR DOC : {x["doc_id"]}')
+        #     return {'doc_id':x['doc_id'], "loss": None}
 
         candidate_relations_tensor = torch.LongTensor(candidate_relations).to(text_embeddings.device)
         # print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
@@ -384,7 +387,7 @@ if __name__ == "__main__":
 
     model = BertRel()
 
-    data = [doc for doc in data if doc['doc_id'] == '3b9732bb07dc99bde5e1f9f75251c6ea5039373e']
+    # data = [doc for doc in data if doc['doc_id'] == '3b9732bb07dc99bde5e1f9f75251c6ea5039373e']
 
     loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1)
 

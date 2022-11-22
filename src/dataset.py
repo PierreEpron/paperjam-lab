@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, defaultdict
 import random
 from typing import Any, Dict, Iterable, List, Tuple
 import torch
@@ -448,10 +448,13 @@ class RelDataLoader(BaseDataLoader):
         tokenizer : transformers.AutoTokenizer, 
         entities: List[str] = None, 
         sfeatures: List[str] = None, 
-        max_paragraph_len: int = 300
+        max_paragraph_len: int = 300,
+        max_relation_len: int = 64
         ):
         self.tokenizer = tokenizer
         self.max_paragraph_len = max_paragraph_len
+        self.max_relation_len = max_relation_len
+
         self.entities = entities if entities else ['Task', 'Material', 'Metric', 'Method']
         self.sfeatures = sfeatures if sfeatures else ['Abstract', 'Dataset', 'Experiment', 'Heading', 'Introduction']
 
@@ -666,8 +669,30 @@ class RelDataLoader(BaseDataLoader):
                     relation_idx_to_cluster_idx[rel_idx].append(coref_to_idx[rel[entity]])
                     entity_idx_to_cluster_idx[self.entity_to_idx[entity]].append(coref_to_idx[rel[entity]])
 
-        # No candidate relation in this doc
+        # No relation in this doc for given entities
         if len(relation_idx_to_cluster_idx) <= 0:
+            return None
+
+        cluster_to_relations_idx = defaultdict(set)
+        for r, clist in enumerate(relation_idx_to_cluster_idx):
+            for c in clist:
+                cluster_to_relations_idx[c].add(r)
+
+        candidate_relations = []
+        candidate_relations_labels = []
+        candidate_relations_types = []
+
+        # for e in chain(combinations(used_entities, self.relation_cardinality), [(ent, ent) for ent in used_entities]):
+        for e in itertools.combinations(list(self.idx_to_entity.keys()), 2):
+            type_lists = [entity_idx_to_cluster_idx[x] for x in e]
+            for clist in itertools.product(*type_lists):
+                candidate_relations.append(clist)   
+                common_relations = set.intersection(*[cluster_to_relations_idx[c] for c in clist])
+                candidate_relations_labels.append(1 if len(common_relations) > 0 else 0)
+                candidate_relations_types.append(tuple(e))
+
+        # No valide candidate relation in this doc
+        if len(candidate_relations) <= 0:
             return None
 
         # Extract section features
@@ -695,8 +720,7 @@ class RelDataLoader(BaseDataLoader):
         paragraph_coref_sfeatures = []
         paragraph_coref_ids = []
 
-        for items in section_items:
-            
+        for items in section_items:         
             for paragraph in items['paragraphs']:
                 paragraphs.append(paragraph)
                 paragraph_words.append(tokenized_words[paragraph[0]:paragraph[1]])
@@ -712,30 +736,74 @@ class RelDataLoader(BaseDataLoader):
                             paragraph_coref_types[-1].append(ent_type)
                             paragraph_coref_sfeatures[-1].append(items['features'])
                             paragraph_coref_ids[-1].append(coref_to_idx[k])
-        
-        return {
-            'doc_id':doc_id,
-            'words':words,
+                # if len(paragraph_coref_spans) 
 
-            'idx_to_coref':idx_to_coref,
-            'coref_idx_to_entity_idx':coref_idx_to_entity_idx,
-            'entity_idx_to_cluster_idx':entity_idx_to_cluster_idx,
-            'relation_idx_to_cluster_idx':relation_idx_to_cluster_idx,
 
-            'paragraphs':paragraphs,
-            'paragraph_words':paragraph_words,
-            'paragraph_coref_spans':paragraph_coref_spans,
-            'paragraph_coref_types':paragraph_coref_types,
-            'paragraph_coref_sfeatures':paragraph_coref_sfeatures,
-            'paragraph_coref_ids':paragraph_coref_ids
-        }   
+        def is_paragraph_relation(rels, coref_ids):
+            for idx in coref_ids:
+                for rel in rels:
+                    if idx == rel[0] or idx == rel[1]:
+                        return True
+            return False
+
+        outputs = []
+
+        for i in range(0, len(candidate_relations), self.max_relation_len):
+
+            rels_start = i
+            rels_end = min(len(candidate_relations), rels_start+self.max_relation_len)
+
+            _candidate_relations = candidate_relations[rels_start:rels_end]
+            _candidate_relations_labels = candidate_relations_labels[rels_start:rels_end]
+            _candidate_relations_types = candidate_relations_types[rels_start:rels_end]
+
+            output = {
+                'doc_id':doc_id,
+                'words':words,
+
+                'idx_to_coref':idx_to_coref,
+                'coref_idx_to_entity_idx':coref_idx_to_entity_idx,
+                'entity_idx_to_cluster_idx':entity_idx_to_cluster_idx,
+                'relation_idx_to_cluster_idx':relation_idx_to_cluster_idx,
+
+                'candidate_relations':_candidate_relations,
+                'candidate_relations_labels':_candidate_relations_labels,
+                'candidate_relations_types':_candidate_relations_types,
+                
+                'paragraphs':[],
+                'paragraph_words':[],
+                'paragraph_coref_spans':[],
+                'paragraph_coref_types':[],
+                'paragraph_coref_sfeatures':[],
+                'paragraph_coref_ids':[]
+            }
+
+            for p, p_words, p_coref_spans, p_coref_types, p_coref_sfeatures, p_coref_ids in zip(
+                paragraphs,
+                paragraph_words,
+                paragraph_coref_spans,
+                paragraph_coref_types,
+                paragraph_coref_sfeatures,
+                paragraph_coref_ids,
+            ):
+                if is_paragraph_relation(_candidate_relations, p_coref_ids):
+                    output['paragraphs'].append(p),
+                    output['paragraph_words'].append(p_words),
+                    output['paragraph_coref_spans'].append(p_coref_spans),
+                    output['paragraph_coref_types'].append(p_coref_types),
+                    output['paragraph_coref_sfeatures'].append(p_coref_sfeatures),
+                    output['paragraph_coref_ids'].append(p_coref_ids)
+
+            outputs.append(output)
+
+        return outputs
 
     def collate_fn(self, batch_as_list):
         b = batch_as_list[0]
  
         idx_to_coref, coref_idx_to_entity_idx = (b['idx_to_coref'], b['coref_idx_to_entity_idx'])
         relation_idx_to_cluster_idx = b['relation_idx_to_cluster_idx']
-            
+
         # Tensorize tokens
         tokens = [torch.LongTensor(words) for words in b['paragraph_words']]
 
@@ -805,11 +873,18 @@ class RelDataLoader(BaseDataLoader):
         
         return {
             'doc_id' : b['doc_id'],
+
             'cluster_to_type_arr': [t for _, t in sorted(coref_idx_to_entity_idx.items())],
             'entity_idx_to_cluster_idx':b['entity_idx_to_cluster_idx'],
             'relation_idx_to_cluster_idx':relation_idx_to_cluster_idx,
+
             'input_ids' : input_ids,
             'attention_mask' : attention_mask,
+
+            'candidate_relations':b['candidate_relations'],
+            'candidate_relations_labels':b['candidate_relations_labels'],
+            'candidate_relations_types':b['candidate_relations_types'],
+
             'coref_spans':relatif_spans,
             'coref_spans_mask':spans_mask,
             'coref_spans_position': spans_position, # (B, P, 1)
@@ -821,6 +896,7 @@ class RelDataLoader(BaseDataLoader):
     def create_dataloader(self, docs, is_train=False, batch_size=1, num_workers=1, **kwgs):
         docs = [self.preprocess_doc(doc) for doc in docs]
         docs = [doc for doc in docs if doc]
+        docs = functools.reduce(lambda a, b : a + b, docs)
         return super().create_dataloader(docs, batch_size, num_workers, **kwgs)
     
 
@@ -833,11 +909,13 @@ if __name__ == "__main__":
     
     docs = read_jsonl('data/train.jsonl') + read_jsonl('data/dev.jsonl') + read_jsonl('data/test.jsonl')
 
+    # for doc in docs:
+    #     print(len(doc['n_ary_relations']))
     # Relation
 
-    # loader = RelDataLoader(tokenizer)
+    loader = RelDataLoader(tokenizer)
+    docs = [loader.preprocess_doc(doc) for doc in tqdm(docs)]
 
-    # docs = [loader.preprocess_doc(doc) for doc in tqdm(docs)]
     # print(len(docs))
     # docs = [doc for doc in docs if doc]
     # print(len(docs))
@@ -848,13 +926,13 @@ if __name__ == "__main__":
     # doc = [doc for doc in docs if doc['doc_id'] == '0cfdcf2a0e345cdf7e680c30d136fdedb0eccb28'][0]
     # print(len(doc['sentences']), len(loader.chunk_sentences(doc['sentences'], doc['ner'])))
 
-    # loader = RelDataLoader(tokenizer).create_dataloader(data, batch_size=1, prefetch_factor=1)
+    # loader = RelDataLoader(tokenizer).create_dataloader(docs, batch_size=1, prefetch_factor=1)
 
     # for b in loader:
-    #     print(b)
+    #     continue
     #     # from pathlib import Path
     #     # import json
-        # break
+    #     # break
 
     # Coref
     # loader = CorefDataLoader(tokenizer).create_dataloader(data, is_train=True, prefetch_factor=1)
