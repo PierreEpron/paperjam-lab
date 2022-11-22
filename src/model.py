@@ -82,7 +82,7 @@ class BertRel(nn.Module):
         # print('span_clusters.shape : ', span_clusters.shape)
 
         if span_clusters.sum() == 0:
-            print(f'SPAN CLUSTERS IS EMPTY FOR DOC : {x["doc_id"]}')
+            # print(f'SPAN CLUSTERS IS EMPTY FOR DOC : {x["doc_id"]}')
             return {'doc_id':x['doc_id'], "loss": None}
 
         cluster_to_type_arr = x['cluster_to_type_arr']
@@ -155,16 +155,17 @@ class BertRel(nn.Module):
         candidate_relations_labels = []
         # candidate_relations_types = []
 
-        for e in chain(combinations(used_entities, self.relation_cardinality), [(ent, ent) for ent in used_entities]):
+        # for e in chain(combinations(used_entities, self.relation_cardinality), [(ent, ent) for ent in used_entities]):
+        for e in combinations(used_entities, self.relation_cardinality):
             type_lists = [entity_idx_to_cluster_idx[x] for x in e]
             for clist in product(*type_lists):
-                candidate_relations.append(clist)
+                candidate_relations.append(clist)   
                 common_relations = set.intersection(*[cluster_to_relations_id[c] for c in clist])
                 candidate_relations_labels.append(1 if len(common_relations) > 0 else 0)
             #     candidate_relations_types.append(self._relation_type_map[tuple(e)])
 
         if len(candidate_relations) == 0:
-            print(f'CANDIDATE RELATION IS EMPTY FOR DOC : {x["doc_id"]}')
+            # print(f'CANDIDATE RELATION IS EMPTY FOR DOC : {x["doc_id"]}')
             return {'doc_id':x['doc_id'], "loss": None}
 
         candidate_relations_tensor = torch.LongTensor(candidate_relations).to(text_embeddings.device)
@@ -177,7 +178,6 @@ class BertRel(nn.Module):
             candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
         )
 
-            
         relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
 
@@ -384,13 +384,7 @@ if __name__ == "__main__":
 
     model = BertRel()
 
-
-    token_overflows = [
-        '0373b97580cdfd0b69f165e1a946bae62da95dce', # CANDIDATE RELATION IS EMPTY
-        '0523e14247d74c4505cd5e32e1f0495f291ec432', # CANDIDATE RELATION IS EMPTY
-    ]
-
-    # data = [doc for doc in data if doc['doc_id'] == '0899bb0f3d5425c88b358638bb8556729720c8db']
+    data = [doc for doc in data if doc['doc_id'] == '3b9732bb07dc99bde5e1f9f75251c6ea5039373e']
 
     loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1)
 
@@ -398,11 +392,7 @@ if __name__ == "__main__":
 
     for b in tqdm(loader):
         try:
-            # model.forward(b)
-            print(b['input_ids'].shape)
+            model.forward(b)
         except:
-            print(b['doc_id'])
             exc_type, exc_value, exc_traceback = sys.exc_info()
             traceback.print_exception(exc_type, exc_value, exc_traceback)
-
-    # print(len([v for v in doc[0]['coref'].values() if len(v) > 0]))
