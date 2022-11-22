@@ -22,10 +22,12 @@ class ModelTrainer(pl.LightningModule):
         self.f1 = f1
 
     def training_step(self, batch, batch_idx):
-
-        loss = self.model(batch, compute_loss=True)['loss']
+        try:
+            loss = self.model(batch, compute_loss=True)['loss']
+        except:
+            print(batch['doc_id'])
+            raise
         self.log('train_loss', loss.detach() if loss else .0)
-
         return loss
 
     def validation_step(self, val_batch, batch_idx):

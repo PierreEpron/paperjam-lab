@@ -172,16 +172,11 @@ class BertRel(nn.Module):
 
         candidate_relations_labels_tensor = torch.LongTensor(candidate_relations_labels).to(text_embeddings.device)
 
-        try:
-            relation_embeddings = util.batched_index_select(
-                paragraph_cluster_embeddings,
-                candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
-            )
-        except:
-            print('doc_id : ', x['doc_id'])
-            print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
-            print('candidate_relations_tensor.shape : ', candidate_relations_tensor.shape)
-            raise
+        relation_embeddings = util.batched_index_select(
+            paragraph_cluster_embeddings,
+            candidate_relations_tensor.unsqueeze(0).expand(paragraph_cluster_embeddings.shape[0], -1, -1),
+        )
+
             
         relation_embeddings = relation_embeddings.view(relation_embeddings.shape[0], relation_embeddings.shape[1], -1)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
