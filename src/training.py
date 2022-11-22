@@ -35,7 +35,7 @@ class ModelTrainer(pl.LightningModule):
         # TODO : This should work for all model (by put the evaluation method in model or on config ?)
         # We should use nereval here for consistency
         if 'golds' in outputs and 'preds' in outputs:
-            f1_micro_base = model.metric(outputs['golds'], outputs['preds'], average="micro")
+            f1_micro_base = self.model.metric(outputs['golds'], outputs['preds'], average="micro")
         else:
             f1_micro_base = 1
 
