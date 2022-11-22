@@ -1,4 +1,5 @@
-output/
+.vscode/
+outputs/
 old/
 lightning_logs/
 
