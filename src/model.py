@@ -20,6 +20,10 @@ from allennlp.modules import FeedForward, TimeDistributed
 from helpers import select_first_subword
 from dataset import NERDataLoader, CorefDataLoader, RelDataLoader
 
+from nervaluate import Evaluator
+from seqeval.metrics import f1_score as ner_f1
+from sklearn.metrics import f1_score as binary_f1
+
 class BertRel(nn.Module):
     def __init__(self,
         model_name='allenai/scibert_scivocab_uncased',
@@ -212,6 +216,10 @@ class BertRel(nn.Module):
             outputs['preds'] = (outputs["probs"] > 5).int().cpu().numpy() if 'probs' in outputs else []
         return outputs
 
+    def metric(self, preds, golds, **kwargs):
+        return binary_f1(preds, golds, **kwargs)
+
+
 class BertCoref(nn.Module):
     def __init__(self, model_name='allenai/scibert_scivocab_uncased'):
         
@@ -257,6 +265,9 @@ class BertCoref(nn.Module):
             outputs = self.forward(x, compute_loss=False)
             outputs['preds'] = (outputs['probs'] > .5).int().cpu().numpy()
         return outputs
+
+    def metric(self, preds, golds, **kwargs):
+        return binary_f1(preds, golds, **kwargs)
 
 class BertWordCRF(nn.Module):
     def __init__(
@@ -379,6 +390,9 @@ class BertWordCRF(nn.Module):
             k.append(s)
 
         return k
+
+    def metric(self, preds, golds, **kwargs):
+        return ner_f1(preds, golds, **kwargs)
 
 if __name__ == "__main__":
     from helpers import read_jsonl

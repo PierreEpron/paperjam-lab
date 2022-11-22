@@ -10,7 +10,7 @@ from helpers import read_jsonl
 
 class ModelTrainer(pl.LightningModule):
 
-    def __init__(self, model, f1, config):
+    def __init__(self, model, config):
 
         super().__init__()
 
@@ -19,8 +19,6 @@ class ModelTrainer(pl.LightningModule):
 
         self.save_hyperparameters()
         
-        self.f1 = f1
-
     def training_step(self, batch, batch_idx):
         try:
             loss = self.model(batch, compute_loss=True)['loss']
@@ -37,7 +35,7 @@ class ModelTrainer(pl.LightningModule):
         # TODO : This should work for all model (by put the evaluation method in model or on config ?)
         # We should use nereval here for consistency
         if 'golds' in outputs and 'preds' in outputs:
-            f1_micro_base = self.f1(outputs['golds'], outputs['preds'], average="micro")
+            f1_micro_base = model.metric(outputs['golds'], outputs['preds'], average="micro")
         else:
             f1_micro_base = 1
 
@@ -63,12 +61,12 @@ class ModelTrainer(pl.LightningModule):
         return optimizer
 
 
-def train_model(model, f1, config):
+def train_model(model, config):
 
     ckpt_path = Path(f'{config.dirpath}{config.name}.ckpt')
 
 
-    lightning_model = ModelTrainer(model, f1, config)
+    lightning_model = ModelTrainer(model, config)
 
     model_ckp = ModelCheckpoint(dirpath=config.dirpath, save_top_k=1,
                                 monitor='f1_score', mode='max', filename=config.name)
@@ -132,9 +130,6 @@ def create_config(name, dirpath, train_path, dev_path, model_name, word_encoder=
 if __name__ == "__main__":
     from helpers import read_jsonl
     from model import BertWordCRF, BertCoref, BertRel
-    from seqeval.metrics import f1_score as ner_f1
-    from sklearn.metrics import f1_score as binary_f1
-
 
     dirpath= ""
     train_path = "data/train.jsonl"
@@ -142,17 +137,13 @@ if __name__ == "__main__":
 
     # REL
 
-    f1 = binary_f1
+    # config = create_config(
+    # 'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
+    # model_name='allenai/scibert_scivocab_uncased', train_batch_size=1, val_batch_size=1).rel
 
-    config = create_config(
-    'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
-    model_name='allenai/scibert_scivocab_uncased', train_batch_size=1, val_batch_size=1).rel
-
-    model = BertRel(model_name=config.model_name)
+    # model = BertRel(model_name=config.model_name)
 
     # COREF 
-
-    # f1 = binary_f1
 
     # config = create_config(
     #     'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
@@ -162,18 +153,16 @@ if __name__ == "__main__":
 
     # HNER 
 
-    # f1 = ner_f1
-
-    # config = create_config(
-    #     'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
-    #     model_name='allenai/scibert_scivocab_uncased').hner
+    config = create_config(
+        'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
+        model_name='allenai/scibert_scivocab_uncased').hner
     
-    # model = BertWordCRF(
-    #         tag_to_id=config.tag_to_id, model_name=config.model_name, tag_format=config.tag_format, 
-    #         word_encoder=config.word_encoder, mode=config.mode)
+    model = BertWordCRF(
+            tag_to_id=config.tag_to_id, model_name=config.model_name, tag_format=config.tag_format, 
+            word_encoder=config.word_encoder, mode=config.mode)
 
 
-    lightning_model = ModelTrainer(model, f1, config)
+    lightning_model = ModelTrainer(model, config)
     
     for b in lightning_model.train_dataloader():
         lightning_model.training_step(b, 0)
