@@ -1,10 +1,5 @@
-from sklearn.metrics import f1_score
-
 from training import create_config, train_model
 from model import BertCoref
-
-def f1(true, pred, average="micro"):
-    return f1_score(true.cpu().numpy(), pred.cpu().numpy(), average=average)
 
 if __name__ == '__main__': 
     name = "coref"
@@ -18,4 +13,4 @@ if __name__ == '__main__':
     
     model = BertCoref(model_name=config.model_name)
 
-    train_model(model, f1, config)
+    train_model(model, config)

@@ -1,5 +1,4 @@
 from seqeval.metrics import f1_score
-
 from training import create_config, train_model
 from model import BertWordCRF
 
@@ -17,4 +16,4 @@ if __name__ == '__main__':
             tag_to_id=config.tag_to_id, model_name=config.model_name, tag_format=config.tag_format, 
             word_encoder=config.word_encoder, mode=config.mode)
 
-    train_model(model, f1_score, config)
+    train_model(model, config)

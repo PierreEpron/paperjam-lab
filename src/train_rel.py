@@ -1,5 +1,3 @@
-from sklearn.metrics import f1_score
-
 from training import create_config, train_model
 from model import BertRel
 
@@ -15,4 +13,4 @@ if __name__ == '__main__':
     
     model = BertRel(model_name=config.model_name)
 
-    train_model(model, f1_score, config)
+    train_model(model, config)
