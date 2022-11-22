@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     train_model(model, config)
     
-    test_loader = model.model.data_processor.create_dataloader(
+    test_loader = model.data_processor.create_dataloader(
         read_jsonl(test_path), 
         batch_size=1, 
         num_workers=1, 
