@@ -20,11 +20,7 @@ class ModelTrainer(pl.LightningModule):
         self.save_hyperparameters()
         
     def training_step(self, batch, batch_idx):
-        try:
-            loss = self.model(batch, compute_loss=True)['loss']
-        except:
-            print(batch['doc_id'])
-            raise
+        loss = self.model(batch, compute_loss=True)['loss']
         self.log('train_loss', loss.detach() if loss else .0)
         return loss
 
@@ -36,10 +32,12 @@ class ModelTrainer(pl.LightningModule):
         # We should use nereval here for consistency
         if 'golds' in outputs and 'preds' in outputs:
             f1_micro_base = self.model.metric(outputs['golds'], outputs['preds'], average="micro")
+            batch_size = len(outputs['golds'])
         else:
-            f1_micro_base = 1
+            f1_micro_base = [1]
+            batch_size = 1
 
-        self.log('f1_score', f1_micro_base, prog_bar=True)
+        self.log('f1_score', f1_micro_base, prog_bar=True, batch_size=batch_size)
 
     def train_dataloader(self):
         return self.model.data_processor.create_dataloader(
@@ -139,11 +137,11 @@ if __name__ == "__main__":
 
     # REL
 
-    # config = create_config(
-    # 'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
-    # model_name='allenai/scibert_scivocab_uncased', train_batch_size=1, val_batch_size=1).rel
+    config = create_config(
+    'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
+    model_name='allenai/scibert_scivocab_uncased', train_batch_size=1, val_batch_size=1).rel
 
-    # model = BertRel(model_name=config.model_name)
+    model = BertRel(model_name=config.model_name)
 
     # COREF 
 
@@ -155,13 +153,13 @@ if __name__ == "__main__":
 
     # HNER 
 
-    config = create_config(
-        'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
-        model_name='allenai/scibert_scivocab_uncased').hner
+    # config = create_config(
+    #     'name', dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
+    #     model_name='allenai/scibert_scivocab_uncased').hner
     
-    model = BertWordCRF(
-            tag_to_id=config.tag_to_id, model_name=config.model_name, tag_format=config.tag_format, 
-            word_encoder=config.word_encoder, mode=config.mode)
+    # model = BertWordCRF(
+    #         tag_to_id=config.tag_to_id, model_name=config.model_name, tag_format=config.tag_format, 
+    #         word_encoder=config.word_encoder, mode=config.mode)
 
 
     lightning_model = ModelTrainer(model, config)
