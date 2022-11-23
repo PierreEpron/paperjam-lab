@@ -212,7 +212,7 @@ class BertRel(nn.Module):
     def predict(self, x):
         with torch.no_grad():
             outputs = self.forward(x, compute_loss=False)
-            outputs['preds'] = (outputs["probs"] > 5).int().cpu().numpy() if 'probs' in outputs else []
+            outputs['preds'] = (outputs["probs"] > .5).int().cpu().numpy() if 'probs' in outputs else []
         return outputs
 
     def metric(self, preds, golds, **kwargs):
