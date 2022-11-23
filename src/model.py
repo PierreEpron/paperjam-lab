@@ -218,7 +218,6 @@ class BertRel(nn.Module):
     def metric(self, preds, golds, **kwargs):
         return binary_f1(preds, golds, **kwargs)
 
-
 class BertCoref(nn.Module):
     def __init__(self, model_name='allenai/scibert_scivocab_uncased'):
         
@@ -330,7 +329,7 @@ class BertWordCRF(nn.Module):
 
         logits = self.output_layer(h)
 
-        outputs = {'logits': logits, 'golds':x['golds'], 'word_mask':word_mask}
+        outputs = {'doc_id':x['doc_id'], 'logits': logits, 'golds':x['golds'], 'word_mask':word_mask}
 
         if compute_loss:
             loss = - self.crf_layer(logits, x['word_label'], word_mask)

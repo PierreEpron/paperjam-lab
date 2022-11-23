@@ -38,7 +38,7 @@ def data_to_ner(data):
         ner = item['ner']
         iob = ents_to_iob(words, ner)
         for sent_start, sent_end in item['sentences']:
-            sents.append({'tokens': words[sent_start:sent_end], 'tags': iob[sent_start:sent_end]})
+            sents.append({'doc_id':item['doc_id'], 'tokens': words[sent_start:sent_end], 'tags': iob[sent_start:sent_end]})
     return sents
 
 # Coref
@@ -304,6 +304,7 @@ class NERDataLoader(BaseDataLoader):
         lengths = len(golds)
 
         return {
+            'doc_id':sample['doc_id'],
             'input_ids': encoded_sentence, 'aligned_labels': aligned_labels,
             'golds': golds, 'seq_length': lengths, 'word_label': word_label
         }
@@ -339,6 +340,7 @@ class NERDataLoader(BaseDataLoader):
         subword_mask = aligned_labels != -1
 
         return {
+            'doc_id':[b['doc_id'] for b in batch], 
             'input_ids': input_ids,
             'aligned_labels': aligned_labels,
             'attention_mask': attention_mask,
@@ -913,8 +915,8 @@ if __name__ == "__main__":
     #     print(len(doc['n_ary_relations']))
     # Relation
 
-    loader = RelDataLoader(tokenizer)
-    docs = [loader.preprocess_doc(doc) for doc in tqdm(docs)]
+    # loader = RelDataLoader(tokenizer)
+    # docs = [loader.preprocess_doc(doc) for doc in tqdm(docs)]
 
     # print(len(docs))
     # docs = [doc for doc in docs if doc]
@@ -928,16 +930,12 @@ if __name__ == "__main__":
 
     # loader = RelDataLoader(tokenizer).create_dataloader(docs, batch_size=1, prefetch_factor=1)
 
-    # for b in loader:
-    #     continue
-    #     # from pathlib import Path
-    #     # import json
-    #     # break
-
     # Coref
     # loader = CorefDataLoader(tokenizer).create_dataloader(data, is_train=True, prefetch_factor=1)
 
     # NER 
-    # loader = NERDataLoader(tokenizer).create_dataloader(data, prefetch_factor=1)
+    loader = NERDataLoader(tokenizer).create_dataloader(docs, prefetch_factor=1)
 
-   
+    for b in loader:
+        print(b)
+        break

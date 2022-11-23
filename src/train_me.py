@@ -5,7 +5,7 @@ from training import create_config, train_model
 from model import BertWordCRF
 
 if __name__ == '__main__': 
-    name = "mi_alpha"
+    name = "me_alpha"
     dirpath= Path(f"outputs/{name}/")
     train_path = Path("data/train.jsonl")
     dev_path = Path("data/dev.jsonl")
