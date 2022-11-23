@@ -1,5 +1,6 @@
 .vscode/
 outputs/
+output/
 old/
 lightning_logs/
 
