@@ -1,6 +1,5 @@
 from pathlib import Path
-import tqdm
-from dataset import NERDataLoader
+from tqdm import tqdm
 from helpers import read_jsonl, write_jsonl
 from training import create_config, train_model
 from model import BertWordCRF
