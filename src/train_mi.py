@@ -20,7 +20,7 @@ if __name__ == '__main__':
     dirpath.mkdir()
 
     config = create_config(
-        name, dirpath=dirpath, train_path=train_path, dev_path=dev_path, max_epoch=10, num_workers=1, 
+        name, dirpath=str(dirpath), train_path=str(train_path), dev_path=str(dev_path), max_epoch=10, num_workers=1, 
         model_name='allenai/scibert_scivocab_uncased').hner
     
     model = BertWordCRF(
