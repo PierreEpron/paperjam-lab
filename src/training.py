@@ -61,7 +61,7 @@ class ModelTrainer(pl.LightningModule):
 
 def train_model(model, config):
 
-    ckpt_path = Path(f'{config.dirpath}{config.name}.ckpt')
+    ckpt_path = Path(f'{config.dirpath}/{config.name}.ckpt')
 
 
     lightning_model = ModelTrainer(model, config)
