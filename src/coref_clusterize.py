@@ -38,38 +38,36 @@ def map_back_to_spans(document, span_field, labels) :
         span_to_label_map[span] = labels[i]
     return span_to_label_map
 
-def clusterize(file_path, **loader_kwgs):
-    model = load_model(model_path)
-    data = read_jsonl(file_path)
+def clusterize(docs):
     
     cluster_outputs = []
 
-    for item in data:
-        doc = {'doc_id':item['doc_id']}
-        loader = model.data_processor.create_dataloader([item], **loader_kwgs)
-        scores = []
-        metadata = []
-        for x in tqdm(loader):
-            output = model.predict_probs(x)
-            scores.extend(output['probs'].cpu().numpy())
-            metadata.extend(output['metadata'])
-        doc['pairwise_coreference_scores'] = []
-        doc['spans'] = []
-        for s, m in zip(scores, metadata): 
-            doc['pairwise_coreference_scores'].append((m['span_1'], m['span_2'], s))
-            doc['spans'].extend([m['span_1'], m['span_2']])
-        doc['spans'] = sorted(list(set(doc['spans'])))
+    for doc in docs:
+        # doc = {'doc_id':item['doc_id']}
+        # loader = model.data_processor.create_dataloader([item], **loader_kwgs)
+        # scores = []
+        # metadata = []
+        # for x in tqdm(loader):
+        #     output = model.predict_probs(x)
+        #     scores.extend(output['probs'].cpu().numpy())
+        #     metadata.extend(output['metadata'])
+        # doc['pairwise_coreference_scores'] = []
+        # doc['spans'] = []
+        # for s, m in zip(scores, metadata): 
+        #     doc['pairwise_coreference_scores'].append((m['span_1'], m['span_2'], s))
+        #     doc['spans'].extend([m['span_1'], m['span_2']])
+        # doc['spans'] = sorted(list(set(doc['spans'])))
 
         matrix = generate_matrix_for_document(doc, 'spans', 'pairwise_coreference_scores')
         n_clusters, cluster_labels = cluster_with_clustering(matrix)
         span_to_cluster_label = map_back_to_spans(doc, 'spans', cluster_labels)
 
-        clusters = [{'spans' : [], 'words': set(), 'types' : set()} for _ in range(n_clusters)]
+        clusters = [{'spans' : [], 'types' : set()} for _ in range(n_clusters)]
         for s, l in span_to_cluster_label.items() :
             clusters[l]['spans'].append(s)
 
         coref_clusters = {str(i): v["spans"] for i, v in enumerate(clusters)}
-        cluster_outputs.append({'doc_id' : doc['doc_id'], 'spans' : doc['spans'], 'clusters' : coref_clusters})
+        cluster_outputs.append({'doc_id' : doc['doc_id'], 'spans' : doc['spans'], 'types' : doc['types'], 'clusters' : coref_clusters})
 
     return cluster_outputs
 #         'pairwise_coreference_scores' : List[(s_1, e_1), (s_2, e_2), float (3 sig. digits) in [0, 1]]
@@ -82,7 +80,5 @@ if __name__ == '__main__':
     train_path = "data/train.jsonl"
     dev_path = "data/dev.jsonl"
     test_path = "data/test.jsonl"
-
-    f1 = None
 
     write_jsonl('data/coref_clusters.jsonl', clusterize(test_path, batch_size=64))

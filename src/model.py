@@ -249,7 +249,15 @@ class BertCoref(nn.Module):
         pooled = self.dropout(self.bert_layer(x['tokens'], x['attention_mask']).pooler_output)
         logits = self.classification_layer(pooled)
 
-        outputs = {"logits": logits, 'golds':x['golds']}
+        outputs = {
+            'doc_id': x['doc_id'], 
+            'logits': logits, 
+            'golds': x['golds'],
+            'span_1': x['span_1'],
+            'span_2': x['span_2'],
+            'type_1': x['type_1'],
+            'type_2': x['type_2'],
+        }
 
         if compute_loss:
             outputs["loss"] = self.loss(logits, torch.LongTensor(x['golds']).to(logits.device).long().view(-1))

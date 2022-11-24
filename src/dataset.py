@@ -88,11 +88,11 @@ def generate_pairs(data):
 
             # TODO : We should be sure we want handle words equality in training
 
-            pairs.append(((type_1, w1, type_2, w2, gold_label), (start_1, end_1), (start_2, end_2)))
+            pairs.append((item['doc_id'], (type_1, w1, type_2, w2, gold_label), (start_1, end_1), (start_2, end_2)))
     return pairs
 
 def compute_prob(pairs):
-    c = Counter([x[-1] for x, _, _ in pairs])
+    c = Counter([x[-1] for _, x, _, _ in pairs])
     min_count = min(c.values())
     prob = {k: min(1, min_count / v) for k, v in c.items()}
     return prob
@@ -361,7 +361,7 @@ class CorefDataLoader(BaseDataLoader):
         super().__init__()
 
     def tokenize(self, sample):
-        sample, span_1, span_2 = sample
+        doc_id, sample, span_1, span_2 = sample
         t1, w1, t2, w2, gold_label = sample
 
         tokens = [self.tokenizer.cls_token, t1] + w1 + [self.tokenizer.sep_token, t2] +  w2
@@ -383,12 +383,13 @@ class CorefDataLoader(BaseDataLoader):
             encoded_sentence.extend(encoded_token)
 
         return {
+            'doc_id': doc_id,
             'input_ids': torch.LongTensor(encoded_sentence),
             'gold_label': gold_label,
-            "metadata": {
-                "span_1": span_1,
-                "span_2": span_2,
-            }
+            "span_1": span_1,
+            "span_2": span_2,
+            "type_1": t1,
+            "type_2": t2
         }
 
     def collate_fn(self, batch_as_list):
@@ -409,14 +410,17 @@ class CorefDataLoader(BaseDataLoader):
 
         attention_mask = (input_ids != self.tokenizer.pad_token_id).float()
         
-        metadata = [b['metadata'] for b in batch]
         golds = [b['gold_label'] for b in batch]
 
         return {
+            'doc_id': [b['doc_id'] for b in batch],
             "tokens": input_ids,
             "attention_mask": attention_mask,
-            "metadata": metadata,
-            "golds": golds
+            "golds": golds,
+            'span_1': [b['span_1'] for b in batch],
+            'span_2': [b['span_2'] for b in batch],
+            'type_1': [b['type_1'] for b in batch],
+            'type_2': [b['type_2'] for b in batch],
         }
 
     def create_dataloader(self, data, is_train=False, batch_size=1, num_workers=1, **kwgs):
@@ -424,9 +428,9 @@ class CorefDataLoader(BaseDataLoader):
         if is_train:
             prob = compute_prob(pairs)
             random.seed(42)
-            pairs = [pair for pair in pairs if random.random() < prob[pair[0][-1]]]
+            pairs = [pair for pair in pairs if random.random() < prob[pair[1][-1]]]
 
-        return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
+        return super().create_dataloader(pairs[:128], batch_size, num_workers, **kwgs)
 
 class RelDataLoader(BaseDataLoader):
     """
@@ -662,14 +666,16 @@ class RelDataLoader(BaseDataLoader):
         # Map relation and coref ids and map entity and coref ids
         # TODO : Test
         relation_idx_to_cluster_idx = []
-        entity_idx_to_cluster_idx = [[] for k in self.idx_to_entity]
+
+        entity_idx_to_cluster_idx = [[] for k in self.idx_to_entity] # TODO : Try to see if we have differents candidate relation if we do it oterwise
+        for coref_idx in idx_to_coref.keys():
+            entity_idx_to_cluster_idx[coref_idx_to_entity_idx[coref_idx]].append(coref_idx)
 
         for rel_idx, rel in enumerate(RelDataLoader.filter_relations(doc['n_ary_relations'], corefs)):
             relation_idx_to_cluster_idx.append([])
             for entity in self.entities:
                 if rel[entity] in coref_to_idx:
                     relation_idx_to_cluster_idx[rel_idx].append(coref_to_idx[rel[entity]])
-                    entity_idx_to_cluster_idx[self.entity_to_idx[entity]].append(coref_to_idx[rel[entity]])
 
         # No relation in this doc for given entities
         if len(relation_idx_to_cluster_idx) <= 0:
@@ -931,10 +937,10 @@ if __name__ == "__main__":
     # loader = RelDataLoader(tokenizer).create_dataloader(docs, batch_size=1, prefetch_factor=1)
 
     # Coref
-    # loader = CorefDataLoader(tokenizer).create_dataloader(data, is_train=True, prefetch_factor=1)
+    loader = CorefDataLoader(tokenizer).create_dataloader(docs, is_train=True, prefetch_factor=1)
 
     # NER 
-    loader = NERDataLoader(tokenizer).create_dataloader(docs, prefetch_factor=1)
+    # loader = NERDataLoader(tokenizer).create_dataloader(docs, prefetch_factor=1)
 
     for b in loader:
         print(b)

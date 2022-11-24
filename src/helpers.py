@@ -1,3 +1,4 @@
+import functools
 from pathlib import Path
 import json
 
@@ -27,6 +28,9 @@ def write_jsonl(path, data, encoding='utf-8'):
     """
     path = Path(path) if isinstance(path, str) else path
     path.write_text('\n'.join([json.dumps(item) for item in data]), encoding=encoding)
+
+def sum_reduce(arr):
+    return functools.reduce(lambda a, b: a + b, arr)
 
 def select_first_subword(hidden_state, subword_mask, seq_lengths, padding_value=-1):
 
