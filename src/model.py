@@ -253,6 +253,8 @@ class BertCoref(nn.Module):
             'doc_id': x['doc_id'], 
             'logits': logits, 
             'golds': x['golds'],
+            'word_1': x['word_1'],
+            'word_2': x['word_2'],
             'span_1': x['span_1'],
             'span_2': x['span_2'],
             'type_1': x['type_1'],
