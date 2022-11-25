@@ -417,7 +417,7 @@ if __name__ == "__main__":
 
     for b in tqdm(loader):
         try:
-            model.forward(b)
+            print(model.forward(b))
         except:
             exc_type, exc_value, exc_traceback = sys.exc_info()
             traceback.print_exception(exc_type, exc_value, exc_traceback)
