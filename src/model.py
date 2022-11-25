@@ -205,7 +205,8 @@ class BertRel(nn.Module):
                 reduction="mean",
             )
 
-        outputs["probs"] = torch.sigmoid(outputs['logits'])
+        outputs["probs"] = torch.softmax(outputs['logits'])
+        # outputs["probs"] = torch.sigmoid(outputs['logits'])
 
         return outputs
 
