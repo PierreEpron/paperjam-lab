@@ -386,6 +386,8 @@ class CorefDataLoader(BaseDataLoader):
             'doc_id': doc_id,
             'input_ids': torch.LongTensor(encoded_sentence),
             'gold_label': gold_label,
+            'word_1': w1,
+            'word_2': w2,
             "span_1": span_1,
             "span_2": span_2,
             "type_1": t1,
@@ -417,6 +419,8 @@ class CorefDataLoader(BaseDataLoader):
             "tokens": input_ids,
             "attention_mask": attention_mask,
             "golds": golds,
+            'word_1': [b['word_1'] for b in batch],
+            'word_2': [b['word_2'] for b in batch],
             'span_1': [b['span_1'] for b in batch],
             'span_2': [b['span_2'] for b in batch],
             'type_1': [b['type_1'] for b in batch],
@@ -430,7 +434,7 @@ class CorefDataLoader(BaseDataLoader):
             random.seed(42)
             pairs = [pair for pair in pairs if random.random() < prob[pair[1][-1]]]
 
-        return super().create_dataloader(pairs[:128], batch_size, num_workers, **kwgs)
+        return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
 
 class RelDataLoader(BaseDataLoader):
     """

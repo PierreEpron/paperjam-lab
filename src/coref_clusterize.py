@@ -9,9 +9,9 @@ from sklearn.cluster import AgglomerativeClustering
 from sklearn.metrics import silhouette_score
 
 def generate_matrix_for_document(document, span_field, matrix_field) :
-    span2idx = {tuple(k):i for i, k in enumerate(document[span_field])}
+    span2idx = {(k[0][0], k[0][1]):i for i, k in enumerate(document[span_field])}
     matrix = np.zeros((len(span2idx), len(span2idx)))
-    for e1, e2, score in document[matrix_field] :
+    for e1, e2, score in document[matrix_field]:
         matrix[span2idx[tuple(e1)], span2idx[tuple(e2)]] = score
         
     return matrix
@@ -42,7 +42,7 @@ def clusterize(docs):
     
     cluster_outputs = []
 
-    for doc in docs:
+    for doc_id, doc in docs.items():
         # doc = {'doc_id':item['doc_id']}
         # loader = model.data_processor.create_dataloader([item], **loader_kwgs)
         # scores = []
@@ -67,7 +67,7 @@ def clusterize(docs):
             clusters[l]['spans'].append(s)
 
         coref_clusters = {str(i): v["spans"] for i, v in enumerate(clusters)}
-        cluster_outputs.append({'doc_id' : doc['doc_id'], 'spans' : doc['spans'], 'types' : doc['types'], 'clusters' : coref_clusters})
+        cluster_outputs.append({'doc_id' : doc_id, 'spans' : doc['spans'], 'types' : doc['types'], 'clusters' : coref_clusters})
 
     return cluster_outputs
 #         'pairwise_coreference_scores' : List[(s_1, e_1), (s_2, e_2), float (3 sig. digits) in [0, 1]]
@@ -81,4 +81,4 @@ if __name__ == '__main__':
     dev_path = "data/dev.jsonl"
     test_path = "data/test.jsonl"
 
-    write_jsonl('data/coref_clusters.jsonl', clusterize(test_path, batch_size=64))
+    write_jsonl('data/coref_clusters.jsonl', clusterize(test_path))
