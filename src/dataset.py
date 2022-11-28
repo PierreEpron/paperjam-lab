@@ -633,7 +633,7 @@ class RelDataLoader(BaseDataLoader):
 
         return paragraphs
 
-    def preprocess_doc(self, doc : Dict[str, Any]) -> Dict[str, Any]:
+    def preprocess_doc(self, doc : Dict[str, Any], is_train) -> Dict[str, Any]:
 
         # TODO : Docstring & Test
 
@@ -759,15 +759,27 @@ class RelDataLoader(BaseDataLoader):
             return False
 
         outputs = []
+        random.seed(42)
 
-        for i in range(0, len(candidate_relations), self.max_relation_len):
+        while len(candidate_relations) > 0:
+            _candidate_relations = []
+            _candidate_relations_labels = []
+            _candidate_relations_types = []
 
-            rels_start = i
-            rels_end = min(len(candidate_relations), rels_start+self.max_relation_len)
+            while len(candidate_relations) > 0 and len(_candidate_relations) < self.max_relation_len:
+                # pop relation
+                rel, rel_label, rel_type = candidate_relations.pop(0), candidate_relations_labels.pop(0), candidate_relations_types.pop(0)
+                
+                # keep relation by prob label
+                if is_train and rel_label == 1 and random.random() < .348492:
+                    continue
 
-            _candidate_relations = candidate_relations[rels_start:rels_end]
-            _candidate_relations_labels = candidate_relations_labels[rels_start:rels_end]
-            _candidate_relations_types = candidate_relations_types[rels_start:rels_end]
+                _candidate_relations.append(rel)
+                _candidate_relations_labels.append(rel_label)
+                _candidate_relations_types.append(rel_type)
+
+            if len(_candidate_relations) == 0:
+                continue
 
             output = {
                 'doc_id':doc_id,
@@ -808,7 +820,7 @@ class RelDataLoader(BaseDataLoader):
 
             outputs.append(output)
 
-        return outputs
+        return outputs if len(outputs) > 0 else None 
 
     def collate_fn(self, batch_as_list):
         b = batch_as_list[0]
@@ -906,10 +918,14 @@ class RelDataLoader(BaseDataLoader):
         }
 
     def create_dataloader(self, docs, is_train=False, batch_size=1, num_workers=1, **kwgs):
-        docs = [self.preprocess_doc(doc) for doc in docs]
-        docs = [doc for doc in docs if doc]
-        docs = functools.reduce(lambda a, b : a + b, docs)
-        return super().create_dataloader(docs, batch_size, num_workers, **kwgs)
+        pairs = [self.preprocess_doc(doc, is_train) for doc in docs]
+        pairs = [pair for pair in pairs if pair]
+        pairs = functools.reduce(lambda a, b : a + b, pairs)
+        # if is_train:
+        #     prob = compute_prob(pairs)
+        #     random.seed(42)
+        #     docs = [pair for pair in pairs if random.random() < prob[pair[1][-1]]]
+        return super().create_dataloader(pairs, batch_size, num_workers, **kwgs)
     
 
 if __name__ == "__main__":
@@ -938,10 +954,11 @@ if __name__ == "__main__":
     # doc = [doc for doc in docs if doc['doc_id'] == '0cfdcf2a0e345cdf7e680c30d136fdedb0eccb28'][0]
     # print(len(doc['sentences']), len(loader.chunk_sentences(doc['sentences'], doc['ner'])))
 
-    # loader = RelDataLoader(tokenizer).create_dataloader(docs, batch_size=1, prefetch_factor=1)
+    # Rel
+    loader = RelDataLoader(tokenizer).create_dataloader(docs, is_train=True, batch_size=1, prefetch_factor=1)
 
     # Coref
-    loader = CorefDataLoader(tokenizer).create_dataloader(docs, is_train=True, prefetch_factor=1)
+    # loader = CorefDataLoader(tokenizer).create_dataloader(docs, is_train=True, prefetch_factor=1)
 
     # NER 
     # loader = NERDataLoader(tokenizer).create_dataloader(docs, prefetch_factor=1)
