@@ -23,6 +23,31 @@ from dataset import NERDataLoader, CorefDataLoader, RelDataLoader
 from seqeval.metrics import f1_score as ner_f1
 from sklearn.metrics import f1_score as binary_f1
 
+def logsumexp(inputs, dim=None, keepdim=False):
+  """Numerically stable logsumexp.
+
+  Copied from https://github.com/pytorch/pytorch/issues/2591
+
+  Args:
+      inputs: A Variable with any shape.
+      dim: An integer.
+      keepdim: A boolean.
+
+  Returns:
+      Equivalent of log(sum(exp(inputs), dim=dim, keepdim=keepdim)).
+  """
+  # For a 1-D array x (any array along a single dimension),
+  # log sum exp(x) = s + log sum exp(x - s)
+  # with s = max(x) being a common choice.
+  if dim is None:
+    inputs = inputs.view(-1)
+    dim = 0
+  s, _ = torch.max(inputs, dim=dim, keepdim=True)
+  outputs = s + (inputs - s).exp().sum(dim=dim, keepdim=True).log()
+  if not keepdim:
+    outputs = outputs.squeeze(dim)
+  return outputs
+
 class BertRel(nn.Module):
     def __init__(self,
         model_name='allenai/scibert_scivocab_uncased',
@@ -190,7 +215,8 @@ class BertRel(nn.Module):
         relation_embeddings = self.antecedent_feedforward(relation_embeddings)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
 
-        relation_embeddings = relation_embeddings.max(0, keepdim=True)[0]
+        # relation_embeddings = relation_embeddings.max(0, keepdim=True)[0]
+        relation_embeddings = logsumexp(relation_embeddings, 0, keepdim=True)
         # print('relation_embeddings.shape : ', relation_embeddings.shape)
 
         relation_logits = self.antecedent_scorer(relation_embeddings).squeeze(-1).squeeze(0)
@@ -205,8 +231,17 @@ class BertRel(nn.Module):
                 reduction="mean",
             )
 
+        # print(outputs['logits'].shape)
+
         # outputs["probs"] = torch.softmax(outputs['logits'])
         outputs["probs"] = torch.sigmoid(outputs['logits'])
+
+        # print('golds', outputs['golds'])
+        # print('sigmoid', torch.sigmoid(outputs['logits']))
+        # print('logsumexp', torch.logsumexp(outputs['logits'], dim=-1))
+        # print('softmax', torch.softmax(outputs['logits'], dim=-1))
+        # print('logits', outputs['logits'])
+        # print(outputs["probs"].shape)
 
         return outputs
 
@@ -248,7 +283,9 @@ class BertCoref(nn.Module):
     def forward(self, x, compute_loss=False):
         
         pooled = self.dropout(self.bert_layer(x['tokens'], x['attention_mask']).pooler_output)
+        # print(pooled.shape)
         logits = self.classification_layer(pooled)
+        # print(logits.shape)
 
         outputs = {
             'doc_id': x['doc_id'], 
@@ -265,7 +302,11 @@ class BertCoref(nn.Module):
         if compute_loss:
             outputs["loss"] = self.loss(logits, torch.LongTensor(x['golds']).to(logits.device).long().view(-1))
 
+        # print(outputs['logits'].shape)
+
         outputs["probs"] = nn.functional.softmax(outputs['logits'], dim=-1)[..., 1]
+
+        # print(outputs["probs"].shape)
 
         return outputs
 
@@ -408,11 +449,12 @@ if __name__ == "__main__":
 
     data = read_jsonl('data/train.jsonl')
 
+    # model = BertCoref()
     model = BertRel()
 
     # data = [doc for doc in data if doc['doc_id'] == '3b9732bb07dc99bde5e1f9f75251c6ea5039373e']
 
-    loader = model.data_processor.create_dataloader(data, batch_size=1, prefetch_factor=1)
+    loader = model.data_processor.create_dataloader(data, is_train=True, batch_size=1, prefetch_factor=1)
 
     import sys
 
@@ -422,3 +464,4 @@ if __name__ == "__main__":
         except:
             exc_type, exc_value, exc_traceback = sys.exc_info()
             traceback.print_exception(exc_type, exc_value, exc_traceback)
+        break
