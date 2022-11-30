@@ -222,7 +222,12 @@ class BertRel(nn.Module):
         relation_logits = self.antecedent_scorer(relation_embeddings).squeeze(-1).squeeze(0)
         # print('relation_logits.shape : ', relation_logits.shape)
 
-        outputs={'doc_id':x['doc_id'], 'logits':relation_logits, 'golds':candidate_relations_labels}
+        outputs={
+            'doc_id':x['doc_id'], 
+            'logits':relation_logits, 
+            'golds':candidate_relations_labels,
+            'shape':tuple(spans.shape)
+        }
 
         if compute_loss:
             outputs["loss"] = nn.functional.binary_cross_entropy_with_logits(
