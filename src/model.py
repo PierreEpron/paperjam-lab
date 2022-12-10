@@ -53,11 +53,14 @@ class BertRel(nn.Module):
         model_name='allenai/scibert_scivocab_uncased',
         lexical_dropout = .2,
         context_hidden_size=200,
-        relation_cardinality=2):
+        relation_cardinality=2,
+        last_layer='softmax' # sigmoid
+        ):
 
         super().__init__()
         
         self.relation_cardinality = relation_cardinality
+        self.last_layer = last_layer
 
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.bert_layer = AutoModel.from_pretrained(model_name)
@@ -85,8 +88,24 @@ class BertRel(nn.Module):
             )
         ) 
         self.antecedent_feedforward = TimeDistributed(feedforward)
-        
-        self.antecedent_scorer = TimeDistributed(torch.nn.Linear(150, 1))
+
+        if self.last_layer == 'sigmoid':        
+            self.antecedent_scorer = TimeDistributed(torch.nn.Linear(150, 1))
+            self.last_layer = torch.sigmoid
+            self.loss = lambda x, y: nn.functional.binary_cross_entropy_with_logits(
+                x,
+                y.float(),
+                reduction="mean",
+            )
+        elif self.last_layer == 'softmax':
+            self.antecedent_scorer = TimeDistributed(torch.nn.Linear(150, 2))
+            self.last_layer = lambda x: nn.functional.softmax(x, dim=-1)[..., 1]
+            self.loss = lambda x, y : nn.functional.cross_entropy(
+                x,
+                y.view(-1),
+            )
+        else:
+            raise 
 
         self.data_processor = RelDataLoader(self.tokenizer)
 
@@ -230,16 +249,20 @@ class BertRel(nn.Module):
         }
 
         if compute_loss:
-            outputs["loss"] = nn.functional.binary_cross_entropy_with_logits(
-                relation_logits,
-                candidate_relations_labels_tensor.float(),
-                reduction="mean",
-            )
+            outputs["loss"] = self.loss(relation_logits, candidate_relations_labels_tensor)
+            # outputs["loss"] = nn.functional.binary_cross_entropy_with_logits(
+            #     relation_logits,
+            #     candidate_relations_labels_tensor.float(),
+            #     reduction="mean",
+            # )
+
+        outputs["probs"] = self.last_layer(outputs['logits'])
+        # outputs["probs"] = torch.sigmoid(outputs['logits'])
+
 
         # print(outputs['logits'].shape)
 
         # outputs["probs"] = torch.softmax(outputs['logits'])
-        outputs["probs"] = torch.sigmoid(outputs['logits'])
 
         # print('golds', outputs['golds'])
         # print('sigmoid', torch.sigmoid(outputs['logits']))
@@ -266,7 +289,7 @@ class BertCoref(nn.Module):
         
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.bert_layer = AutoModel.from_pretrained(model_name)
-
+    
         self.dropout = nn.Dropout(p=.0)
 
         self.classification_layer = nn.Sequential(
