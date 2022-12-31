@@ -5,11 +5,11 @@ from training import create_config, train_model
 from model import BertWordCRF
 
 if __name__ == '__main__': 
-    name = "me_alpha"
+    name = "me_material"
     dirpath= Path(f"outputs/{name}/")
-    train_path = Path("data/train.jsonl")
-    dev_path = Path("data/dev.jsonl")
-    test_path = Path("data/test.jsonl")
+    train_path = Path("data/train_material.jsonl")
+    dev_path = Path("data/dev_material.jsonl")
+    test_path = Path("data/test_material.jsonl")
 
     if not dirpath.is_dir():
         dirpath.mkdir()
