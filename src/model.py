@@ -382,7 +382,7 @@ class BertWordCRF(nn.Module):
         self.crf_layer = ConditionalRandomField(
             n_labels, constraints=constraints)
 
-        self.data_processor = NERDataLoader(self.tokenizer)
+        self.data_processor = NERDataLoader(self.tokenizer, self.tag_to_id)
 
     def forward(self, x, compute_loss=False):
 
@@ -422,6 +422,12 @@ class BertWordCRF(nn.Module):
             outputs = self.forward(x, compute_loss=False)
             prediction = self.crf_layer.viterbi_tags(outputs['logits'], outputs['word_mask'])
             outputs['preds'] = [self.id_to_IOB(i[0]) for i in prediction]
+        return outputs
+
+    def predict_ranks(self, x):
+        with torch.no_grad():
+            outputs = self.forward(x, compute_loss=False)
+            outputs['ranks'] = torch.argsort(torch.argsort(outputs['logits'])).data
         return outputs
 
     def id_to_IOB(self, sequence):

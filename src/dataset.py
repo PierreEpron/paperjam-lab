@@ -243,9 +243,10 @@ class BaseDataLoader(object):
 
 class NERDataLoader(BaseDataLoader):
 
-    def __init__(self, tokenizer, label_ids={}):
+    def __init__(self, tokenizer, tag_to_id={}):
         self.tokenizer = tokenizer
-        self.label_ids = label_ids
+        self.tag_to_id = tag_to_id
+        print('in')
         super().__init__()
 
     def tokenize_and_align_labels(self, sample):
@@ -289,10 +290,10 @@ class NERDataLoader(BaseDataLoader):
             encoded_sentence.extend(encoded_token)
 
             aligned_labels.extend(
-                [self.label_ids[n]] + (n_subwords - 1) * [-1]
+                [self.tag_to_id[n]] + (n_subwords - 1) * [-1]
             )
 
-            word_label.append(self.label_ids[n])
+            word_label.append(self.tag_to_id[n])
             golds.append(n)
 
         assert len(encoded_sentence) == len(aligned_labels)
@@ -352,7 +353,6 @@ class NERDataLoader(BaseDataLoader):
 
     def create_dataloader(self, data, is_train=False, batch_size=1, num_workers=1, **kwgs):
         ner = data_to_ner(data)
-        self.label_ids = labels_to_id(data)
         return super().create_dataloader(ner, batch_size, num_workers, **kwgs)
 
 class CorefDataLoader(BaseDataLoader):
